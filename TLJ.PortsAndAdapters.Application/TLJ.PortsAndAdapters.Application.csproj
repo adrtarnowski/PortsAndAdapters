@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <Version>1.0.0</Version>
         <AssemblyVersion>0.0.0.1</AssemblyVersion>
         <PackageVersion>1.0.0</PackageVersion>
         <Company>Adrian Tarnowski https://techleaderjourney.com/</Company>
-        <Description>Api contains common set of packages with startup class that runs web service instance.</Description>
+        <Description>Application defines public contract for external applications. This is a gateway to an application core.</Description>
         <DefaultLanguage>en-US</DefaultLanguage>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -17,10 +17,5 @@
         <Nullable>enable</Nullable>
         <WarningsAsErrors>CS8653;CS8625;CS8623;CS8618;CS8603;CS8602;CS8600</WarningsAsErrors>
     </PropertyGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Kitbags\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
-      <ProjectReference Include="..\TLJ.PortsAndAdapters.Infrastructure\TLJ.PortsAndAdapters.Infrastructure.csproj" />
-    </ItemGroup>
 
 </Project>

@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <Version>1.0.0</Version>
         <AssemblyVersion>0.0.0.1</AssemblyVersion>
         <PackageVersion>1.0.0</PackageVersion>
         <Company>Adrian Tarnowski https://techleaderjourney.com/</Company>
-        <Description>Api contains common set of packages with startup class that runs web service instance.</Description>
+        <Description>Infrastructure delivers the integration part like database, queue, other external providers and so on.</Description>
         <DefaultLanguage>en-US</DefaultLanguage>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -20,7 +20,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
-      <ProjectReference Include="..\TLJ.PortsAndAdapters.Infrastructure\TLJ.PortsAndAdapters.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

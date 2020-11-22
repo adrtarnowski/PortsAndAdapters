@@ -2,6 +2,7 @@
 using Kitbag.Builder.Core;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using TLJ.PortsAndAdapters.Infrastructure;
 
 namespace TLJ.PortsAndAdapters.Api
 {
@@ -15,9 +16,11 @@ namespace TLJ.PortsAndAdapters.Api
             return WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices((webHostBuilderContext, services) => services
                     .AddKitbag(webHostBuilderContext.Configuration)
+                    .AddInfrastructure()
                     .Build())
                 .Configure(app => app
                     .UseKitbag()
+                    .UseInfrastructure()
                 );
         }
     }
