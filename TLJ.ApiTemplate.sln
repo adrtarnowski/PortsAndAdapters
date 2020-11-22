@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kitbag", "Kitbag", "{5B789A44-4263-4337-A46A-10FCC8232ED5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.Core", "Kitbag.Builder.Core\Kitbag.Builder.Core.csproj", "{1D24987D-5761-46A6-B320-E8B494689309}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TLJ.PortsAndAdapters", "TLJ.PortsAndAdapters", "{DDB6F910-8362-4D39-A2CF-DC2A933A9F15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TLJ.PortsAndAdapters.Api", "TLJ.PortsAndAdapters.Api\TLJ.PortsAndAdapters.Api.csproj", "{F8CD4803-B70A-47D3-B75C-D3D1654839D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1D24987D-5761-46A6-B320-E8B494689309} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
+		{F8CD4803-B70A-47D3-B75C-D3D1654839D6} = {DDB6F910-8362-4D39-A2CF-DC2A933A9F15}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D24987D-5761-46A6-B320-E8B494689309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D24987D-5761-46A6-B320-E8B494689309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D24987D-5761-46A6-B320-E8B494689309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D24987D-5761-46A6-B320-E8B494689309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8CD4803-B70A-47D3-B75C-D3D1654839D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8CD4803-B70A-47D3-B75C-D3D1654839D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8CD4803-B70A-47D3-B75C-D3D1654839D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8CD4803-B70A-47D3-B75C-D3D1654839D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
