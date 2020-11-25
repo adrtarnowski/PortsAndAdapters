@@ -1,6 +1,6 @@
 using System;
 
-namespace Kitbag.Builder.Core.Helpers
+namespace Kitbag.Builder.Core.Common
 {
     public static class SystemTime
     {

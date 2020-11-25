@@ -1,7 +1,8 @@
 using System;
+using Kitbag.Builder.Core.Initializer;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kitbag.Builder.Core.Types
+namespace Kitbag.Builder.Core.Builders
 {
     public interface IKitbagBuilder
     {

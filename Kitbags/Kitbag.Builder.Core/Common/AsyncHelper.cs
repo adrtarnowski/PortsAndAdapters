@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Kitbag.Builder.Core.Helpers
+namespace Kitbag.Builder.Core.Common
 {
     public static class AsyncHelper
     {

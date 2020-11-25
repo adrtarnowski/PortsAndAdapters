@@ -1,4 +1,4 @@
-namespace Kitbag.Builder.Core.Types
+namespace Kitbag.Builder.Core.Common
 {
     internal class AppProperties
     {

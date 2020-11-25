@@ -1,27 +1,30 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <Version>1.0.0</Version>
         <AssemblyVersion>0.0.0.1</AssemblyVersion>
         <PackageVersion>1.0.0</PackageVersion>
         <Company>Adrian Tarnowski https://techleaderjourney.com/</Company>
-        <Description>Application defines public contract for external applications. This is a gateway to an application core.</Description>
+        <Description>Kitbag Web Api allows the entry or exiting of data to and from application. It represents primary adapter (should be treated as a gateway)</Description>
         <DefaultLanguage>en-US</DefaultLanguage>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GenerateDocumentationFile>false</GenerateDocumentationFile>
     </PropertyGroup>
-
+    
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <RootNamespace>Kitbag.Builder.WebApi</RootNamespace>
         <LangVersion>8</LangVersion>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>CS8653;CS8625;CS8623;CS8618;CS8603;CS8602;CS8600</WarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\TLJ.PortsAndAdapters.Core\TLJ.PortsAndAdapters.Core.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.WebApi\Kitbag.Builder.WebApi.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
     </ItemGroup>
 
 </Project>

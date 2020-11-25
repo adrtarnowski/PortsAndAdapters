@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Kitbag.Builder.Core.Types
+namespace Kitbag.Builder.Core.Initializer
 {
     public class StartupInitializer : IStartupInitializer
     {

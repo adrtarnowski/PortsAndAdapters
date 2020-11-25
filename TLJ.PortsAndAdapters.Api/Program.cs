@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Kitbag.Builder.Core;
+using Kitbag.Builder.Swagger;
+using Kitbag.Builder.WebApi;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using TLJ.PortsAndAdapters.Infrastructure;
@@ -16,10 +18,15 @@ namespace TLJ.PortsAndAdapters.Api
             return WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices((webHostBuilderContext, services) => services
                     .AddKitbag(webHostBuilderContext.Configuration)
+                    .AddWebApi()
+                    .AddWebApiContext()
+                    .AddSwagger()
                     .AddInfrastructure()
                     .Build())
                 .Configure(app => app
                     .UseKitbag()
+                    .UseSwaggerDoc()
+                    .UseControllers()
                     .UseInfrastructure()
                 );
         }

@@ -1,27 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <Version>1.0.0</Version>
         <AssemblyVersion>0.0.0.1</AssemblyVersion>
         <PackageVersion>1.0.0</PackageVersion>
         <Company>Adrian Tarnowski https://techleaderjourney.com/</Company>
-        <Description>Application defines public contract for external applications. This is a gateway to an application core.</Description>
+        <Description>Kitbag provides queries, command and dispatchers based on CQRS pattern.</Description>
         <DefaultLanguage>en-US</DefaultLanguage>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GenerateDocumentationFile>false</GenerateDocumentationFile>
     </PropertyGroup>
-
+    
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <LangVersion>8</LangVersion>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>CS8653;CS8625;CS8623;CS8618;CS8603;CS8602;CS8600</WarningsAsErrors>
     </PropertyGroup>
-
+    
     <ItemGroup>
-        <ProjectReference Include="..\TLJ.PortsAndAdapters.Core\TLJ.PortsAndAdapters.Core.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.WebApi\Kitbag.Builder.WebApi.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
+      <ProjectReference Include="..\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
     </ItemGroup>
 
 </Project>

@@ -19,8 +19,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Kitbag.Builder.Swagger\Kitbag.Builder.Swagger.csproj" />
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
+      <ProjectReference Include="..\Kitbags\Kitbag.Builder.WebApi\Kitbag.Builder.WebApi.csproj" />
+      <ProjectReference Include="..\TLJ.PortsAndAdapters.Application\TLJ.PortsAndAdapters.Application.csproj" />
       <ProjectReference Include="..\TLJ.PortsAndAdapters.Infrastructure\TLJ.PortsAndAdapters.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Properties\launchSettings.json" />
     </ItemGroup>
 
 </Project>

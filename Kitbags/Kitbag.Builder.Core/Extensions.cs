@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Kitbag.Builder.Core.Builders;
-using Kitbag.Builder.Core.Helpers;
-using Kitbag.Builder.Core.Types;
+using Kitbag.Builder.Core.Common;
+using Kitbag.Builder.Core.Initializer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
