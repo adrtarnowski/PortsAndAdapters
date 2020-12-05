@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Kitbags\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
+      <ProjectReference Include="..\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
     </ItemGroup>
 
 </Project>

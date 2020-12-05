@@ -19,7 +19,7 @@ namespace TLJ.PortsAndAdapters.Api
                 .ConfigureServices((webHostBuilderContext, services) => services
                     .AddKitbag(webHostBuilderContext.Configuration)
                     .AddWebApi()
-                    .AddWebApiContext()
+                    .AddApiContext()
                     .AddSwagger()
                     .AddInfrastructure()
                     .Build())

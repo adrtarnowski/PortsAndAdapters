@@ -27,7 +27,7 @@ public static class Extensions
                     Version = swaggerProperties.ApiVersion,
                     Description = swaggerProperties.ApiDescription
                 });
-                // Include XML documentation comments from assemblies
+                
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies();
                 var xmlPaths = assemblies
                     .Select(a => Path.Combine(AppContext.BaseDirectory, $"{a.GetName().Name}.xml"))

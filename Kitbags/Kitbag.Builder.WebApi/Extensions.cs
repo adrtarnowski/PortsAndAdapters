@@ -48,7 +48,7 @@ public static class Extensions
             return builder;
         }
 
-        public static IKitbagBuilder AddWebApiContext(this IKitbagBuilder builder, string sectionName = "WebApiContext")
+        public static IKitbagBuilder AddApiContext(this IKitbagBuilder builder, string sectionName = "WebApiContext")
         {
             if (!builder.TryRegisterKitBag(sectionName)) 
                 return builder;

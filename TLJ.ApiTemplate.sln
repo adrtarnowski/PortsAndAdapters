@@ -18,7 +18,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.WebApi", "Ki
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.CQRS.Core", "Kitbags\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj", "{6ADF5146-6035-44CE-B534-AC5EE4B5CE79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.Swagger", "Kitbag.Builder.Swagger\Kitbag.Builder.Swagger.csproj", "{C27ED40A-0D22-4296-B60F-880997DDF231}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.Swagger", "Kitbags\Kitbag.Builder.Swagger\Kitbag.Builder.Swagger.csproj", "{C27ED40A-0D22-4296-B60F-880997DDF231}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.Persistence.Core", "Kitbags\Kitbag.Builder.Persistence.Core\Kitbag.Builder.Persistence.Core.csproj", "{EECB068D-2214-41C2-999C-B7DFE2DB11AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.Persistence.EntityFramework", "Kitbags\Kitbag.Builder.Persistence.EntityFramework\Kitbag.Builder.Persistence.EntityFramework.csproj", "{13CF1943-6E41-461D-9DFE-F64DE91E0C56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Persistence.EntityFramework.Audit", "Kitbags\Kitbag.Persistence.EntityFramework.Audit\Kitbag.Persistence.EntityFramework.Audit.csproj", "{2787840D-233B-4D01-BC56-BCC04ACE287C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Persistence.EntityFramework.UnitOfWork", "Kitbags\Kitbag.Persistence.EntityFramework.UnitOfWork\Kitbag.Persistence.EntityFramework.UnitOfWork.csproj", "{E073CF34-6A4E-4427-A34E-04FACF9CBC9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +42,10 @@ Global
 		{35E8EBE0-DE59-4D40-BF62-F9D4C26EB006} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
 		{6ADF5146-6035-44CE-B534-AC5EE4B5CE79} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
 		{C27ED40A-0D22-4296-B60F-880997DDF231} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
+		{EECB068D-2214-41C2-999C-B7DFE2DB11AC} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
+		{13CF1943-6E41-461D-9DFE-F64DE91E0C56} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
+		{2787840D-233B-4D01-BC56-BCC04ACE287C} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
+		{E073CF34-6A4E-4427-A34E-04FACF9CBC9F} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{1D24987D-5761-46A6-B320-E8B494689309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -68,5 +80,21 @@ Global
 		{C27ED40A-0D22-4296-B60F-880997DDF231}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C27ED40A-0D22-4296-B60F-880997DDF231}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C27ED40A-0D22-4296-B60F-880997DDF231}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EECB068D-2214-41C2-999C-B7DFE2DB11AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EECB068D-2214-41C2-999C-B7DFE2DB11AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EECB068D-2214-41C2-999C-B7DFE2DB11AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EECB068D-2214-41C2-999C-B7DFE2DB11AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13CF1943-6E41-461D-9DFE-F64DE91E0C56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13CF1943-6E41-461D-9DFE-F64DE91E0C56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13CF1943-6E41-461D-9DFE-F64DE91E0C56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13CF1943-6E41-461D-9DFE-F64DE91E0C56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2787840D-233B-4D01-BC56-BCC04ACE287C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2787840D-233B-4D01-BC56-BCC04ACE287C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2787840D-233B-4D01-BC56-BCC04ACE287C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2787840D-233B-4D01-BC56-BCC04ACE287C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E073CF34-6A4E-4427-A34E-04FACF9CBC9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E073CF34-6A4E-4427-A34E-04FACF9CBC9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E073CF34-6A4E-4427-A34E-04FACF9CBC9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E073CF34-6A4E-4427-A34E-04FACF9CBC9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
