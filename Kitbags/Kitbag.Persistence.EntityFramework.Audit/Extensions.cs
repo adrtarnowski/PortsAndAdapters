@@ -1,5 +1,8 @@
 ﻿using Kitbag.Builder.Core.Builders;
+using Kitbag.Builder.Persistence.Core.Common.Logs;
+using Kitbag.Persistence.EntityFramework.Audit.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Kitbag.Persistence.EntityFramework.Audit
 {
@@ -10,7 +13,9 @@ namespace Kitbag.Persistence.EntityFramework.Audit
         {
             if (!builder.TryRegisterKitBag(sectionName)) 
                 return builder;
-            
+           
+            builder.Services.AddScoped<IAuditTrailRepository, AuditTrailRepository<TDbContext>>();
+            builder.Services.AddScoped<IAuditTrailProvider, AuditTrailProvider<TDbContext>>();
             return builder;
         }
     }

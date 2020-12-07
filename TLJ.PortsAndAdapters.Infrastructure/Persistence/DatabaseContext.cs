@@ -1,3 +1,4 @@
+using Kitbag.Builder.Persistence.Core.Common.Logs;
 using Microsoft.EntityFrameworkCore;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence.Configurations;
 
@@ -5,7 +6,7 @@ namespace TLJ.PortsAndAdapters.Infrastructure.Persistence
 {
     public class DatabaseContext : DbContext
     {
-        protected internal DbSet<Kitbag.Persistence.EntityFramework.Audit.Common.Audit>? Audits { get; set; }
+        protected internal DbSet<AuditTrail>? Audits { get; set; }
         
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)

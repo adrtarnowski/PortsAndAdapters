@@ -1,8 +1,8 @@
 using System;
 
-namespace Kitbag.Persistence.EntityFramework.Audit.Common
+namespace Kitbag.Builder.Persistence.Core.Common.Logs
 {
-    public class Audit
+    public class AuditTrail
     {
         public long Id { get; set; }
         public string? TableName { get; set; }
@@ -11,12 +11,10 @@ namespace Kitbag.Persistence.EntityFramework.Audit.Common
         public string? KeyValues { get; set; }
         public string? OldValues { get; set; }
         public string? NewValues { get; set; }
-        public string? CorrelationId { get; set; }
-        public string? ChangeContext { get; set; }
-        public AuditChangeType ChangeType { get; set; }
+        public AuditTrailChangeType ChangeType { get; set; }
     }
     
-    public enum AuditChangeType
+    public enum AuditTrailChangeType
     {
         Added = 0,
         Modified = 1,

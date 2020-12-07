@@ -2,6 +2,7 @@
 using Kitbag.Builder.CQRS.Core;
 using Kitbag.Builder.CQRS.Core.Commands;
 using Kitbag.Builder.Persistence.EntityFramework;
+using Kitbag.Persistence.EntityFramework.Audit.Common;
 using Kitbag.Persistence.EntityFramework.UnitOfWork;
 using Kitbag.Persistence.EntityFramework.UnitOfWork.Common;
 using Microsoft.AspNetCore.Builder;
@@ -19,6 +20,8 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             builder.AddUnitOfWork();
             builder.Services.Decorate(
                 typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
+            builder.Services.Decorate(
+                typeof(ICommandHandler<>), typeof(AuditTrailCommandHandlerDecorator<>));
             return builder;
         }
 
