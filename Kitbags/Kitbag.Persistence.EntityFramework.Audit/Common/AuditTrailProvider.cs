@@ -16,7 +16,7 @@ namespace Kitbag.Persistence.EntityFramework.Audit.Common
             {
                 {EntityState.Added, AuditTrailChangeType.Added},
                 {EntityState.Modified, AuditTrailChangeType.Modified},
-                {EntityState.Deleted, AuditTrailChangeType.Deleted},
+                {EntityState.Deleted, AuditTrailChangeType.Deleted}
             };
 
         public AuditTrailProvider(
