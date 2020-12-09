@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TLJ.PortsAndAdapters.Infrastructure.Persistence.Repositories
 {
-    public abstract class Repository<T, TId> : IRepository<T, TId> where T : class, IAggregateRoot<TId> where TId : Id
+    public abstract class DatabaseRepository<T, TId> : IRepository<T, TId> where T : class, IAggregateRoot<TId> where TId : Id
     {
         protected readonly DatabaseContext _context;
 
-        protected Repository(DatabaseContext context)
+        protected DatabaseRepository(DatabaseContext context)
         {
             _context = context;
         }

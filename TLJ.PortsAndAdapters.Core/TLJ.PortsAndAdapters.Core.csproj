@@ -20,6 +20,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
+        <ProjectReference Include="..\Kitbags\Kitbag.Builder.Persistence.Core\Kitbag.Builder.Persistence.Core.csproj" />
     </ItemGroup>
 
 </Project>

@@ -25,6 +25,7 @@
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.Persistence.EntityFramework\Kitbag.Builder.Persistence.EntityFramework.csproj" />
       <ProjectReference Include="..\Kitbags\Kitbag.Persistence.EntityFramework.Audit\Kitbag.Persistence.EntityFramework.Audit.csproj" />
       <ProjectReference Include="..\Kitbags\Kitbag.Persistence.EntityFramework.UnitOfWork\Kitbag.Persistence.EntityFramework.UnitOfWork.csproj" />
+      <ProjectReference Include="..\TLJ.PortsAndAdapters.Core\TLJ.PortsAndAdapters.Core.csproj" />
     </ItemGroup>
 
 </Project>
