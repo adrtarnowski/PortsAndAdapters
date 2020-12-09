@@ -35,8 +35,7 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking.Commands.Handlers
                 command.UserId,
                 command.Value,
                 currency,
-                bookType.ToEnum(BookType.Draw)
-                ));
+                bookType.ToEnum(BookType.Draw)));
         }
     }
 }
