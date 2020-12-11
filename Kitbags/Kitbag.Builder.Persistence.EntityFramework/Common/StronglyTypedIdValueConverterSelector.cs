@@ -6,13 +6,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Kitbag.Builder.Persistence.EntityFramework.Common
 {
-public class StronglyTypedIdValueConverterSelector : ValueConverterSelector
+public class StronglyTypedIdValueConverterSelector : ValueConverterSelector, IValueConverterSelector
     {
         private readonly ConcurrentDictionary<(Type ModelClrType, Type ProviderClrType), ValueConverterInfo> _converters
             = new ConcurrentDictionary<(Type ModelClrType, Type ProviderClrType), ValueConverterInfo>();
 
         public StronglyTypedIdValueConverterSelector(ValueConverterSelectorDependencies dependencies)
-            : base(dependencies) { }
+            : base(dependencies)
+        {
+        }
 
         public override IEnumerable<ValueConverterInfo> Select(Type modelClrType, Type providerClrType = null!)
         {
@@ -25,7 +27,7 @@ public class StronglyTypedIdValueConverterSelector : ValueConverterSelector
             var underlyingModelType = UnwrapNullableType(modelClrType);
             var underlyingProviderType = UnwrapNullableType(providerClrType);
 
-            if (underlyingProviderType == typeof(Guid))
+            if (underlyingProviderType is null || underlyingProviderType == typeof(Guid))
             {
                 var isTypedIdValue = typeof(TypedIdValueBase).IsAssignableFrom(underlyingModelType);
                 if (isTypedIdValue)
@@ -35,9 +37,9 @@ public class StronglyTypedIdValueConverterSelector : ValueConverterSelector
                     yield return _converters.GetOrAdd((underlyingModelType, typeof(Guid)), _ =>
                     {
                         return new ValueConverterInfo(
-                            modelClrType,
-                            typeof(Guid),
-                            valueConverterInfo => (ValueConverter)Activator.CreateInstance(converterType, valueConverterInfo.MappingHints)!);
+                            modelClrType: modelClrType,
+                            providerClrType: typeof(Guid),
+                            factory: valueConverterInfo => (ValueConverter)Activator.CreateInstance(converterType, valueConverterInfo.MappingHints)!);
                     });
                 }
             }

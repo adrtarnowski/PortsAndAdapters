@@ -8,7 +8,10 @@ namespace TLJ.PortsAndAdapters.Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<BookMatch> builder)
         {
-            builder.HasKey(a => a.Id);
+            builder.ToTable("BookMatches");
+            builder.HasKey(a => a.Id).IsClustered(false);
+            builder.Property(s => s.Id).ValueGeneratedNever();
+            builder.Property<long>("ClusteredId").UseIdentityColumn();
 
             builder.Property(a => a.MatchId)
                 .IsRequired()
