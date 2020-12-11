@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Kitbag.Builder.Core.Common;
 using Kitbag.Builder.Persistence.Core.Common.Logs;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +28,7 @@ namespace Kitbag.Persistence.EntityFramework.Audit.Common
             _auditTrailRepository = auditTrailRepository;
         }
 
-        public void LogChanges()
+        public async Task LogChangesAsync()
         {
             var currentDate = SystemTime.Now();
             List<AuditTrail> audits = new List<AuditTrail>();
@@ -72,7 +73,8 @@ namespace Kitbag.Persistence.EntityFramework.Audit.Common
             }
             
             _context.ChangeTracker.AcceptAllChanges();
-            _auditTrailRepository.AddRangeAsync(audits);
+            await _auditTrailRepository.AddRangeAsync(audits);
+            await _context.SaveChangesAsync();
         }
     }
 }

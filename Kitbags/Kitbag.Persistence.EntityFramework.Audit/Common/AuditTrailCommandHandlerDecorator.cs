@@ -22,7 +22,7 @@ namespace Kitbag.Persistence.EntityFramework.Audit.Common
         public async Task HandleAsync(TCommand command)
         {
             await _decoratedHandler.HandleAsync(command);
-            _auditTrailProvider.LogChanges();
+            await _auditTrailProvider.LogChangesAsync();
         }
     }
 }
