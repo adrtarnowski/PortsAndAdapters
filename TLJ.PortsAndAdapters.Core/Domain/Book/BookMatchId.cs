@@ -3,7 +3,7 @@ using Kitbag.Builder.Core.Domain;
 
 namespace TLJ.PortsAndAdapters.Core.Domain.Book
 {
-    public class BookMatchId : Id
+    public class BookMatchId : TypedIdValueBase
     {
         public BookMatchId(Guid value) : base(value) { }
         

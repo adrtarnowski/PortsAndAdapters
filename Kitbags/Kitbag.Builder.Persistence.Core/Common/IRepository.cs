@@ -4,7 +4,7 @@ using Kitbag.Builder.Core.Domain;
 
 namespace Kitbag.Builder.Persistence.Core.Common
 {
-    public interface IRepository<T, TId> where T : class, IAggregateRoot<TId> where TId : Id
+    public interface IRepository<T, TId> where T : class, IAggregateRoot<TId> where TId : TypedIdValueBase
     {
         Task<bool> ExistsAsync(TId id);
         void Add(T entity);

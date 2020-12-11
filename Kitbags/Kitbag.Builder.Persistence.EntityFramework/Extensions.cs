@@ -1,7 +1,9 @@
 ﻿using System;
 using Kitbag.Builder.Core.Builders;
 using Kitbag.Builder.Persistence.Core.Common;
+using Kitbag.Builder.Persistence.EntityFramework.Common;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kitbag.Builder.Persistence.EntityFramework
@@ -24,6 +26,7 @@ namespace Kitbag.Builder.Persistence.EntityFramework
             builder.Services.AddDbContext<TDbContext>(optionsBuilder =>
             {
                 optionsBuilder.UseSqlServer(properties.ConnectionString);
+                optionsBuilder.ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>();
             });
             builder.Services.AddScoped<DbContext>(p => p.GetRequiredService<TDbContext>());
             return builder;

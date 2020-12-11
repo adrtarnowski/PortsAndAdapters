@@ -2,11 +2,11 @@ using System;
 
 namespace Kitbag.Builder.Core.Domain
 {
-    public abstract class Id : IEquatable<Id>, IComparable
+    public abstract class Id<TRawValue> where TRawValue : IEquatable<TRawValue>
     {
-        public readonly Guid Value;
+        public readonly TRawValue Value;
 
-        protected Id(Guid value)
+        protected Id(TRawValue value)
         {
             Value = value;
         }
@@ -16,40 +16,17 @@ namespace Kitbag.Builder.Core.Domain
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != GetType()) return false;
-            return Value.Equals(((Id)obj).Value);
+            return Value.Equals(((Id<TRawValue>)obj).Value);
         }
 
-        public bool Equals(Id? other)
+        public bool Equals(Id<TRawValue> other)
         {
-            return Equals((object)other!);
+            return Equals((object)other);
         }
 
         public override int GetHashCode()
         {
             return Value.GetHashCode();
-        }
-
-        public int CompareTo(object? obj)
-        {
-            if (obj is Id id)
-                return String.CompareOrdinal(Value.ToString(), id.Value.ToString());
-            return -1;
-        }
-        
-        public static bool operator ==(Id? id1, Id? id2)
-        {
-            if (Equals(id1, null))
-            {
-                if (Equals(id2, null))
-                    return true;
-                return false;
-            }
-            return id1.Equals(id2);
-        }
-
-        public static bool operator !=(Id? id1, Id? id2)
-        {
-            return !(id1 == id2);
         }
     }
 }

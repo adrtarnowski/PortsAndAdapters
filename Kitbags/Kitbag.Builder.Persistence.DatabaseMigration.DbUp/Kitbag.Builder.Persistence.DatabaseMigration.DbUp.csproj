@@ -5,7 +5,7 @@
         <AssemblyVersion>0.0.0.1</AssemblyVersion>
         <PackageVersion>1.0.0</PackageVersion>
         <Company>Adrian Tarnowski https://techleaderjourney.com/</Company>
-        <Description>Kitbag with common classes for any persistence layer</Description>
+        <Description>Kitbag with common classes for database migration strategy</Description>
         <DefaultLanguage>en-US</DefaultLanguage>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -17,9 +17,15 @@
         <Nullable>enable</Nullable>
         <WarningsAsErrors>CS8653;CS8625;CS8623;CS8618;CS8603;CS8602;CS8600</WarningsAsErrors>
     </PropertyGroup>
-
+    
+    <ItemGroup>
+        <PackageReference Include="dbup" Version="4.3.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.1" />
+    </ItemGroup>
+    
     <ItemGroup>
       <ProjectReference Include="..\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
+      <ProjectReference Include="..\Kitbag.Builder.Persistence.DatabaseMigration\Kitbag.Builder.Persistence.DatabaseMigration.csproj" />
     </ItemGroup>
 
 </Project>
