@@ -31,6 +31,8 @@ public class AutoChangeService : IAutoChangeService
         {
             _dbUpProperties = dbUpProperties;
             _logger = logger;
+            if(_dbUpProperties.SchemaPath == null)
+                throw new ArgumentException("Schema path must be defined");
         }
 
         public string GetAutoChangeScript()
@@ -71,7 +73,7 @@ public class AutoChangeService : IAutoChangeService
 
         private List<(AutoChange, DirectoryInfo)> GetAutoChangeDirs()
         {
-            var schemaLocationDir = new DirectoryInfo(_dbUpProperties.SchemaPath);
+            var schemaLocationDir = new DirectoryInfo(_dbUpProperties.SchemaPath!);
             List<(AutoChange, DirectoryInfo)> autoChangeDirs = new List<(AutoChange, DirectoryInfo)>();
 
             foreach (var ac in AutoChanges)
