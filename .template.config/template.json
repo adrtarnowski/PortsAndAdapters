@@ -1,0 +1,12 @@
+{
+    "author": "Adrian Tarnowski",
+    "classifications": [ "core" ],
+    "name": "Ports and Adapters .NET API template",
+    "identity": "Tech Leader Journey",
+    "shortName": "tlj.paa",
+    "tags": {
+        "language": "C#"
+    },
+    "sourceName": "TLJ.PortsAndAdapters",
+    "preferNameDirectory" : "true"
+}
