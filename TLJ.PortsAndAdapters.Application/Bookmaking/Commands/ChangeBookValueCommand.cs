@@ -3,7 +3,7 @@ using Kitbag.Builder.CQRS.Core.Commands;
 
 namespace TLJ.PortsAndAdapters.Application.Bookmaking.Commands
 {
-    public class BookMatchCommand : ICommand
+    public class ChangeBookValueCommand : ICommand
     {
         public Guid MatchId { get; set; }
         

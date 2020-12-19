@@ -24,7 +24,7 @@ namespace TLJ.PortsAndAdapters.Infrastructure.Persistence.Configurations
             builder.Property(a => a.BookType)
                 .IsRequired();
 
-            builder.Property(a => a.Value)
+            builder.Property(a => a.Stake)
                 .IsRequired();
             
             builder.Property(a => a.Currency)

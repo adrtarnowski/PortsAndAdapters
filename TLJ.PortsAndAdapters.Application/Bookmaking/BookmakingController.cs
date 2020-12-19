@@ -18,12 +18,24 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking
         /// <summary>
         /// Create user's betting
         /// </summary>
-        /// <returns>User bets a specific value on a match</returns>
         [HttpPost("")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Produces("application/json")]
         public async Task<IActionResult> Post([FromBody] BookMatchCommand command)
+        {
+            await _commandDispatcher.SendAsync(command);
+            return Ok();
+        }
+        
+        /// <summary>
+        /// Modify user's betting value
+        /// </summary>
+        [HttpPut("")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Produces("application/json")]
+        public async Task<IActionResult> Put([FromBody] ChangeBookValueCommand command)
         {
             await _commandDispatcher.SendAsync(command);
             return Ok();

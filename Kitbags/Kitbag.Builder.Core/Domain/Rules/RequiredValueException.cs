@@ -1,6 +1,4 @@
-using Kitbag.Builder.Core.Domain;
-
-namespace TLJ.PortsAndAdapters.Core.Domain.Rules
+namespace Kitbag.Builder.Core.Domain.Rules
 {
     public class RequiredValueException : IBusinessRule
     {

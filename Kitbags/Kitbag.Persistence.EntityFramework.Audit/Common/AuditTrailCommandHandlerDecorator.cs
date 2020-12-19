@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Kitbag.Builder.CQRS.Core.Commands;
 using Kitbag.Builder.Persistence.Core.Common.Logs;
+using Kitbag.Persistence.EntityFramework.UnitOfWork.Common;
 
 namespace Kitbag.Persistence.EntityFramework.Audit.Common
 {
@@ -9,20 +10,32 @@ namespace Kitbag.Persistence.EntityFramework.Audit.Common
         where TCommand : class, ICommand
     {
         private readonly IAuditTrailProvider _auditTrailProvider;
+        private readonly ITransactionalUnitOfWork _unitOfWork;
         private readonly ICommandHandler<TCommand> _decoratedHandler;
 
         public AuditTrailCommandHandlerDecorator(
-            IAuditTrailProvider unitOfWork, 
+            IAuditTrailProvider auditTrailProvider,
+            ITransactionalUnitOfWork unitOfWork,
             ICommandHandler<TCommand> decoratedHandler)
         {
-            _auditTrailProvider = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
+            _auditTrailProvider = auditTrailProvider ?? throw new ArgumentNullException(nameof(auditTrailProvider));
             _decoratedHandler = decoratedHandler ?? throw new ArgumentNullException(nameof(decoratedHandler));
+            _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
         public async Task HandleAsync(TCommand command)
         {
-            await _decoratedHandler.HandleAsync(command);
-            await _auditTrailProvider.LogChangesAsync();
+            if (_unitOfWork.HasActiveTransaction)
+            {
+                await _decoratedHandler.HandleAsync(command);
+            }
+            else
+            {
+                using var transaction = await _unitOfWork.BeginTransactionAsync();
+                await _decoratedHandler.HandleAsync(command);
+                await _auditTrailProvider.LogChangesAsync();
+                await _unitOfWork.CommitTransactionAsync(transaction!);
+            }
         }
     }
 }

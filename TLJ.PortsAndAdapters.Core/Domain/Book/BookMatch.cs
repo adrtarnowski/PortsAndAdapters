@@ -11,7 +11,7 @@ namespace TLJ.PortsAndAdapters.Core.Domain.Book
         
         public Guid UserId { get; private set;}
         
-        public decimal Value { get; private set;}
+        public decimal Stake { get; private set;}
         
         public string Currency { get; private set;}
         
@@ -23,17 +23,27 @@ namespace TLJ.PortsAndAdapters.Core.Domain.Book
             BookMatchId id,
             Guid matchId, 
             Guid userId,
-            decimal value,
+            decimal stake,
             string currency,
             BookType bookType)
         {
             Id = id;
             MatchId = matchId;
             UserId = userId;
-            Value = value;
+            Stake = stake;
             Currency = currency;
             BookType = bookType;
             CreateDate = SystemTime.OffsetNow();
+        }
+        
+        public void ChangeBookValue(
+            decimal stake,
+            string currency,
+            BookType bookType)
+        {
+            Stake = stake;
+            Currency = currency;
+            BookType = bookType;
         }
     }
 

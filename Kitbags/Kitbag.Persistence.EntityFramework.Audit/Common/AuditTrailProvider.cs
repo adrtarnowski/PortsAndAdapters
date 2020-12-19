@@ -71,10 +71,7 @@ namespace Kitbag.Persistence.EntityFramework.Audit.Common
                 if (audit != null)
                     audits.Add(audit);
             }
-            
-            _context.ChangeTracker.AcceptAllChanges();
             await _auditTrailRepository.AddRangeAsync(audits);
-            await _context.SaveChangesAsync();
         }
     }
 }

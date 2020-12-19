@@ -8,5 +8,6 @@ namespace TLJ.PortsAndAdapters.Core.Repositories
     public interface IBookMatchRepository : IRepository<BookMatch, BookMatchId>
     {
         Task<bool> AnyByUserAndMatchAsync(Guid userId, Guid matchId);
+        Task<BookMatch> FindIdByUserAndMatchAsync(Guid userId, Guid matchId);
     }
 }

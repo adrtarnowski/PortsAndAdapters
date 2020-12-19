@@ -1,5 +1,6 @@
 ﻿using Kitbag.Builder.Core.Builders;
 using Kitbag.Builder.Persistence.Core.Common;
+using Kitbag.Persistence.EntityFramework.UnitOfWork.Common;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kitbag.Persistence.EntityFramework.UnitOfWork
@@ -12,6 +13,7 @@ namespace Kitbag.Persistence.EntityFramework.UnitOfWork
                 return builder;
             
             builder.Services.AddScoped<IUnitOfWork, Common.UnitOfWork>();
+            builder.Services.AddScoped<ITransactionalUnitOfWork, Common.UnitOfWork>();
             return builder;
         }
     }

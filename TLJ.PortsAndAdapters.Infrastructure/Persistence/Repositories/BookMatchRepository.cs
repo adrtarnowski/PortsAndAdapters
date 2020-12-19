@@ -7,7 +7,7 @@ using TLJ.PortsAndAdapters.Core.Repositories;
 
 namespace TLJ.PortsAndAdapters.Infrastructure.Persistence.Repositories
 {
-    public class BookMatchRepository : DatabaseRepository<BookMatch, BookMatchId>,IBookMatchRepository
+    public class BookMatchRepository : DatabaseRepository<BookMatch, BookMatchId>, IBookMatchRepository
     {
         public BookMatchRepository(DatabaseContext context) : base(context) { }
         
@@ -15,6 +15,12 @@ namespace TLJ.PortsAndAdapters.Infrastructure.Persistence.Repositories
         {
             return _context.Set<BookMatch>()
                 .Where(x => x.UserId == userId && x.MatchId == matchId).AnyAsync();
+        }
+        
+        public Task<BookMatch> FindIdByUserAndMatchAsync(Guid userId, Guid matchId)
+        {
+            return  _context.Set<BookMatch>()
+                .Where(x => x.UserId == userId && x.MatchId == matchId).SingleOrDefaultAsync();
         }
     }
 }

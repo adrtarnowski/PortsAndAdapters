@@ -8,11 +8,11 @@ namespace Kitbag.Persistence.EntityFramework.UnitOfWork.Common
     public class UnitOfWorkCommandHandlerDecorator<TCommand> : ICommandHandler<TCommand>
         where TCommand : class, ICommand
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ITransactionalUnitOfWork _unitOfWork;
         private readonly ICommandHandler<TCommand> _decoratedHandler;
 
         public UnitOfWorkCommandHandlerDecorator(
-            IUnitOfWork unitOfWork, 
+            ITransactionalUnitOfWork unitOfWork, 
             ICommandHandler<TCommand> decoratedHandler)
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
@@ -21,8 +21,16 @@ namespace Kitbag.Persistence.EntityFramework.UnitOfWork.Common
 
         public async Task HandleAsync(TCommand command)
         {
-            await _decoratedHandler.HandleAsync(command);
-            await _unitOfWork.CommitAsync();
+            if (_unitOfWork.HasActiveTransaction)
+            {
+                await _decoratedHandler.HandleAsync(command);
+            }
+            else
+            {
+                await using var transaction = await _unitOfWork.BeginTransactionAsync();
+                await _decoratedHandler.HandleAsync(command);
+                await _unitOfWork.CommitTransactionAsync(transaction!);
+            }
         }
     }
 }
