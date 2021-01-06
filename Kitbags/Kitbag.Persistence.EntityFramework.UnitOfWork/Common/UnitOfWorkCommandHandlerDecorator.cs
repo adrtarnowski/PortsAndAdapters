@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Kitbag.Builder.CQRS.Core.Commands;
-using Kitbag.Builder.Persistence.Core.Common;
 
 namespace Kitbag.Persistence.EntityFramework.UnitOfWork.Common
 {

@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TLJ.PortsAndAdapters.Databa
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TLJ.PortsAndAdapters.Database.SqlServer", "TLJ.PortsAndAdapters.Database.SqlServer\TLJ.PortsAndAdapters.Database.SqlServer.sqlproj", "{65E455DA-82D6-4474-9AD9-34FEB677C146}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.Logging.AppInsights", "Kitbags\Kitbag.Builder.Logging.AppInsights\Kitbag.Builder.Logging.AppInsights.csproj", "{43A75326-E2A6-4256-82D2-C2C2100169BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{65E455DA-82D6-4474-9AD9-34FEB677C146}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65E455DA-82D6-4474-9AD9-34FEB677C146}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65E455DA-82D6-4474-9AD9-34FEB677C146}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{43A75326-E2A6-4256-82D2-C2C2100169BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43A75326-E2A6-4256-82D2-C2C2100169BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43A75326-E2A6-4256-82D2-C2C2100169BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43A75326-E2A6-4256-82D2-C2C2100169BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,6 +138,7 @@ Global
 		{04964569-D424-400F-89C1-28713DD45DBF} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
 		{EF945B79-B525-4BC5-B1B4-BDB3AA831B08} = {DDB6F910-8362-4D39-A2CF-DC2A933A9F15}
 		{65E455DA-82D6-4474-9AD9-34FEB677C146} = {DDB6F910-8362-4D39-A2CF-DC2A933A9F15}
+		{43A75326-E2A6-4256-82D2-C2C2100169BA} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2EE2E6D3-F58F-45F5-B17A-F01D148EEAD9}

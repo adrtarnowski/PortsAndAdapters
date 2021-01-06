@@ -19,6 +19,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Kitbags\Kitbag.Builder.Logging.AppInsights\Kitbag.Builder.Logging.AppInsights.csproj" />
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.Swagger\Kitbag.Builder.Swagger.csproj" />
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.Swagger\Kitbag.Builder.Swagger.csproj" />
