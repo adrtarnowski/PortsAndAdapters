@@ -1,4 +1,5 @@
 ﻿using System;
+using Kitbag.Builder.AzureAD;
 using Kitbag.Builder.Core.Builders;
 using Kitbag.Builder.CQRS.Core;
 using Kitbag.Builder.CQRS.Core.Commands;

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Kitbag.Builder.Core;
+using Kitbag.Builder.HttpClient;
 using Kitbag.Builder.Logging.AppInsights;
 using Kitbag.Builder.Swagger;
 using Kitbag.Builder.WebApi;
@@ -23,6 +24,7 @@ namespace TLJ.PortsAndAdapters.Api
                     .AddApiContext()
                     .AddSwagger()
                     .AddAppInsights()
+                    .AddHttpClient()
                     .AddInfrastructure()
                     .Build())
                 .Configure(app => app
