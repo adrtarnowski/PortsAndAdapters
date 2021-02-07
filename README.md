@@ -28,3 +28,8 @@ The solution is divided into five parts:
      1. Run *{YOUR PROJECT NAME}.DatabaseMigration*. Project applies necessary migrations to your database.
   1. Run *{YOUR PROJECT NAME}.Api* project.
   1. Open swagger page: *http://localhost:{YOUR PORT}/index.html*
+
+## List of Kitbags:
+
+- **Audit Trail** :bookmark_tabs: Kitbag provides audit trail mechanism that can track any database changes without making any unnecessary modification in existing code [README]()
+
