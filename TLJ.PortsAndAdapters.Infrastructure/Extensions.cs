@@ -12,6 +12,7 @@ using Kitbag.Persistence.EntityFramework.UnitOfWork;
 using Kitbag.Persistence.EntityFramework.UnitOfWork.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using TLJ.PortsAndAdapters.Application.Bookmaking.Events;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence.Repositories;
 
@@ -30,16 +31,21 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             builder.Services.RegisterRepositories();
 
             builder.AddCQRSIntegrationEvents();
-            //TODO: Verify if works
-            //builder.AddServiceBus();
+            /*
+             ServiceBus register event example
+            builder.AddServiceBus();
+            */
             return builder;
         }
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)
         {
+            /*
+             ServiceBus register event example
             var busSubscriber = builder.ApplicationServices.GetService<IEventBusSubscriber>();
-            //TODO: Verify if works
-            //busSubscriber.Subscribe<X, Y>();
+            busSubscriber.Subscribe<CloseBookmakingEvent, CloseBookmakingEventHandler>();
+            busSubscriber.RegisterOnMessageHandlerAndReceiveMessages();
+            */
             return builder;
         }
         

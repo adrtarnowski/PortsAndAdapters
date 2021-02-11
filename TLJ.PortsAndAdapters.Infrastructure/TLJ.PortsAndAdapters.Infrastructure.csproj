@@ -27,6 +27,7 @@
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.Persistence.EntityFramework.UnitOfWork\Kitbag.Builder.Persistence.EntityFramework.UnitOfWork.csproj" />
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.Persistence.EntityFramework\Kitbag.Builder.Persistence.EntityFramework.csproj" />
+      <ProjectReference Include="..\TLJ.PortsAndAdapters.Application\TLJ.PortsAndAdapters.Application.csproj" />
       <ProjectReference Include="..\TLJ.PortsAndAdapters.Core\TLJ.PortsAndAdapters.Core.csproj" />
     </ItemGroup>
 

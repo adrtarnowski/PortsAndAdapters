@@ -17,7 +17,7 @@ namespace TLJ.PortsAndAdapters.Infrastructure.Persistence.Repositories
                 .Where(x => x.UserId == userId && x.MatchId == matchId).AnyAsync();
         }
         
-        public Task<BookMatch> FindIdByUserAndMatchAsync(Guid userId, Guid matchId)
+        public Task<BookMatch> FindByUserAndMatchIdsAsync(Guid userId, Guid matchId)
         {
             return  _context.Set<BookMatch>()
                 .Where(x => x.UserId == userId && x.MatchId == matchId).SingleOrDefaultAsync();

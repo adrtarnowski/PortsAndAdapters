@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using System.Threading.Tasks;
 using Kitbag.Builder.MessageBus.Common;
+using Kitbag.Builder.MessageBus.IntegrationEvent;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -21,10 +22,11 @@ namespace Kitbag.Builder.MessageBus.ServiceBus.Common
             _logger = logger;
         }
 
-        public async Task PublishEventAsync(object payload, string messageLabel, string? sessionId)
+        public async Task PublishEventAsync<T>(T payload, string? sessionId) where T : IIntegrationEvent
         {
-            var message = CreateBusMessage(messageLabel, payload, sessionId);
-
+            var eventLabel = MessageBus.Extensions.GetLabelFor<T>();
+            var message = CreateBusMessage(eventLabel, payload, sessionId);
+            
             try
             {
                 await _busClient.GetEventTopicClient().SendAsync(message).ConfigureAwait(false);

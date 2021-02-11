@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
+using Kitbag.Builder.MessageBus.IntegrationEvent;
 
 namespace Kitbag.Builder.MessageBus.Common
 {
     public interface IBusPublisher
     {
-        Task PublishEventAsync(object payload, string type, string? sessionId);
+        Task PublishEventAsync<T>(T payload, string? sessionId = null) where T : IIntegrationEvent;
     }
 }

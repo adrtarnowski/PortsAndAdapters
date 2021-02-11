@@ -18,6 +18,19 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking
         /// <summary>
         /// Create user's betting
         /// </summary>
+        [HttpDelete("")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Produces("application/json")]
+        public async Task<IActionResult> CloseBookmaking([FromBody] CloseBookmakingCommand command)
+        {
+            await _commandDispatcher.SendAsync(command);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Create user's betting
+        /// </summary>
         [HttpPost("")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -27,7 +40,7 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking
             await _commandDispatcher.SendAsync(command);
             return Ok();
         }
-        
+
         /// <summary>
         /// Modify user's betting value
         /// </summary>
@@ -39,6 +52,6 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking
         {
             await _commandDispatcher.SendAsync(command);
             return Ok();
-        } 
+        }
     }
 }

@@ -32,6 +32,9 @@ namespace TLJ.PortsAndAdapters.Infrastructure.Persistence.Configurations
             
             builder.Property(a => a.CreateDate)
                 .IsRequired();
+            
+            builder.Property(a => a.IsClose)
+                .IsRequired();
         }
     }
 }

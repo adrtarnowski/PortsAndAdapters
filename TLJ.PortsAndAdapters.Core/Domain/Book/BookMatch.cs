@@ -18,6 +18,8 @@ namespace TLJ.PortsAndAdapters.Core.Domain.Book
         public BookType BookType { get; private set;}
 
         public  DateTimeOffset CreateDate { get; private set;}
+        
+        public bool IsClose { get; private set; }
 
         public BookMatch(
             BookMatchId id,
@@ -33,6 +35,7 @@ namespace TLJ.PortsAndAdapters.Core.Domain.Book
             Stake = stake;
             Currency = currency;
             BookType = bookType;
+            IsClose = false;
             CreateDate = SystemTime.OffsetNow();
         }
         
@@ -41,9 +44,17 @@ namespace TLJ.PortsAndAdapters.Core.Domain.Book
             string currency,
             BookType bookType)
         {
-            Stake = stake;
-            Currency = currency;
-            BookType = bookType;
+            if (!IsClose)
+            {
+                Stake = stake;
+                Currency = currency;
+                BookType = bookType;
+            }
+        }
+
+        public void Close()
+        {
+            IsClose = true;
         }
     }
 

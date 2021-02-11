@@ -8,6 +8,7 @@
 	[Value] DECIMAL(8, 2) NOT NULL,
 	[Currency] CHAR(6) NOT NULL,
 	[CreateDate] datetimeoffset(7) NOT NULL,
+    [IsClose] BIT NOT NULL DEFAULT(0),
 
 	CONSTRAINT [PK_BookMatches] PRIMARY KEY NONCLUSTERED ([Id] ASC),
 	CONSTRAINT [AK_BookMatches_ClusteredId] UNIQUE NONCLUSTERED ([ClusteredId] ASC)

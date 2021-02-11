@@ -59,7 +59,6 @@
     <Folder Include="dbo" />
     <Folder Include="dbo\Tables" />
     <Folder Include="Scripts" />
-    <Folder Include="Scripts\Migrations" />
     <Folder Include="Scripts\PostDeployment" />
     <Folder Include="Scripts\PreDeployment" />
   </ItemGroup>
@@ -69,6 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\Migrations\0001-AuditTable.sql" />
+    <None Include="Scripts\Migrations\0003-AddIsCloseColumnToBookMatches.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Scripts\PreDeployment\0001-PreDeploymentScript.sql" />
     <None Include="Scripts\PostDeployment\0001-PostDeploymentScript.sql" />
     <None Include="Scripts\Migrations\0002-BookMatches.sql">

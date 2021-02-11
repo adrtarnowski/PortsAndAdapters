@@ -22,7 +22,7 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking.Commands.Handlers
             var currency = command.Currency ?? throw new BrokenBusinessRuleException(new RequiredValueException(nameof(command.Stake)));
             var bookType = command.BookType ?? throw new BrokenBusinessRuleException(new RequiredValueException(nameof(command.BookType)));
             
-            var bookMatch = await _bookMatchRepository.FindIdByUserAndMatchAsync(command.UserId, command.MatchId);
+            var bookMatch = await _bookMatchRepository.FindByUserAndMatchIdsAsync(command.UserId, command.MatchId);
             if(bookMatch == null)
                 throw new BrokenBusinessRuleException(new DoesNotExistException());
             bookMatch.ChangeBookValue(command.Stake, currency, bookType.ToEnum(BookType.Draw));
