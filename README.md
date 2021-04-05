@@ -3,6 +3,12 @@ The goal of this project is implement a reusable .NET project template with a fu
 
 ## Give a Star :star:
  If you liked the project or any part of it, please give a star :)
+
+## Table of Contents
+1. [Introduction](#Introduction)
+2. [Quick start](#Quick-start)
+3. [Decorator Strategy](#Decorator-Strategy)
+4. [List of Kitbags](#List-of-Kitbags)
  
 ## Introduction:
 The solution is divided into five parts:
@@ -28,10 +34,6 @@ The solution is divided into five parts:
      1. Run *{YOUR PROJECT NAME}.DatabaseMigration*. Project applies necessary migrations to your database.
   1. Run *{YOUR PROJECT NAME}.Api* project.
   1. Open swagger page: *http://localhost:{YOUR PORT}/index.html*
-
-## Table of Contents
-1. [Decorator Strategy](#Decorator-Strategy)
-2. [List of Kitbags](#List-of-Kitbags)
 
 ## Decorator Strategy
 Every command handler is decorated with the following decorators:
