@@ -29,25 +29,26 @@ The solution is divided into five parts:
   1. Run *{YOUR PROJECT NAME}.Api* project.
   1. Open swagger page: *http://localhost:{YOUR PORT}/index.html*
 
-[[_TOC_]]
+## Table of Contents
+1. [Decorator Strategy](#Decorator-Strategy)
+2. [List of Kitbags](#List-of-Kitbags)
 
 ## Decorator Strategy
-Every command handler will be decorated with some types of decorators:
-1. ICommand Dispatcher
+Every command handler is decorated with the following decorators:
 1. Logger Command Handler Decorator
-1. Validating Command Handler Decorator
-1. Unit Of Work Command Handler Decorator
-1. Idempotency Command Handler Decorator
-1. Command Handler
+2. Validating Command Handler Decorator
+3. Unit Of Work Command Handler Decorator
+4. Idempotency Command Handler Decorator
+5. Command Handler
 
 ![image](./assets/DecoratorStrategy.png)
 
-# Key adventages: 
+### Key adventages: 
 - The boundaries of transaction is set
 - Transaction management is delegated to separate class (unit of work and decorator), thus it supports Single Responsibility Principle
 - Easy way to apply more decorators to handle cross-cutting patterns
 
-# Consequences
+### Consequences
 
 All developers should follow the rules and create commands and appropriate command handlers and be aware of the transaction scope and chain of command processing.
 
