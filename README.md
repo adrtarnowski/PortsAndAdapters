@@ -59,18 +59,25 @@ All developers should follow the rules and create commands and appropriate comma
 - **Audit Trail** :bookmark_tabs: Kitbag provides audit trail mechanism that can track any database changes without making any unnecessary modification in existing code [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Persistence.EntityFramework.Audit)
 
 - **Logging** : TBD
+- Integration with AppInsights is added
 
 - **Database Migrations** : TBD
+- Integration with UpDb is added
 
 - **CQRS** : TBD (with Dapper)
+- Dapper is added and ready to consume queries from tables, views and even procedures
 
 - **Unit Of Work** : TBD
+- Unit of Work with AuditLog is added
 
-- **Idempotency** : TBD
+
 
 - **Domain Events** : TBD
 
-- **Message Broker** : TBD
+- **Message Bus** : TBD
+- Integration with Azure Service Bus is added
+
+- **Idempotency** : TBD
 
 - **Outbox** : TBD
 

@@ -1,6 +1,5 @@
 using System;
 using Kitbag.Builder.MessageBus.IntegrationEvent;
-using TLJ.PortsAndAdapters.Application.Bookmaking.Commands;
 
 namespace TLJ.PortsAndAdapters.Application.Bookmaking.Events
 {

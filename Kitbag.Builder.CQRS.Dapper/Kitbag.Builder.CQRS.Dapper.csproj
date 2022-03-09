@@ -1,11 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <Version>1.0.0</Version>
         <AssemblyVersion>0.0.0.1</AssemblyVersion>
         <PackageVersion>1.0.0</PackageVersion>
         <Company>Adrian Tarnowski https://techleaderjourney.com/</Company>
-        <Description>Application defines public contract for external applications. This is a gateway to an application core.</Description>
+        <Description>This kitbag provides queries using Dapper framework</Description>
         <DefaultLanguage>en-US</DefaultLanguage>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GenerateDocumentationFile>false</GenerateDocumentationFile>
@@ -19,11 +18,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Kitbag.Builder.CQRS.Dapper\Kitbag.Builder.CQRS.Dapper.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.MessageBus\Kitbag.Builder.MessageBus.csproj" />
-        <ProjectReference Include="..\TLJ.PortsAndAdapters.Core\TLJ.PortsAndAdapters.Core.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.WebApi\Kitbag.Builder.WebApi.csproj" />
+        <PackageReference Include="Dapper" Version="2.0.30" />
+        <PackageReference Include="Dapper.SqlBuilder" Version="2.0.30" />
+        <PackageReference Include="FluentValidation" Version="8.6.2" />
+        <PackageReference Include="Microsoft.Data.SqlClient" Version="1.0.19269.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Kitbags\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
+        <ProjectReference Include="..\Kitbags\Kitbag.Builder.Persistence.Core\Kitbag.Builder.Persistence.Core.csproj" />
     </ItemGroup>
 
 </Project>

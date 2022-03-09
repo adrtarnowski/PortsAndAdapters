@@ -19,7 +19,7 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking.Commands.Handlers
 
         public async Task HandleAsync(BookMatchCommand command)
         {
-            var currency = command.Currency ?? throw new BrokenBusinessRuleException(new RequiredValueException(nameof(command.Stake)));
+            var currency = command.Currency ?? throw new BrokenBusinessRuleException(new RequiredValueException(nameof(command.Currency)));
             var bookType = command.BookType ?? throw new BrokenBusinessRuleException(new RequiredValueException(nameof(command.BookType)));
             
             if(await _bookMatchRepository.AnyByUserAndMatchAsync(command.UserId, command.MatchId))

@@ -19,6 +19,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Kitbag.Builder.CQRS.Dapper\Kitbag.Builder.CQRS.Dapper.csproj" />
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.AzureAD\Kitbag.Builder.AzureAD.csproj" />
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.CQRS.IntegrationEvents\Kitbag.Builder.CQRS.IntegrationEvents.csproj" />
       <ProjectReference Include="..\Kitbags\Kitbag.Builder.MessageBus.ServiceBus\Kitbag.Builder.MessageBus.ServiceBus.csproj" />

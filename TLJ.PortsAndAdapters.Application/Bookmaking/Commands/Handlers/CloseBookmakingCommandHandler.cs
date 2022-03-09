@@ -30,7 +30,7 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking.Commands.Handlers
                 throw new BrokenBusinessRuleException(new DoesNotExistException());
             bookMatch.Close();
             
-            //TODO: Add Ooutbox pattern
+            //TODO: Add Outbox pattern
             await _busPublisher.PublishEventAsync(
                 new CloseBookmakingEvent(
                     Guid.NewGuid(), 
