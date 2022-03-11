@@ -1,7 +1,7 @@
 using System;
 using Microsoft.Azure.ServiceBus;
 
-namespace Kitbag.Builder.MessageBus.ServiceBus.Common
+namespace Kitbag.Builder.MessageBus.ServiceBus.Clients
 {
     public interface IBusClient : IDisposable
     {

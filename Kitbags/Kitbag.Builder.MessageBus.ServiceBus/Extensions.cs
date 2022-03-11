@@ -1,6 +1,7 @@
 ﻿using Kitbag.Builder.Core.Builders;
 using Kitbag.Builder.MessageBus.Common;
 using Kitbag.Builder.MessageBus.IntegrationEvent;
+using Kitbag.Builder.MessageBus.ServiceBus.Clients;
 using Kitbag.Builder.MessageBus.ServiceBus.Common;
 using Microsoft.Extensions.DependencyInjection;
 

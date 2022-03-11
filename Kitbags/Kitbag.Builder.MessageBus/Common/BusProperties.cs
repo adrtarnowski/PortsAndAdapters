@@ -17,5 +17,7 @@ namespace Kitbag.Builder.MessageBus.Common
         public string? EventTopicName { get; set; }
         
         public string? EventSubscriptionName { get; set; }
+        
+        public string? QueueName { get; set; }
     }
 }

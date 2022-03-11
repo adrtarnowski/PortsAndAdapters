@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Kitbag.Builder.MessageBus.IntegrationEvent;
 using Microsoft.Extensions.Logging;
@@ -15,6 +16,7 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking.Events
 
         public async Task HandleAsync(CloseBookmakingEvent integrationEvent)
         {
+            throw new Exception();
             _logger.Log(LogLevel.Information,"Reaction in this event");
         }
     }

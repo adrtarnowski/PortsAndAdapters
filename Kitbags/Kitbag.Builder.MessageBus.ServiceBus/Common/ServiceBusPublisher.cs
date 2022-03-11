@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Kitbag.Builder.MessageBus.Common;
 using Kitbag.Builder.MessageBus.IntegrationEvent;
+using Kitbag.Builder.MessageBus.ServiceBus.Clients;
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
