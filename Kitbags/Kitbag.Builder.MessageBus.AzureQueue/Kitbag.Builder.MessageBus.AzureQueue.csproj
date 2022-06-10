@@ -19,12 +19,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.CQRS.IntegrationEvents\Kitbag.Builder.CQRS.IntegrationEvents.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.MessageBus\Kitbag.Builder.MessageBus.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.MessageBus\Kitbag.Builder.MessageBus.csproj" />
+        <ProjectReference Include="..\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
+        <ProjectReference Include="..\Kitbag.Builder.MessageBus\Kitbag.Builder.MessageBus.csproj" />
     </ItemGroup>
 
     <ItemGroup>

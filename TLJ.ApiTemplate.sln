@@ -51,9 +51,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.MessageBus.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.CQRS.IntegrationEvents", "Kitbags\Kitbag.Builder.CQRS.IntegrationEvents\Kitbag.Builder.CQRS.IntegrationEvents.csproj", "{F55E66CC-D776-4FA6-AA9B-4AAC62105188}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.CQRS.Dapper", "Kitbag.Builder.CQRS.Dapper\Kitbag.Builder.CQRS.Dapper.csproj", "{4F08F48F-24B2-45AE-83D8-11E788BE8908}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.CQRS.Dapper", "Kitbags\Kitbag.Builder.CQRS.Dapper\Kitbag.Builder.CQRS.Dapper.csproj", "{F7DFBEBD-2046-4CD0-905D-7E483371C9D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.MessageBus.AzureQueue", "Kitbag.Builder.MessageBus.AzureQueue\Kitbag.Builder.MessageBus.AzureQueue.csproj", "{BE0125D1-DF4C-4F06-A703-AB28C025DF14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.MessageBus.AzureQueue", "Kitbags\Kitbag.Builder.MessageBus.AzureQueue\Kitbag.Builder.MessageBus.AzureQueue.csproj", "{6C18181E-BFB4-4824-A94C-41EE2B168CA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -151,14 +151,14 @@ Global
 		{F55E66CC-D776-4FA6-AA9B-4AAC62105188}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F55E66CC-D776-4FA6-AA9B-4AAC62105188}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F55E66CC-D776-4FA6-AA9B-4AAC62105188}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4F08F48F-24B2-45AE-83D8-11E788BE8908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4F08F48F-24B2-45AE-83D8-11E788BE8908}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4F08F48F-24B2-45AE-83D8-11E788BE8908}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4F08F48F-24B2-45AE-83D8-11E788BE8908}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BE0125D1-DF4C-4F06-A703-AB28C025DF14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BE0125D1-DF4C-4F06-A703-AB28C025DF14}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BE0125D1-DF4C-4F06-A703-AB28C025DF14}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BE0125D1-DF4C-4F06-A703-AB28C025DF14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7DFBEBD-2046-4CD0-905D-7E483371C9D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7DFBEBD-2046-4CD0-905D-7E483371C9D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7DFBEBD-2046-4CD0-905D-7E483371C9D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7DFBEBD-2046-4CD0-905D-7E483371C9D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C18181E-BFB4-4824-A94C-41EE2B168CA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C18181E-BFB4-4824-A94C-41EE2B168CA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C18181E-BFB4-4824-A94C-41EE2B168CA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C18181E-BFB4-4824-A94C-41EE2B168CA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -186,8 +186,8 @@ Global
 		{26E6B185-18FA-463F-BFF0-31D498477B31} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
 		{E264E70F-A597-4A48-A09F-EB3D26A5E8E5} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
 		{F55E66CC-D776-4FA6-AA9B-4AAC62105188} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
-		{4F08F48F-24B2-45AE-83D8-11E788BE8908} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
-		{BE0125D1-DF4C-4F06-A703-AB28C025DF14} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
+		{F7DFBEBD-2046-4CD0-905D-7E483371C9D8} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
+		{6C18181E-BFB4-4824-A94C-41EE2B168CA5} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2EE2E6D3-F58F-45F5-B17A-F01D148EEAD9}

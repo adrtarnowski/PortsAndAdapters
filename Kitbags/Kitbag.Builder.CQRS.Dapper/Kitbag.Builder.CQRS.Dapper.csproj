@@ -25,9 +25,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.Persistence.Core\Kitbag.Builder.Persistence.Core.csproj" />
+        <ProjectReference Include="..\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
+        <ProjectReference Include="..\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
+        <ProjectReference Include="..\Kitbag.Builder.Persistence.Core\Kitbag.Builder.Persistence.Core.csproj" />
     </ItemGroup>
 
 </Project>
