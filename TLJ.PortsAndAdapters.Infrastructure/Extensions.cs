@@ -37,8 +37,8 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             
             builder.Services.RegisterRepositories();
             
-            //  ServiceBus register event example
-            builder.AddServiceBus();
+            // ServiceBus register event example
+           //  builder.AddServiceBus();
             
             return builder;
         }
