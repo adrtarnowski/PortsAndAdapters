@@ -46,10 +46,10 @@ namespace TLJ.PortsAndAdapters.Infrastructure
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)
         {
             
-           //  ServiceBus register event example
-            var busSubscriber = builder.ApplicationServices.GetService<IEventBusSubscriber>();
-            busSubscriber.Subscribe<CloseBookmakingEvent, CloseBookmakingEventHandler>();
-            busSubscriber.RegisterOnMessageHandlerAndReceiveMessages();
+           // ServiceBus register event example
+           // var busSubscriber = builder.ApplicationServices.GetService<IEventBusSubscriber>();
+           // busSubscriber.Subscribe<CloseBookmakingEvent, CloseBookmakingEventHandler>();
+           // busSubscriber.RegisterOnMessageHandlerAndReceiveMessages();
             
             return builder;
         }
