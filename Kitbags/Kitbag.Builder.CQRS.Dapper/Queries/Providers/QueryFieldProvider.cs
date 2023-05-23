@@ -68,7 +68,7 @@ namespace Kitbag.Builder.CQRS.Dapper.Queries.Providers
             var valueType = value.GetType();
             if (value is JValue jValue)
             {
-                valueType = jValue.Value.GetType();
+                valueType = jValue.Value!.GetType();
             }
 
             return valueType;

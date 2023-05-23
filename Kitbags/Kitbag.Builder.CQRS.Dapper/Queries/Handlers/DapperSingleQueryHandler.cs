@@ -39,7 +39,7 @@ namespace Kitbag.Builder.CQRS.Dapper.Queries.Handlers
             var results = await
                 connection.QueryAsync(template.RawSql, types, func, template.Parameters, splitOn: splitOn);
 
-            return results.FirstOrDefault();
+            return results.FirstOrDefault()!;
         }
     }
 }

@@ -46,7 +46,7 @@ public class AutoChangeService : IAutoChangeService
                 DirectoryInfo di = d.Item2;
                 _logger.LogInformation(
                     $"Getting automatic changes on " +
-                    $"{Directory.GetParent(di.FullName).Name}.{di.Name}");
+                    $"{Directory.GetParent(di.FullName)!.Name}.{di.Name}");
                 sqlScripts.AddRange(GetUpgradeScriptsOnAutoChangeEntities(autoChange, di));
             }
             

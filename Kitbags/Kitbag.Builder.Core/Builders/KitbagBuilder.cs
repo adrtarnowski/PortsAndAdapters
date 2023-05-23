@@ -11,9 +11,9 @@ namespace Kitbag.Builder.Core.Builders
     {
         public IServiceCollection Services { get; }
         private readonly List<Action<IServiceProvider>> _buildActions;
-        private readonly IConfiguration _configuration;
+        private readonly IConfiguration? _configuration;
         private readonly List<string> _registeredKitbags;
-        
+
         public KitbagBuilder(IServiceCollection services, IConfiguration? configuration = null)
         {
             Services = services;
@@ -54,7 +54,7 @@ namespace Kitbag.Builder.Core.Builders
             {
                 var initializer = sp.GetService<TInitializer>();
                 var startupInitializer = sp.GetService<IStartupInitializer>();
-                startupInitializer.AddInitializer(initializer);
+                if (startupInitializer != null) startupInitializer.AddInitializer(initializer);
             });
         }
 
@@ -66,7 +66,7 @@ namespace Kitbag.Builder.Core.Builders
         public void GetSettings<TProperties>(string appSettingSectionName, TProperties properties)
             where TProperties : new()
         {
-            _configuration.GetSection(appSettingSectionName).Bind(properties);
+            if (_configuration != null) _configuration.GetSection(appSettingSectionName).Bind(properties);
         }
         
         private void BuildAction(Action<IServiceProvider> execute)

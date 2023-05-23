@@ -15,7 +15,7 @@ namespace TLJ.PortsAndAdapters.DatabaseMigration
 
             var dbUpService = serviceProvider.GetService<IMigrationService>();
 
-            if (!dbUpService.ExecuteMigrationScripts())
+            if (!dbUpService!.ExecuteMigrationScripts())
                 return -1;
 
             return 0;

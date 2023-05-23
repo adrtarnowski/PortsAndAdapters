@@ -18,7 +18,7 @@ namespace Kitbag.Builder.CQRS.Core.Events
         {
             dynamic handler = _serviceProvider
                 .GetService(typeof(IDomainEventHandler<>)
-                    .MakeGenericType(@event.GetType()));
+                    .MakeGenericType(@event.GetType()))!;
 
             if (handler != null)
             {

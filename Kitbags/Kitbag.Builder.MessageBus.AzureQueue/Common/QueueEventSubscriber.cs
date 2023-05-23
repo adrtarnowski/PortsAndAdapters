@@ -29,8 +29,8 @@ namespace Kitbag.Builder.MessageBus.AzureQueue.Common
             {
                var message =  _queueClient.ReceiveMessage().Value;
                var messageAsString = Encoding.UTF8.GetString(message.Body);
-               dynamic command = JsonConvert.DeserializeObject(messageAsString);
-               AsyncHelper.RunSync(() => dispatcher.SendAsync(command).ConfigureAwait(false));
+               dynamic command = JsonConvert.DeserializeObject(messageAsString)!;
+               AsyncHelper.RunSync(() => dispatcher!.SendAsync(command).ConfigureAwait(false));
                _queueClient.DeleteMessage(message.MessageId, message.PopReceipt);
             }
         }
