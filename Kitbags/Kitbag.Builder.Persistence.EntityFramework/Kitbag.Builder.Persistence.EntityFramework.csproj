@@ -24,8 +24,12 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.15" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.15" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ReferencePathWithRefAssemblies Update="C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\6.0.13\ref\net6.0\Microsoft.Extensions.Logging.Abstractions.dll" />
     </ItemGroup>
 
 </Project>
