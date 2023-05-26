@@ -29,6 +29,10 @@
       <ProjectReference Include="..\TLJ.PortsAndAdapters.Infrastructure\TLJ.PortsAndAdapters.Infrastructure.csproj" />
     </ItemGroup>
 
+    <PropertyGroup>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    </PropertyGroup>
+
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Properties\launchSettings.json" />
     </ItemGroup>
