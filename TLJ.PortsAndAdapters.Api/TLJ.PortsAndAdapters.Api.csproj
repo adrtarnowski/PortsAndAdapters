@@ -36,9 +36,4 @@
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Properties\launchSettings.json" />
     </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
-    </ItemGroup>
-
 </Project>
