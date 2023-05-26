@@ -24,7 +24,7 @@ namespace Kitbag.Builder.Logging.AppInsights
                 string? key = loggingProperties?.ApplicationInsights?.InstrumentationKey;
                 if (key == null)
                     throw new ArgumentException("Instrumentation Key is missing");
-                loggerBuilder.AddApplicationInsights(key);
+                loggerBuilder.AddApplicationInsights();
                 loggerBuilder.AddFilter<ApplicationInsightsLoggerProvider>("", level);
             });
             builder.Services.AddApplicationInsightsTelemetry();
