@@ -11,7 +11,7 @@ namespace Kitbag.Builder.Persistence.DatabaseMigration.DbUp
 {
     public static class Extensions
     {
-        public static IKitbagBuilder AddDbUp(this IServiceCollection services, Action<ILoggingBuilder> loggingConfig, string appSettingFileName = "appsettings.json", string sectionName = "DbUp")
+        public static IKitbagBuilder AddDbUp(this IServiceCollection services, Action<ILoggingBuilder> loggingConfig, string appSettingFileName = "db_appsettings.json", string sectionName = "DbUp")
         {
             var config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
