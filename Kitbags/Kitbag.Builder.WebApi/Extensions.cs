@@ -23,6 +23,7 @@ public static class Extensions
             var webApiOptions = builder.GetSettings<WebApiOptions>(sectionName);
             var corsAllowedOrigins = webApiOptions.CorsAllowedOrigins?.ToArray() ?? new string[0];
             
+            builder.Services.AddSingleton<IHttpRunningContextProvider, HttpRunningContextProvider>();
             builder.Services
                 .AddMvcCore(option => option.EnableEndpointRouting = false)
                 .AddNewtonsoftJson(options =>
@@ -65,6 +66,15 @@ public static class Extensions
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+            return builder;
+        }
+        
+        
+        
+        public static IApplicationBuilder UseErrorHandler(this IApplicationBuilder builder)
+        {
+            builder.UseMiddleware<CorrelationMiddleware>();
+            builder.UseMiddleware<ActionCorrelationMiddleware>();
             return builder;
         }
     }

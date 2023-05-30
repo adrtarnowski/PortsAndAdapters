@@ -4,16 +4,17 @@ using Kitbag.Builder.CQRS.Core;
 using Kitbag.Builder.CQRS.Core.Commands;
 using Kitbag.Builder.CQRS.Dapper;
 using Kitbag.Builder.CQRS.IntegrationEvents;
-using Kitbag.Builder.MessageBus.IntegrationEvent;
-using Kitbag.Builder.MessageBus.ServiceBus;
+using Kitbag.Builder.Logging.AppInsights.Decorators;
 using Kitbag.Builder.Persistence.EntityFramework;
+using Kitbag.Builder.RunningContext;
+using Kitbag.Builder.RunningContext.Common;
+using Kitbag.Builder.WebApi.Common;
 using Kitbag.Persistence.EntityFramework.Audit;
 using Kitbag.Persistence.EntityFramework.Audit.Common;
 using Kitbag.Persistence.EntityFramework.UnitOfWork;
 using Kitbag.Persistence.EntityFramework.UnitOfWork.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using TLJ.PortsAndAdapters.Application.Bookmaking.Events;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence.Repositories;
 using TLJ.PortsAndAdapters.Infrastructure.ReadModel;
@@ -34,8 +35,10 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             
             builder.Services.Decorate(typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
             builder.Services.Decorate(typeof(ICommandHandler<>), typeof(AuditTrailCommandHandlerDecorator<>));
+            builder.Services.Decorate(typeof(ICommandHandler<>), typeof(AppInsightLoggingCommandHandlerDecorator<>));
             
             builder.Services.RegisterRepositories();
+            builder.AddRunningContext(x => x.GetService<IHttpRunningContextProvider>());
             
             // ServiceBus register event example
            //  builder.AddServiceBus();

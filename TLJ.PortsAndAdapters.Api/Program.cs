@@ -29,6 +29,7 @@ namespace TLJ.PortsAndAdapters.Api
                     .Build())
                 .Configure(app => app
                     .UseKitbag()
+                    .UseErrorHandler()
                     .UseSwaggerDoc()
                     .UseControllers()
                     .UseInfrastructure()

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Kitbag.Builder.Core.Builders;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Kitbag.Builder.Core.Builders;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Identity.Web;
 

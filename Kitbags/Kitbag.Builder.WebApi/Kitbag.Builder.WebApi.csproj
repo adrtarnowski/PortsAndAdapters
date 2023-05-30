@@ -24,6 +24,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
+      <ProjectReference Include="..\Kitbag.Builder.RunningContext\Kitbag.Builder.RunningContext.csproj" />
     </ItemGroup>
 
 </Project>
