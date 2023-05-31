@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Kitbag.Builder.CQRS.Core.Commands;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,5 +27,24 @@ namespace TLJ.PortsAndAdapters.Application.HealthCheck
             _logger.LogInformation("Health check works!");
             return Ok();
         }
+        
+        /// <summary>
+        /// Provides health check report
+        /// </summary>
+        /// <returns>Health check detailed report</returns>
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Produces("application/json")]
+        public async Task<IActionResult> Index([FromBody] HealthCheckCommand command)
+        {
+            string info = $"Health check works.Receive the message {command.systemInfo}";
+            _logger.LogInformation(info);
+            return Ok();
+        }
+    }
+    
+    public class HealthCheckCommand : ICommand
+    {
+        public string? systemInfo { get; set; }
     }
 }
