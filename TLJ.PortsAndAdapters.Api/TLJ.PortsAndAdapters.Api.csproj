@@ -9,6 +9,7 @@
         <DefaultLanguage>en-US</DefaultLanguage>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GenerateDocumentationFile>false</GenerateDocumentationFile>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <PropertyGroup>

@@ -8,6 +8,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Kitbag.Builder.Core", "Kitbags\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj", "{1D24987D-5761-46A6-B320-E8B494689309}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TLJ.PortsAndAdapters", "TLJ.PortsAndAdapters", "{DDB6F910-8362-4D39-A2CF-DC2A933A9F15}"
+	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
+		.dockerignore = .dockerignore
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TLJ.PortsAndAdapters.Api", "TLJ.PortsAndAdapters.Api\TLJ.PortsAndAdapters.Api.csproj", "{F8CD4803-B70A-47D3-B75C-D3D1654839D6}"
 EndProject
