@@ -8,39 +8,38 @@ namespace Kitbag.Builder.MessageBus.ServiceBus.Common
     {
         private readonly Dictionary<string, List<Type>> _handlers = new Dictionary<string, List<Type>>();
         private readonly Dictionary<string, Type> _eventTypes = new Dictionary<string, Type>();
-
+        
         public void AddSubscription<T, TH>()
             where T : IIntegrationEvent
             where TH : IIntegrationEventHandler<T>
         {
-            var eventLabel = GetEventLabel<T>();
+            var eventSubject = GetEventSubject<T>();
 
-            if (!HasSubscriptionsForEvent(eventLabel)) 
-                _handlers.Add(eventLabel, new List<Type>());
+            if (!HasSubscriptionsForEvent(eventSubject)) 
+                _handlers.Add(eventSubject, new List<Type>());
             
-            if (_handlers[eventLabel].Contains(typeof(TH)))
+            if (_handlers[eventSubject].Contains(typeof(TH)))
                 throw new ArgumentException(
-                    $"Handler Type {typeof(TH).Name} already registered for '{eventLabel}'");
+                    $"Handler Type {typeof(TH).Name} already registered for '{eventSubject}'");
             
-            _handlers[eventLabel].Add(typeof(TH));
-            if (!_eventTypes.ContainsKey(eventLabel)) 
-                _eventTypes.Add(eventLabel, typeof(T));
+            _handlers[eventSubject].Add(typeof(TH));
+            if (!_eventTypes.ContainsKey(eventSubject)) 
+                _eventTypes.Add(eventSubject, typeof(T));
         }
 
         public bool HasSubscriptionsForEvent<T>() where T : IIntegrationEvent
         {
-            var key = GetEventLabel<T>();
+            var key = GetEventSubject<T>();
             return HasSubscriptionsForEvent(key);
         }
 
         public bool HasSubscriptionsForEvent(string eventName) => _handlers.ContainsKey(eventName);
 
-        public string GetEventLabel<T>()
+        public string GetEventSubject<T>()
             where T : IIntegrationEvent
         {
-            return MessageBus.Extensions.GetLabelFor<T>();
+            return MessageBus.Extensions.GetEventFor<T>();
         }
-
 
         public IEnumerable<Type> GetHandlersForEvent(string eventName) => _handlers[eventName];
 

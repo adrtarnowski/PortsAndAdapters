@@ -3,8 +3,8 @@ using Kitbag.Builder.MessageBus.IntegrationEvent;
 
 namespace Kitbag.Builder.MessageBus.Common
 {
-    public interface IBusPublisher
+    public interface IBusPublisher<T>  where T : IIntegrationEvent
     {
-        Task PublishEventAsync<T>(T payload, string? sessionId = null) where T : IIntegrationEvent;
+        Task PublishEventAsync(T payload, string? sessionId = null);
     }
 }

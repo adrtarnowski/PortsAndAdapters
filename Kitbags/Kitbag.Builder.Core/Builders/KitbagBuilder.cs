@@ -50,11 +50,11 @@ namespace Kitbag.Builder.Core.Builders
 
         public void AddInitializer<TInitializer>() where TInitializer : IInitializer
         {
-            BuildAction(sp =>
+            AddBuildAction(sp =>
             {
-                var initializer = sp.GetService<TInitializer>();
-                var startupInitializer = sp.GetService<IStartupInitializer>();
-                if (startupInitializer != null) startupInitializer.AddInitializer(initializer);
+                var initializer = sp.GetRequiredService<TInitializer>();
+                var startupInitializer = sp.GetRequiredService<IStartupInitializer>();
+                startupInitializer.AddInitializer(initializer);
             });
         }
 
@@ -69,7 +69,7 @@ namespace Kitbag.Builder.Core.Builders
             if (_configuration != null) _configuration.GetSection(appSettingSectionName).Bind(properties);
         }
         
-        private void BuildAction(Action<IServiceProvider> execute)
+        private void AddBuildAction(Action<IServiceProvider> execute)
         {
             _buildActions.Add(execute);
         }

@@ -5,9 +5,10 @@ using Kitbag.Builder.CQRS.Core.Commands;
 using Kitbag.Builder.CQRS.Dapper;
 using Kitbag.Builder.CQRS.IntegrationEvents;
 using Kitbag.Builder.Logging.AppInsights.Decorators;
+using Kitbag.Builder.MessageBus.IntegrationEvent;
+using Kitbag.Builder.MessageBus.ServiceBus;
 using Kitbag.Builder.Persistence.EntityFramework;
 using Kitbag.Builder.RunningContext;
-using Kitbag.Builder.RunningContext.Common;
 using Kitbag.Builder.WebApi.Common;
 using Kitbag.Persistence.EntityFramework.Audit;
 using Kitbag.Persistence.EntityFramework.Audit.Common;
@@ -15,8 +16,10 @@ using Kitbag.Persistence.EntityFramework.UnitOfWork;
 using Kitbag.Persistence.EntityFramework.UnitOfWork.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using TLJ.PortsAndAdapters.Application.Bookmaking.Events;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence.Repositories;
+using TLJ.PortsAndAdapters.Infrastructure.Events;
 using TLJ.PortsAndAdapters.Infrastructure.ReadModel;
 
 namespace TLJ.PortsAndAdapters.Infrastructure
@@ -40,20 +43,22 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             builder.Services.RegisterRepositories();
             builder.AddRunningContext(x => x.GetService<IHttpRunningContextProvider>());
             
-            // ServiceBus register event example
-           //  builder.AddServiceBus();
+            // ServiceBus register events
+            builder.AddServiceBus();
+            builder.AddServiceBusPublisher<CloseBookmakingEvent>();
+            builder.AddServiceBusSubscriber();
+            builder.Services.AddTransient<EventsRegistrationInitializer>();
+            builder.AddInitializer<EventsRegistrationInitializer>();
+            builder.AddServiceBusWorker();
             
             return builder;
         }
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)
         {
-            
-           // ServiceBus register event example
-           // var busSubscriber = builder.ApplicationServices.GetService<IEventBusSubscriber>();
-           // busSubscriber.Subscribe<CloseBookmakingEvent, CloseBookmakingEventHandler>();
-           // busSubscriber.RegisterOnMessageHandlerAndReceiveMessages();
-            
+            // ServiceBus register event example
+            var busSubscriber = builder.ApplicationServices.GetRequiredService<IEventSubscriber>();
+            busSubscriber.Subscribe<CloseBookmakingEvent, CloseBookmakingEventHandler>();
             return builder;
         }
         

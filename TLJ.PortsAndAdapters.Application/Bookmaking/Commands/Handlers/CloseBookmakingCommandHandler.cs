@@ -13,11 +13,11 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking.Commands.Handlers
     public class CloseBookmakingCommandHandler : ICommandHandler<CloseBookmakingCommand>
     {
         private readonly IBookMatchRepository _bookMatchRepository;
-        private readonly IBusPublisher _busPublisher;
+        private readonly IBusPublisher<CloseBookmakingEvent> _busPublisher;
 
         public CloseBookmakingCommandHandler(
             IBookMatchRepository bookMatchRepository, 
-            IBusPublisher busPublisher)
+            IBusPublisher<CloseBookmakingEvent> busPublisher)
         {
             _bookMatchRepository = bookMatchRepository;
             _busPublisher = busPublisher;

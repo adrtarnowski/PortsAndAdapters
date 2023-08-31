@@ -1,36 +1,36 @@
 using System;
 using System.Text;
 using System.Threading.Tasks;
+using Azure.Messaging.ServiceBus;
 using Kitbag.Builder.MessageBus.Common;
 using Kitbag.Builder.MessageBus.IntegrationEvent;
-using Kitbag.Builder.MessageBus.ServiceBus.Clients;
-using Microsoft.Azure.ServiceBus;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Kitbag.Builder.MessageBus.ServiceBus.Common
 {
-    public class ServiceBusPublisher : IBusPublisher
+    public class ServiceBusPublisher<T> : IBusPublisher<T> where T : IIntegrationEvent
     {
-        private readonly ILogger<ServiceBusPublisher> _logger;
-        private readonly IBusClient _busClient;
+        private readonly ILogger<ServiceBusPublisher<T>> _logger;
+        private readonly ServiceBusSender _sender;
 
         public ServiceBusPublisher(
-            IBusClient busClient, 
-            ILogger<ServiceBusPublisher> logger)
+            IAzureClientFactory<ServiceBusSender> serviceBusSenderFactory,
+            ILogger<ServiceBusPublisher<T>> logger)
         {
-            _busClient = busClient;
+            var eventType = MessageBus.Extensions.GetEventFor<T>();
+            _sender = serviceBusSenderFactory.CreateClient(eventType);
             _logger = logger;
         }
 
-        public async Task PublishEventAsync<T>(T payload, string? sessionId) where T : IIntegrationEvent
+        public async Task PublishEventAsync(T payload, string? sessionId)
         {
-            var eventLabel = MessageBus.Extensions.GetLabelFor<T>();
-            var message = CreateBusMessage(eventLabel, payload, sessionId);
-            
+            var eventType = MessageBus.Extensions.GetEventFor<T>();
             try
             {
-                await _busClient.GetEventTopicClient().SendAsync(message).ConfigureAwait(false);
+                var message = CreateBusMessage(eventType, payload, sessionId);
+                await _sender.SendMessageAsync(message).ConfigureAwait(false); 
             }
             catch (Exception e)
             {
@@ -39,12 +39,12 @@ namespace Kitbag.Builder.MessageBus.ServiceBus.Common
             }
         }
 
-        private Message CreateBusMessage(string? messageLabel, object payload, string? sessionId)
+        private ServiceBusMessage CreateBusMessage(string? messageSubject, object payload, string? sessionId)
         {
             string data = payload is string ? (string) payload : JsonConvert.SerializeObject(payload);
-            var message = new Message(Encoding.UTF8.GetBytes(data));
-            message.Label = messageLabel;
+            var message = new ServiceBusMessage(Encoding.UTF8.GetBytes(data));
             message.SessionId = sessionId ?? Guid.NewGuid().ToString();
+            message.Subject = messageSubject;
             return message;
         }
     }

@@ -19,8 +19,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Azure.Messaging.ServiceBus" Version="7.16.1" />
         <PackageReference Include="Azure.Storage.Blobs" Version="12.16.0" />
-        <PackageReference Include="Microsoft.Azure.ServiceBus" Version="5.2.0" />
+        <PackageReference Include="Microsoft.Extensions.Azure" Version="1.7.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,5 +30,6 @@
       <ProjectReference Include="..\Kitbag.Builder.CQRS.IntegrationEvents\Kitbag.Builder.CQRS.IntegrationEvents.csproj" />
       <ProjectReference Include="..\Kitbag.Builder.MessageBus\Kitbag.Builder.MessageBus.csproj" />
     </ItemGroup>
+
 
 </Project>

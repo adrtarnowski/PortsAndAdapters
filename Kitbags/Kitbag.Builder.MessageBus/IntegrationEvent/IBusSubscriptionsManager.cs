@@ -12,6 +12,6 @@ namespace Kitbag.Builder.MessageBus.IntegrationEvent
         bool HasSubscriptionsForEvent(string eventName);
         IEnumerable<Type> GetHandlersForEvent(string eventName);
         public Type GetEventTypeByName(string eventName);
-        string GetEventLabel<T>() where T : IIntegrationEvent;
+        string GetEventSubject<T>() where T : IIntegrationEvent;
     }
 }

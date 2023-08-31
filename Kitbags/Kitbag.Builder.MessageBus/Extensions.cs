@@ -6,18 +6,18 @@ namespace Kitbag.Builder.MessageBus
 {
     public static class Extensions
     {
-        public static string GetLabelFor<T>()
+        public static string GetEventFor<T>()
             where T : IIntegrationEvent
         {
-            return GetLabelForType(typeof(T));
+            return GetEventForType(typeof(T));
         }
 
-        public static string GetLabel(this IIntegrationEvent integrationEvent)
+        public static string GetEventType(this IIntegrationEvent integrationEvent)
         {
-            return GetLabelForType(integrationEvent.GetType());
+            return GetEventForType(integrationEvent.GetType());
         }
 
-        private static string GetLabelForType(Type type)
+        private static string GetEventForType(Type type)
         {
             var eventTypeName = type.Name.Replace("IntegrationEvent", "");
             var eventName = eventTypeName.Underscore().ToLower();

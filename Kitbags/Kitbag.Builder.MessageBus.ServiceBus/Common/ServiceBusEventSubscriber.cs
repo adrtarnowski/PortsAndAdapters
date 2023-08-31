@@ -1,158 +1,138 @@
 using System;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Kitbag.Builder.Core.Common;
+using Azure.Messaging.ServiceBus;
+using Azure.Messaging.ServiceBus.Administration;
 using Kitbag.Builder.CQRS.IntegrationEvents.Common;
 using Kitbag.Builder.MessageBus.Common;
 using Kitbag.Builder.MessageBus.IntegrationEvent;
-using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Kitbag.Builder.MessageBus.ServiceBus.Common
 {
-    public class ServiceBusEventSubscriber : IEventBusSubscriber, IDisposable
+    public class ServiceBusEventSubscriber : IEventSubscriber
     {
-        private bool _disposed;
+        private readonly ServiceBusClient _serviceBusClient;
         private readonly BusProperties _busProperties;
-        private readonly ILogger<ServiceBusEventSubscriber> _logger;
+        private readonly ServiceBusAdministrationClient _administrationClient;
         private readonly IBusSubscriptionsManager _busSubscriptionManager;
         private readonly IIntegrationEventDispatcher _eventDispatcher;
-        private ISubscriptionClient _subscriptionClient;
-
-        private ISubscriptionClient Client => _subscriptionClient = _subscriptionClient.IsClosedOrClosing ? GetSubscriptionClient() : _subscriptionClient;
+        private readonly ILogger<ServiceBusEventSubscriber> _logger;
+        private ServiceBusSessionProcessor? _processor = null;
 
         public ServiceBusEventSubscriber(
             BusProperties busProperties,
             ILogger<ServiceBusEventSubscriber> logger,
-            IBusSubscriptionsManager busSubscriptionsManager, 
-            IIntegrationEventDispatcher eventDispatcher)
+            ServiceBusClient serviceBusClient,
+            IBusSubscriptionsManager busSubscriptionsManager,
+            IIntegrationEventDispatcher eventDispatcher, ServiceBusAdministrationClient administrationClient)
         {
             _busProperties = busProperties;
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _subscriptionClient = new SubscriptionClient(busProperties.ConnectionString, busProperties.EventTopicName, busProperties.EventSubscriptionName);
-            _busSubscriptionManager = busSubscriptionsManager ?? throw new ArgumentNullException(nameof(busSubscriptionsManager));
+            _serviceBusClient = serviceBusClient ?? throw new ArgumentNullException(nameof(serviceBusClient));
+            _administrationClient =
+                administrationClient ?? throw new ArgumentNullException(nameof(administrationClient));
+            _busSubscriptionManager = busSubscriptionsManager ??
+                                      throw new ArgumentNullException(nameof(busSubscriptionsManager));
             _eventDispatcher = eventDispatcher ?? throw new ArgumentNullException(nameof(eventDispatcher));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public void RegisterOnMessageHandlerAndReceiveMessages()
+        public async Task RegisterOnMessageHandlerAndReceiveMessages()
         {
-            RemoveDefaultRule();
-            Client.RegisterSessionHandler(
-                async (session, message, token) =>
-                {
-                    if (await ProcessMessage(message)) 
-                        await session.CompleteAsync(message.SystemProperties.LockToken);
-                }, 
-                new SessionHandlerOptions(ExceptionReceivedHandler)
+            _processor = _serviceBusClient.CreateSessionProcessor(_busProperties.EventTopicName,
+                _busProperties.EventSubscriptionName,
+                new ServiceBusSessionProcessorOptions()
                 {
                     MaxConcurrentSessions = _busProperties.MaxConcurrentCalls ?? 16,
-                    AutoComplete = _busProperties.AutoComplete ?? false,
-                    MessageWaitTimeout = TimeSpan.FromSeconds(_busProperties.MessageWaitTimeoutInSeconds ?? 1),
-                    MaxAutoRenewDuration = TimeSpan.FromMinutes(_busProperties.MaxAutoRenewMinutesDuration ?? 5),
+                    AutoCompleteMessages = _busProperties.AutoComplete ?? false,
+                    SessionIdleTimeout = TimeSpan.FromSeconds(_busProperties.MessageWaitTimeoutInSeconds ?? 1),
+                    MaxAutoLockRenewalDuration = TimeSpan.FromMinutes(_busProperties.MaxAutoRenewMinutesDuration ?? 5)
                 });
+
+            _processor.ProcessMessageAsync += MessageHandler;
+            _processor.ProcessErrorAsync += ErrorHandler;
+            await _processor.StartProcessingAsync().ConfigureAwait(false);
         }
 
-        public void Subscribe<T, TH>()
-            where T : IIntegrationEvent
-            where TH : IIntegrationEventHandler<T>
+        private async Task MessageHandler(ProcessSessionMessageEventArgs args)
         {
-            var eventName = _busSubscriptionManager.GetEventLabel<T>();
-            if (!_busSubscriptionManager.HasSubscriptionsForEvent<T>()) 
-                AddCustomRule(eventName);
-            
-            _logger.LogInformation("Subscribing to event {EventName} with {EventHandler}", eventName, typeof(TH).Name);
-            _busSubscriptionManager.AddSubscription<T, TH>();
+            if (await ProcessMessage(args.Message)) ;
+            await args.CompleteMessageAsync(args.Message);
         }
 
-        public void Dispose()
+        private Task ErrorHandler(ProcessErrorEventArgs arg)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            _logger.LogError(
+                arg.Exception,
+                $"Message handler encountered an exception | ErrorSource: {arg.ErrorSource} - EntityPath: {arg.EntityPath} - FullyQualifiedNamespace: {arg.FullyQualifiedNamespace}");
+            return Task.CompletedTask;
         }
 
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed) 
-                return;
-
-            if (disposing)
-            {
-                if (!_subscriptionClient.IsClosedOrClosing) 
-                    AsyncHelper.RunSync(() => _subscriptionClient.CloseAsync());
-            }
-            _disposed = true;
-        }
-
-        private async Task<bool> ProcessMessage(Message message)
+        private async Task<bool> ProcessMessage(ServiceBusReceivedMessage message)
         {
             var processed = false;
-            var eventName = message.Label;
-            if (_busSubscriptionManager.HasSubscriptionsForEvent(eventName))
-            {
-                var messageAsString = Encoding.UTF8.GetString(message.Body);
+            var eventName = message.Subject;
 
-                var eventType = _busSubscriptionManager.GetEventTypeByName(eventName);
-                var integrationEvent = (IIntegrationEvent)JsonConvert.DeserializeObject(messageAsString, eventType);
-                var subscriptions = _busSubscriptionManager.GetHandlersForEvent(eventName).ToList();
-                foreach (var subscription in subscriptions)
-                {
-                    await _eventDispatcher.SendAsync(integrationEvent, subscription).ConfigureAwait(false);
-                }
-
-                processed = true;
-            }
+            var messageAsString = Encoding.UTF8.GetString(message.Body);
+            var eventType = _busSubscriptionManager.GetEventTypeByName(eventName);
+            var integrationEvent = (IIntegrationEvent)JsonConvert.DeserializeObject(messageAsString, eventType)!;
+            await _eventDispatcher.SendAsync(integrationEvent).ConfigureAwait(false);
+            processed = true;
 
             return processed;
         }
 
-        private void RemoveDefaultRule()
+        public async Task AddCustomRule(string subject)
         {
             try
             {
-                AsyncHelper.RunSync(() => _subscriptionClient.RemoveRuleAsync(RuleDescription.DefaultRuleName));
-            }
-            catch (MessagingEntityNotFoundException)
-            {
-                _logger.LogInformation($"The messaging entity {RuleDescription.DefaultRuleName} is removed.");
-            }
-        }
-
-        private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
-        {
-            var context = exceptionReceivedEventArgs.ExceptionReceivedContext;
-            _logger.LogError(
-                exceptionReceivedEventArgs.Exception,
-                $"Message handler encountered an exception {context.EntityPath} | {context.Action}");
-            return Task.CompletedTask;
-        }
-
-        private void AddCustomRule(string label)
-        {
-            try
-            {
-                AsyncHelper.RunSync(() => GetSubscriptionClient().AddRuleAsync(new RuleDescription
-                {
-                    Filter = new CorrelationFilter { Label = label },
-                    Name = label
-                }));
+                await _administrationClient.CreateRuleAsync(_busProperties.EventTopicName,
+                    _busProperties.EventSubscriptionName, new CreateRuleOptions
+                    {
+                        Name = subject,
+                        Filter = new CorrelationRuleFilter() { Subject = subject }
+                    });
             }
             catch (ServiceBusException exception)
             {
-                _logger.LogInformation($"The messaging entity {label} already exists.", exception.Message);
+                _logger.LogInformation($"The messaging entity {subject} already exists.", exception.Message);
             }
         }
 
-        private ISubscriptionClient GetSubscriptionClient()
-            => new SubscriptionClient(
-                _busProperties.ConnectionString,
-                _busProperties.EventTopicName,
-                _busProperties.EventSubscriptionName);
-
-        ~ServiceBusEventSubscriber()
+        public async Task RemoveDefaultRule()
         {
-            Dispose(false);
+            try
+            {
+                await _administrationClient.DeleteRuleAsync(_busProperties.EventTopicName,
+                    _busProperties.EventSubscriptionName, "$Default");
+            }
+            catch (ServiceBusException exception)
+            {
+                _logger.LogInformation($"The messaging entity has encounter an issue {exception.Message}");
+            }
+        }
+        
+        public void Subscribe<T, TH>()
+            where T : IIntegrationEvent
+            where TH : IIntegrationEventHandler<T>
+        {
+            _busSubscriptionManager.AddSubscription<T, TH>();
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            if (_processor != null)
+            {
+                await _processor.DisposeAsync().ConfigureAwait(false);
+            }
+
+            await _serviceBusClient.DisposeAsync().ConfigureAwait(false);
+        }
+
+        public async Task CloseSubscriptionAsync()
+        {
+            await _processor!.CloseAsync().ConfigureAwait(false);
         }
     }
 }
