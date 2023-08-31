@@ -15,7 +15,6 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking.Events
 
         public async Task HandleAsync(CloseBookmakingEvent integrationEvent)
         {
-            //throw new Exception();
             _logger.Log(LogLevel.Information,"Reaction for this event");
         }
     }

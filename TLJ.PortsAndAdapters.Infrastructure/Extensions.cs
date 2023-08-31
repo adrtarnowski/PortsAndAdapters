@@ -46,9 +46,7 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             // ServiceBus register events
             builder.AddServiceBus();
             builder.AddServiceBusPublisher<CloseBookmakingEvent>();
-            builder.AddServiceBusSubscriber();
-            builder.Services.AddTransient<EventsRegistrationInitializer>();
-            builder.AddInitializer<EventsRegistrationInitializer>();
+            builder.AddServiceBusSubscriber<SubscriptionRegistrationInitializer>();
             builder.AddServiceBusWorker();
             
             return builder;

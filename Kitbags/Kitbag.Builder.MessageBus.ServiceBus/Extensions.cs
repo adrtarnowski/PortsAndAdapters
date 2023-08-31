@@ -1,5 +1,6 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Kitbag.Builder.Core.Builders;
+using Kitbag.Builder.Core.Initializer;
 using Kitbag.Builder.MessageBus.Common;
 using Kitbag.Builder.MessageBus.IntegrationEvent;
 using Kitbag.Builder.MessageBus.ServiceBus.Common;
@@ -16,7 +17,7 @@ namespace Kitbag.Builder.MessageBus.ServiceBus
                 return builder;
             var busProperties = builder.GetSettings<BusProperties>(sectionName);
             builder.Services.AddSingleton(busProperties);
-            builder.Services.AddSingleton<IBusSubscriptionsManager, BusSubscriptionManager>();
+            builder.Services.AddSingleton<IEventManager, EventManager>();
             
             builder.Services.AddAzureClients(sbBuilder =>
             {
@@ -40,7 +41,7 @@ namespace Kitbag.Builder.MessageBus.ServiceBus
                     {
                         var busSettings = provider.GetRequiredService<BusProperties>();
                         return provider
-                            .GetService<ServiceBusClient>()!
+                            .GetRequiredService<ServiceBusClient>()
                             .CreateSender(busSettings.EventTopicName);
                     })
                     .WithName(eventType);
@@ -48,10 +49,14 @@ namespace Kitbag.Builder.MessageBus.ServiceBus
             return builder;
         }
         
-        public static IKitbagBuilder AddServiceBusSubscriber(this IKitbagBuilder builder, string sectionName = "ServiceBusSubscriber")
+        public static IKitbagBuilder AddServiceBusSubscriber<TInit>(this IKitbagBuilder builder, string sectionName = "ServiceBusSubscriber") where TInit : class, IInitializer
         {
             if (!builder.TryRegisterKitBag(sectionName))
                 return builder;
+            
+            builder.Services.AddSingleton<IServiceBusSubscriptionBuilder, ServiceBusSubscriptionBuilder>();
+            builder.Services.AddTransient<TInit>();
+            builder.AddInitializer<TInit>();
             builder.Services.AddSingleton<IEventSubscriber, ServiceBusEventSubscriber>();
             
             return builder;

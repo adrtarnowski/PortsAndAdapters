@@ -1,8 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Kitbag.Builder.Core.Common;
-using Kitbag.Builder.Core.Domain.Exceptions;
-using Kitbag.Builder.Core.Domain.Rules;
 using Kitbag.Builder.CQRS.Core.Commands;
 using Kitbag.Builder.MessageBus.Common;
 using TLJ.PortsAndAdapters.Application.Bookmaking.Events;
@@ -25,10 +23,10 @@ namespace TLJ.PortsAndAdapters.Application.Bookmaking.Commands.Handlers
 
         public async Task HandleAsync(CloseBookmakingCommand command)
         {
-            var bookMatch = await _bookMatchRepository.FindByUserAndMatchIdsAsync(command.UserId, command.MatchId);
-            if(bookMatch == null)
-                throw new BrokenBusinessRuleException(new DoesNotExistException());
-            bookMatch.Close();
+            /* BUSINESS LOGIC EXAMPLE
+             var bookMatch = await _bookMatchRepository.FindByUserAndMatchIdsAsync(command.UserId, command.MatchId);
+             if(bookMatch == null) throw new BrokenBusinessRuleException(new DoesNotExistException()); bookMatch.Close();
+             */
             
             //TODO: Add Outbox pattern
             await _busPublisher.PublishEventAsync(

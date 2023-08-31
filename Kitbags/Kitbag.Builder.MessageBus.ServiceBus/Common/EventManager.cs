@@ -4,7 +4,7 @@ using Kitbag.Builder.MessageBus.IntegrationEvent;
 
 namespace Kitbag.Builder.MessageBus.ServiceBus.Common
 {
-    public class BusSubscriptionManager : IBusSubscriptionsManager
+    public class EventManager : IEventManager
     {
         private readonly Dictionary<string, List<Type>> _handlers = new Dictionary<string, List<Type>>();
         private readonly Dictionary<string, Type> _eventTypes = new Dictionary<string, Type>();

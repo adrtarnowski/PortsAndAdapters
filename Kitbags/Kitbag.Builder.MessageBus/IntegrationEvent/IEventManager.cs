@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Kitbag.Builder.MessageBus.IntegrationEvent
 {
-    public interface IBusSubscriptionsManager
+    public interface IEventManager
     {
         void AddSubscription<T, TH>()
             where T : IIntegrationEvent
