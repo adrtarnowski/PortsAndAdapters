@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Azure.Identity;
 using Kitbag.Builder.Core;
 using Kitbag.Builder.HttpClient;
 using Kitbag.Builder.Logging.AppInsights;
@@ -24,8 +26,15 @@ namespace TLJ.PortsAndAdapters.Api
                 {
                     var settings = config.Build();
                     var connectionString = settings["AppConfiguration:ConnectionString"];
-                    if(!IsNullOrEmpty(connectionString))
-                        config.AddAzureAppConfiguration(options => { options.Connect(connectionString); });
+                    var appConfigEndpoint = settings["AppConfiguration:Endpoint"];
+                    if (!IsNullOrEmpty(connectionString))
+                    {
+                        config.AddAzureAppConfiguration(options => options.Connect(connectionString));
+                    }
+                    else if(!IsNullOrEmpty(appConfigEndpoint))
+                    {
+                        config.AddAzureAppConfiguration(options => options.Connect(new Uri(appConfigEndpoint), new ManagedIdentityCredential()));
+                    }
                 })
                 .ConfigureServices((webHostBuilderContext, services) => services
                     .AddKitbag(webHostBuilderContext.Configuration)

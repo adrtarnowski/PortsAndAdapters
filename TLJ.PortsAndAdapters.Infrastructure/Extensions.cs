@@ -46,10 +46,10 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             builder.AddRunningContext(x => x.GetService<IHttpRunningContextProvider>());
             
             // ServiceBus register events
-            builder.AddServiceBus();
-            builder.AddServiceBusPublisher<CloseBookmakingEvent>();
+            /* builder.AddServiceBus();
             builder.AddServiceBusSubscriber<ServiceBusSubscriptionRegistrationInitializer>();
-            builder.AddServiceBusWorker();
+            builder.AddServiceBusPublisher<CloseBookmakingEvent>();
+            builder.AddServiceBusWorker(); */
             
             return builder;
         }
@@ -57,8 +57,8 @@ namespace TLJ.PortsAndAdapters.Infrastructure
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)
         {
             // ServiceBus register event example
-            var busSubscriber = builder.ApplicationServices.GetRequiredService<IEventSubscriber>();
-            busSubscriber.Subscribe<CloseBookmakingEvent, CloseBookmakingEventHandler>();
+            /* var busSubscriber = builder.ApplicationServices.GetRequiredService<IEventSubscriber>();
+            busSubscriber.Subscribe<CloseBookmakingEvent, CloseBookmakingEventHandler>(); */
             return builder;
         }
         

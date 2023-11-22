@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Messaging.ServiceBus;
@@ -63,17 +64,25 @@ namespace Kitbag.Builder.MessageBus.ServiceBus.Common
                 $"Message handler encountered an exception | ErrorSource: {arg.ErrorSource} - EntityPath: {arg.EntityPath} - FullyQualifiedNamespace: {arg.FullyQualifiedNamespace}");
             return Task.CompletedTask;
         }
-
+        
         private async Task<bool> ProcessMessage(ServiceBusReceivedMessage message)
         {
             var processed = false;
             var eventName = message.Subject;
+            if (_eventManager.HasSubscriptionsForEvent(eventName))
+            {
+                var messageAsString = Encoding.UTF8.GetString(message.Body);
 
-            var messageAsString = Encoding.UTF8.GetString(message.Body);
-            var eventType = _eventManager.GetEventTypeByName(eventName);
-            var integrationEvent = (IIntegrationEvent)JsonConvert.DeserializeObject(messageAsString, eventType)!;
-            await _eventDispatcher.SendAsync(integrationEvent).ConfigureAwait(false);
-            processed = true;
+                var eventType = _eventManager.GetEventTypeByName(eventName);
+                var integrationEvent = (IIntegrationEvent)JsonConvert.DeserializeObject(messageAsString, eventType)!;
+                var subscriptions = _eventManager.GetHandlersForEvent(eventName).ToList();
+                foreach (var subscription in subscriptions)
+                {
+                    await _eventDispatcher.SendAsync(integrationEvent, subscription).ConfigureAwait(false);
+                }
+
+                processed = true;
+            }
 
             return processed;
         }

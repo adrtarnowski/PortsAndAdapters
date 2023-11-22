@@ -1,8 +1,8 @@
-name: CAE-Build and push Orchestrator Docker image
+name: Build and push docker image with .NET app
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main-preview ]
 
   workflow_dispatch:
 
@@ -29,10 +29,10 @@ jobs:
           dig ${{vars.ACR_URI}}
           az acr login -n ${{vars.ACR_URI}} --expose-token
 
-      - name: 'Detect existing Docker image version for ${{vars.ORCHESTRATION_IMAGE}}'
+      - name: 'Detect existing Docker image version for ${{vars.IMAGE_NAME}}'
         id: docker-image-version
         run: |
-          LAST_TAG=$(az acr repository show-tags --name ${{vars.ACR_URI}} --repository ${{vars.ORCHESTRATION_IMAGE}} --orderby time_desc --top 1 --output tsv)
+          LAST_TAG=$(az acr repository show-tags --name ${{vars.ACR_URI}} --repository ${{vars.IMAGE_NAME}} --orderby time_desc --top 1 --output tsv)
           echo "LAST_TAG=$LAST_TAG" >> $GITHUB_OUTPUT
 
       - name: 'Build and push Docker image to ACR'
@@ -49,13 +49,13 @@ jobs:
           fi
 
           echo "Publishing new image with version $NEW_VERSION"
-          az acr build --image ${{vars.ORCHESTRATION_IMAGE}}:${NEW_VERSION} --registry ${{vars.ACR_URI}}  --agent-pool ${{vars.ACR_AGENT_POOL_NAME}} --file Dockerfile .
+          az acr build --image ${{vars.IMAGE_NAME}}:${NEW_VERSION} --registry ${{vars.ACR_URI}}  --agent-pool ${{vars.ACR_AGENT_POOL_NAME}} --file Dockerfile .
           echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
         env:
             VERSION: ${{ steps.docker-image-version.outputs.LAST_TAG }}
       - name: 'Update Container App (${{vars.APP_NAME}})'
         run: |
           echo "Update containerapp with new version ${NEW_VERSION}"
-          az containerapp update --name ${{vars.APP_NAME}} --resource-group ${{vars.RESOURCE_GROUP}} --image ${{vars.ACR_URI}}/${{vars.ORCHESTRATION_IMAGE}}:${NEW_VERSION}
+          az containerapp update --name ${{vars.APP_NAME}} --resource-group ${{vars.RESOURCE_GROUP}} --image ${{vars.ACR_URI}}/${{vars.IMAGE_NAME}}:${NEW_VERSION}
         env:
             NEW_VERSION: ${{ steps. docker-build-image.outputs.NEW_VERSION }}
