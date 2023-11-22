@@ -1,0 +1,61 @@
+name: CAE-Build and push Orchestrator Docker image
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  build-and-push-docker-images-to-acr:
+    runs-on: [self-hosted]
+
+    steps:
+      - name: 'Code checkout'
+        uses: actions/checkout@v2
+
+      - name: 'Az CLI login using OIDC'
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      
+      - name: 'ACR CLI auto-login (${{vars.ACR_URI}})'
+        run: |
+          dig ${{vars.ACR_URI}}
+          az acr login -n ${{vars.ACR_URI}} --expose-token
+
+      - name: 'Detect existing Docker image version for ${{vars.ORCHESTRATION_IMAGE}}'
+        id: docker-image-version
+        run: |
+          LAST_TAG=$(az acr repository show-tags --name ${{vars.ACR_URI}} --repository ${{vars.ORCHESTRATION_IMAGE}} --orderby time_desc --top 1 --output tsv)
+          echo "LAST_TAG=$LAST_TAG" >> $GITHUB_OUTPUT
+
+      - name: 'Build and push Docker image to ACR'
+        id: docker-build-image
+        if: always()
+        run: |
+          echo "Current image version: ${VERSION}"
+          LAST_TAG=${VERSION}
+          if [ -z "$LAST_TAG" ]; then
+            NEW_VERSION="v1"
+          else
+            NEW_VERSION=$(( ${LAST_TAG#v} + 1 ))
+            NEW_VERSION="v${NEW_VERSION}"
+          fi
+
+          echo "Publishing new image with version $NEW_VERSION"
+          az acr build --image ${{vars.ORCHESTRATION_IMAGE}}:${NEW_VERSION} --registry ${{vars.ACR_URI}}  --agent-pool ${{vars.ACR_AGENT_POOL_NAME}} --file Dockerfile .
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_OUTPUT
+        env:
+            VERSION: ${{ steps.docker-image-version.outputs.LAST_TAG }}
+      - name: 'Update Container App (${{vars.APP_NAME}})'
+        run: |
+          echo "Update containerapp with new version ${NEW_VERSION}"
+          az containerapp update --name ${{vars.APP_NAME}} --resource-group ${{vars.RESOURCE_GROUP}} --image ${{vars.ACR_URI}}/${{vars.ORCHESTRATION_IMAGE}}:${NEW_VERSION}
+        env:
+            NEW_VERSION: ${{ steps. docker-build-image.outputs.NEW_VERSION }}

@@ -1,9 +1,6 @@
 ## What can you find here? :rocket:
 The goal of this project is implement a reusable .NET project template with a full set of functionality. You can treat it as a reference project to avoid doing repetitive work or for training purposes. Template is based on ports and adapters pattern.
 
-## Give a Star :star:
- If you liked the project or any part of it, please give a star :)
-
 ## Table of Contents
 1. [Introduction](#Introduction)
 2. [Quick start](#Quick-start)
@@ -58,30 +55,19 @@ All developers should follow the rules and create commands and appropriate comma
 
 - **Audit Trail** :bookmark_tabs: Kitbag provides audit trail mechanism that can track any database changes without making any unnecessary modification in existing code [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Persistence.EntityFramework.Audit)
 
-- **Logging** : TBD
-- Integration with AppInsights is added
+- **Logging** : Integration with AppInsights is added
 
-- **Database Migrations** : TBD
-- Integration with UpDb is added
+- **Database Migrations** : Integration with UpDb is added
 
-- **CQRS** : TBD (with Dapper)
-- Dapper is added and ready to consume queries from tables, views and even procedures
+- **CQRS** : Integration with Dapper is added
 
-- **Unit Of Work** : TBD
-- Unit of Work with AuditLog is added
+- **Unit Of Work** : Unit of Work with AuditLog is added
 
-
-
-- **Domain Events** : TBD
-
-- **Message Bus** : TBD
-- Integration with Azure Service Bus is added
+- **Message Bus** : Integration with Azure Service Bus is added
 
 - **Idempotency** : TBD
 
 - **Outbox** : TBD
-
-- **KeyVault** : TBD
 
 
 
