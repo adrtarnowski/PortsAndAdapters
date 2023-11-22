@@ -67,14 +67,19 @@
     <Build Include="dbo\Tables\BookMatches.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\Migrations\0001-AuditTable.sql" />
     <None Include="Scripts\Migrations\0003-AddIsCloseColumnToBookMatches.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Migrations\0002-BookMatches.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Scripts\Migrations\0001-AuditTable.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\PreDeployment\0001-PreDeploymentScript.sql" />
     <None Include="Scripts\PostDeployment\0001-PostDeploymentScript.sql" />
-    <None Include="Scripts\Migrations\0002-BookMatches.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+
+
+
   </ItemGroup>
 </Project>

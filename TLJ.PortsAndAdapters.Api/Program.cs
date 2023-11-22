@@ -7,6 +7,8 @@ using Kitbag.Builder.WebApi;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using TLJ.PortsAndAdapters.Infrastructure;
+using Microsoft.Extensions.Configuration;
+using static System.String;
 
 namespace TLJ.PortsAndAdapters.Api
 {
@@ -18,6 +20,18 @@ namespace TLJ.PortsAndAdapters.Api
         public static IWebHostBuilder CreateWebHostBuilder(string[] args)
         {
             return WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((context, config) =>
+                {
+                    var settings = config.Build();
+                    config.AddAzureAppConfiguration(options =>
+                    {
+                        var connectionString = settings["AppConfiguration:ConnectionString"];
+                        if (!IsNullOrEmpty(connectionString))
+                        {
+                            options.Connect(connectionString);
+                        }
+                    });
+                })
                 .ConfigureServices((webHostBuilderContext, services) => services
                     .AddKitbag(webHostBuilderContext.Configuration)
                     .AddWebApi()

@@ -1,4 +1,4 @@
-## Audit Trail? :bookmark_tabs:
+## Audit Trail :bookmark_tabs:
 Kitbag provides audit trail mechanism that can track any database changes without making any unnecessary modification in existing code. Audit trail (also called audit log) provides documentary evidence of the sequence of activities that have affected at any time a specific operation. Kitbag uses the most popular ORM tool in .NET - Entity Framework Core.
  
 ## How to use:

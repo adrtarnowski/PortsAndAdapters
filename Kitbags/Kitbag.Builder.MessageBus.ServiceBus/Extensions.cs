@@ -1,10 +1,12 @@
-﻿using Azure.Messaging.ServiceBus;
+﻿using System;
+using Azure.Messaging.ServiceBus;
 using Kitbag.Builder.Core.Builders;
 using Kitbag.Builder.Core.Initializer;
 using Kitbag.Builder.MessageBus.Common;
 using Kitbag.Builder.MessageBus.IntegrationEvent;
 using Kitbag.Builder.MessageBus.ServiceBus.Common;
 using Microsoft.Extensions.Azure;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Kitbag.Builder.MessageBus.ServiceBus

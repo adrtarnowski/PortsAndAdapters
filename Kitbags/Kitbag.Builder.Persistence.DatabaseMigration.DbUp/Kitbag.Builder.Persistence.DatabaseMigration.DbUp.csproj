@@ -27,5 +27,9 @@
       <ProjectReference Include="..\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
       <ProjectReference Include="..\Kitbag.Builder.Persistence.DatabaseMigration\Kitbag.Builder.Persistence.DatabaseMigration.csproj" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="assets\" />
+    </ItemGroup>
 
 </Project>

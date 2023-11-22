@@ -1,15 +1,16 @@
 ﻿using System.Threading.Tasks;
 using Kitbag.Builder.Core.Initializer;
 using Kitbag.Builder.MessageBus.IntegrationEvent;
+using Kitbag.Builder.MessageBus.ServiceBus.Common;
 using TLJ.PortsAndAdapters.Application.Bookmaking.Events;
 
 namespace TLJ.PortsAndAdapters.Infrastructure.Events
 {
-    public class SubscriptionRegistrationInitializer : IInitializer
+    public class ServiceBusSubscriptionRegistrationInitializer : IInitializer
     {
         private readonly IServiceBusSubscriptionBuilder _subscriptionBuilder;
 
-        public SubscriptionRegistrationInitializer(IServiceBusSubscriptionBuilder subscriptionBuilder)
+        public ServiceBusSubscriptionRegistrationInitializer(IServiceBusSubscriptionBuilder subscriptionBuilder)
         {
             _subscriptionBuilder = subscriptionBuilder;
         }

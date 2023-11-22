@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Kitbag.Builder.MessageBus.IntegrationEvent
+namespace Kitbag.Builder.MessageBus.ServiceBus.Common
 {
     public interface IServiceBusSubscriptionBuilder
     {

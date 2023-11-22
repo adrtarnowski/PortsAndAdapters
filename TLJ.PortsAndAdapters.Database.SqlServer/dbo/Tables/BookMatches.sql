@@ -6,7 +6,7 @@
 	[UserId] [uniqueidentifier] NOT NULL,
 	[BookType] [int] NOT NULL,
 	[Value] DECIMAL(8, 2) NOT NULL,
-	[Currency] CHAR(6) NOT NULL,
+	[Currency] CHAR(3) NOT NULL,
 	[CreateDate] datetimeoffset(7) NOT NULL,
     [IsClose] BIT NOT NULL DEFAULT(0),
 

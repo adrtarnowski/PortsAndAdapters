@@ -5,7 +5,7 @@
 	[MatchId] [uniqueidentifier] NOT NULL,
 	[UserId] [uniqueidentifier] NOT NULL,
 	[BookType] [int] NOT NULL,
-	[Stake] DECIMAL(8, 2) NOT NULL,
+	[Value] DECIMAL(8, 2) NOT NULL,
 	[Currency] CHAR(3) NOT NULL,
 	[CreateDate] datetimeoffset(7) NOT NULL,
 
