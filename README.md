@@ -4,8 +4,7 @@ The goal of this project is implement a reusable .NET project template with a fu
 ## Table of Contents
 1. [Introduction](#Introduction)
 2. [Quick start](#Quick-start)
-3. [Decorator Strategy](#Decorator-Strategy)
-4. [List of Kitbags](#List-of-Kitbags)
+3. [List of Kitbags](#List-of-Kitbags)
  
 ## Introduction:
 The solution is divided into five parts:
@@ -43,11 +42,11 @@ The solution is divided into five parts:
 
 - **Database Migrations** :card_index: Kitbag provides a standardise approach to handling database changes. [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Persistence.DatabaseMigration.DbUp)
 
+- **Message Bus** : Integration with Azure Service Bus is added
+- 
 - **CQRS** : Integration with Dapper is added
 
 - **Unit Of Work** : Unit of Work with AuditLog is added
-
-- **Message Bus** : Integration with Azure Service Bus is added
 
 - **Idempotency** : TBD
 
