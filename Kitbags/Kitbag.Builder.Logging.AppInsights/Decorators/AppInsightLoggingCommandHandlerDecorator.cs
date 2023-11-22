@@ -10,13 +10,13 @@ namespace Kitbag.Builder.Logging.AppInsights.Decorators
     public class AppInsightLoggingCommandHandlerDecorator<TCommand> : ICommandHandler<TCommand>
         where TCommand : class, ICommand
     {
-        private readonly ILogger<GenericLoggerCommandHandlerDecorator> _logger;
+        private readonly ILogger<LoggerCommandHandlerDecorator> _logger;
         private readonly ICommandHandler<TCommand> _decoratedHandler;
         private readonly IRunningContextProvider _context;
         private readonly IAppInsightsClient _appInsights;
 
         public AppInsightLoggingCommandHandlerDecorator(ICommandHandler<TCommand> decoratedHandler,
-            ILogger<GenericLoggerCommandHandlerDecorator> logger,
+            ILogger<LoggerCommandHandlerDecorator> logger,
             IAppInsightsClient appInsights,
             IRunningContextProvider context)
         {
@@ -47,7 +47,7 @@ namespace Kitbag.Builder.Logging.AppInsights.Decorators
             }
         }
         
-        public class GenericLoggerCommandHandlerDecorator { }
+        public class LoggerCommandHandlerDecorator { }
         
         private class CommandHandlerMetric : IAppInsightsMetric
         {

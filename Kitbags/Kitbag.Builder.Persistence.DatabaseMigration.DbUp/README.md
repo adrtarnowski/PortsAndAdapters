@@ -1,6 +1,6 @@
 ﻿## Database migrations :card_index:
 
-Kitbag provides a hybrid mode to handle database changes. I considered two type of approaches: 'state based' and 'migrations'. 
+Kitbag provides a standardise approach to handling database changes. I considered two type of approaches: 'state based' and 'migrations'. 
 
 ## State based vs Migrations
 The first approach to database change management is state versioning. We hold a whole database definition in our source control repository, and when we need to change something, we change objects definitions. When the upgrade time comes, our tool compares our actual definitions with a target database and generates a migration script for us (and he can execute it right away).

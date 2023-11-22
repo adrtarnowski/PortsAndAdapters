@@ -4,6 +4,7 @@ using Kitbag.Builder.CQRS.Core;
 using Kitbag.Builder.CQRS.Core.Commands;
 using Kitbag.Builder.CQRS.Dapper;
 using Kitbag.Builder.CQRS.IntegrationEvents;
+using Kitbag.Builder.Logging.AppInsights;
 using Kitbag.Builder.Logging.AppInsights.Decorators;
 using Kitbag.Builder.MessageBus.IntegrationEvent;
 using Kitbag.Builder.MessageBus.ServiceBus;
@@ -28,6 +29,7 @@ namespace TLJ.PortsAndAdapters.Infrastructure
     {
         public static IKitbagBuilder AddInfrastructure(this IKitbagBuilder builder)
         {
+            builder.AddAppInsights();
             builder.AddEntityFramework<DatabaseContext>();
             builder.AddEntityFrameworkAuditTrail<DatabaseContext>();
             builder.AddUnitOfWork();

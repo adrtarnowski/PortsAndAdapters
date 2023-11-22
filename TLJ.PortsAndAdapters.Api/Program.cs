@@ -23,14 +23,9 @@ namespace TLJ.PortsAndAdapters.Api
                 .ConfigureAppConfiguration((context, config) =>
                 {
                     var settings = config.Build();
-                    config.AddAzureAppConfiguration(options =>
-                    {
-                        var connectionString = settings["AppConfiguration:ConnectionString"];
-                        if (!IsNullOrEmpty(connectionString))
-                        {
-                            options.Connect(connectionString);
-                        }
-                    });
+                    var connectionString = settings["AppConfiguration:ConnectionString"];
+                    if(!IsNullOrEmpty(connectionString))
+                        config.AddAzureAppConfiguration(options => { options.Connect(connectionString); });
                 })
                 .ConfigureServices((webHostBuilderContext, services) => services
                     .AddKitbag(webHostBuilderContext.Configuration)
