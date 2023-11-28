@@ -1,4 +1,4 @@
-# Outbox Pattern
+# :inbox_tray: Outbox Pattern
 
 `Kitbag.Builder.Outbox` and `Kitbag.Builder.Outbox.EntityFramework` (used EF as a event log) are libraries that provide Outbox Pattern functionality (more about pattern [here](https://microservices.io/patterns/data/transactional-outbox.html)).
 

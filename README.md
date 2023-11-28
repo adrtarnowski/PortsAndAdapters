@@ -43,14 +43,14 @@ The solution is divided into five parts:
 - **Database Migrations** :card_index: Kitbag provides a standardise approach to handling database changes. [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Persistence.DatabaseMigration.DbUp)
 
 - **Message Bus** : Integration with Azure Service Bus is added
-- 
+
 - **CQRS** : Integration with Dapper is added
 
 - **Unit Of Work** : Unit of Work with AuditLog is added
 
 - **Idempotency** : TBD
 
-- **Outbox** : TBD
+- **Outbox Pattern** : :inbox_tray: `Kitbag.Builder.Outbox` and `Kitbag.Builder.Outbox.EntityFramework` (used EF as a event log) are libraries that provide Outbox Pattern functionality [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Outbox.EntityFramework)
 
 
 
