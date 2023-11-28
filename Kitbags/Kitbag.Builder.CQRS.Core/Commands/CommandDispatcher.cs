@@ -13,11 +13,11 @@ namespace Kitbag.Builder.CQRS.Core.Commands
             _serviceProvider = serviceProvider;
         }
 
-        public async Task SendAsync<T>(T command) where T : class, ICommand
+        public async Task Send<T>(T command) where T : class, ICommand
         {
             var handlerType = typeof(ICommandHandler<>).MakeGenericType(command.GetType());
             dynamic handler = _serviceProvider.GetRequiredService(handlerType);
-            await handler.HandleAsync((dynamic)command);
+            await handler.Handle((dynamic)command);
         }
     }
 }

@@ -7,15 +7,15 @@ namespace Kitbag.Builder.MessageBus.IntegrationEvent
     {
         public Guid Id { get; protected set; }
 
-        public DateTime CreationDate { get; protected set; }
+        public DateTimeOffset CreationDate { get; protected set; }
 
-        public IntegrationEvent(Guid id, DateTime creationDate)
+        protected IntegrationEvent(Guid id, DateTimeOffset creationDate)
         {
             Id = id;
             CreationDate = creationDate;
         }
 
-        public IntegrationEvent()
+        protected IntegrationEvent()
         {
             Id = Guid.NewGuid();
             CreationDate = SystemTime.Now();

@@ -35,9 +35,9 @@ namespace TLJ.PortsAndAdapters.Application.HealthCheck
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [Produces("application/json")]
-        public async Task<IActionResult> Index([FromBody] HealthCheckCommand command)
+        public async Task<IActionResult> Echo([FromBody] HealthCheckCommand command)
         {
-            string info = $"Health check works.Receive the message {command.systemInfo}";
+            string info = $"Health check works.Receive the message {command.echoMessage}";
             _logger.LogInformation(info);
             return Ok();
         }
@@ -45,6 +45,6 @@ namespace TLJ.PortsAndAdapters.Application.HealthCheck
     
     public class HealthCheckCommand : ICommand
     {
-        public string? systemInfo { get; set; }
+        public string? echoMessage { get; set; }
     }
 }

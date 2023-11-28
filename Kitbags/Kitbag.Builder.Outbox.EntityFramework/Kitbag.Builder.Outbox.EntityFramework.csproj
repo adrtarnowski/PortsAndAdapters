@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+      <ProjectReference Include="..\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
+      <ProjectReference Include="..\Kitbag.Builder.Outbox\Kitbag.Builder.Outbox.csproj" />
+      <ProjectReference Include="..\Kitbag.Builder.Persistence.EntityFramework.UnitOfWork\Kitbag.Builder.Persistence.EntityFramework.UnitOfWork.csproj" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+</Project>

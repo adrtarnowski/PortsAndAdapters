@@ -12,6 +12,7 @@ namespace Kitbag.Persistence.EntityFramework.UnitOfWork
             if (!builder.TryRegisterKitBag(sectionName))
                 return builder;
             
+            builder.Services.AddScoped<IDomainEventsAccessor, DomainEventsAccessor>();
             builder.Services.AddScoped<IUnitOfWork, Common.UnitOfWork>();
             builder.Services.AddScoped<ITransactionalUnitOfWork, Common.UnitOfWork>();
             return builder;

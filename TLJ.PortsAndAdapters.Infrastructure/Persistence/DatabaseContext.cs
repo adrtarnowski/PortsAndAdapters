@@ -1,6 +1,7 @@
+using Kitbag.Builder.Outbox.Common;
 using Kitbag.Builder.Persistence.Core.Common.Logs;
 using Microsoft.EntityFrameworkCore;
-using TLJ.PortsAndAdapters.Core.Domain.Book;
+using TLJ.PortsAndAdapters.Core.Domain.User;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence.Configurations;
 
 namespace TLJ.PortsAndAdapters.Infrastructure.Persistence
@@ -9,7 +10,9 @@ namespace TLJ.PortsAndAdapters.Infrastructure.Persistence
     {
         protected internal DbSet<AuditTrail>? Audits { get; set; }
         
-        protected internal DbSet<BookMatch>? BookMatches { get; set; }
+        protected internal DbSet<User>? Users { get; set; }
+
+        protected internal DbSet<OutboxMessage>? OutboxMessages { get; set; }
         
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options) { }
@@ -18,5 +21,7 @@ namespace TLJ.PortsAndAdapters.Infrastructure.Persistence
         {
             builder.ApplyConfigurationsFromAssembly(typeof(AuditConfiguration).Assembly);
         }
+
+        
     }
 }

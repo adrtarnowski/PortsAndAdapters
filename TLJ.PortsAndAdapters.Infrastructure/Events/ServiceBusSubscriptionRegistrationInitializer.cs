@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Kitbag.Builder.Core.Initializer;
-using Kitbag.Builder.MessageBus.IntegrationEvent;
 using Kitbag.Builder.MessageBus.ServiceBus.Common;
-using TLJ.PortsAndAdapters.Application.Bookmaking.Events;
+using TLJ.PortsAndAdapters.Application.User.Events;
 
 namespace TLJ.PortsAndAdapters.Infrastructure.Events
 {
@@ -18,7 +17,7 @@ namespace TLJ.PortsAndAdapters.Infrastructure.Events
         public async Task InitializeAsync()
         {
             await _subscriptionBuilder.RemoveDefaultRule();
-            await _subscriptionBuilder.AddCustomRule(Kitbag.Builder.MessageBus.Extensions.GetEventFor<CloseBookmakingEvent>());
+            await _subscriptionBuilder.AddCustomRule(Kitbag.Builder.MessageBus.Extensions.GetEventFor<RemovalUserEvent>());
         }
     }
 }

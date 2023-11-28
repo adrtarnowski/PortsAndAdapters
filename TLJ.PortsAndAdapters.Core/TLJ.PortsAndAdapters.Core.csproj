@@ -23,4 +23,9 @@
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.Persistence.Core\Kitbag.Builder.Persistence.Core.csproj" />
     </ItemGroup>
 
+
+
+
+
+
 </Project>

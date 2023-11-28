@@ -29,6 +29,7 @@ namespace Kitbag.Builder.Persistence.EntityFramework
                 optionsBuilder.ReplaceService<IValueConverterSelector, StronglyTypedIdValueConverterSelector>();
             });
             builder.Services.AddScoped<DbContext>(p => p.GetRequiredService<TDbContext>());
+            
             return builder;
         }
     }

@@ -23,19 +23,24 @@ namespace Kitbag.Persistence.EntityFramework.Audit.Common
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         }
 
-        public async Task HandleAsync(TCommand command)
+        public async Task Handle(TCommand command)
         {
             if (_unitOfWork.HasActiveTransaction)
             {
-                await _decoratedHandler.HandleAsync(command);
+                await HandleAndLog(command);
             }
             else
             {
                 using var transaction = await _unitOfWork.BeginTransactionAsync();
-                await _decoratedHandler.HandleAsync(command);
-                await _auditTrailProvider.LogChangesAsync();
+                await HandleAndLog(command);
                 await _unitOfWork.CommitTransactionAsync(transaction!);
             }
+        }
+
+        private async Task HandleAndLog(TCommand command)
+        {
+            await _decoratedHandler.Handle(command);
+            await _auditTrailProvider.LogChangesAsync();
         }
     }
 }

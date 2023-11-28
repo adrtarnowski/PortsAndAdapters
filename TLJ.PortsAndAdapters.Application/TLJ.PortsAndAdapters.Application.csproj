@@ -26,4 +26,5 @@
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
     </ItemGroup>
 
+
 </Project>

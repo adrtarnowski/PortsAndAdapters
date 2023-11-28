@@ -26,7 +26,7 @@ namespace Kitbag.Builder.Logging.AppInsights.Decorators
             _context = context;
         }
 
-        public async Task HandleAsync(TCommand operation)
+        public async Task Handle(TCommand operation)
         {
             var correlationId = _context?.CorrelationId.ToString() ?? string.Empty;
             var userId = _context?.UserId ?? string.Empty;
@@ -42,7 +42,7 @@ namespace Kitbag.Builder.Logging.AppInsights.Decorators
             using (_logger.BeginScopeWith(userId, correlationId, new { RequestId = requestId }))
             {
                 _logger.LogInformation($"Received command : {operation.GetType().Name}:{correlationId}");
-                await _decoratedHandler.HandleAsync(operation).ConfigureAwait(false);
+                await _decoratedHandler.Handle(operation).ConfigureAwait(false);
                 _logger.LogInformation($"Finished processing command : {operation.GetType().Name}:{correlationId}");
             }
         }

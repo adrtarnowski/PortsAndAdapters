@@ -5,6 +5,6 @@ namespace Kitbag.Builder.CQRS.Core.Events
 {
     public interface IDomainEventDispatcher
     {
-        Task PublishAsync<T>(T @event) where T : class, IDomainEvent;
+        Task Send<T>(T @event) where T : class, IDomainEvent;
     }
 }

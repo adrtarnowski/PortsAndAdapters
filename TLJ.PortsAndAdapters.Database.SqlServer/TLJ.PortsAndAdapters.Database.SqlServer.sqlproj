@@ -57,20 +57,18 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="dbo" />
-    <Folder Include="dbo\Tables" />
     <Folder Include="Scripts" />
     <Folder Include="Scripts\PostDeployment" />
     <Folder Include="Scripts\PreDeployment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Audits.sql" />
-    <Build Include="dbo\Tables\BookMatches.sql" />
+    <Build Include="dbo\Tables\OutboxMessages.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="Scripts\Migrations\0003-AddOutboxMessagesTable.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\Migrations\0003-AddIsCloseColumnToBookMatches.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Scripts\Migrations\0002-BookMatches.sql">
+    <None Include="Scripts\Migrations\0002-AddUsersTable.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Scripts\Migrations\0001-AuditTable.sql">

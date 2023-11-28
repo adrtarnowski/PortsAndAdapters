@@ -18,16 +18,16 @@ namespace Kitbag.Persistence.EntityFramework.UnitOfWork.Common
             _decoratedHandler = decoratedHandler ?? throw new ArgumentNullException(nameof(decoratedHandler));
         }
 
-        public async Task HandleAsync(TCommand command)
+        public async Task Handle(TCommand command)
         {
             if (_unitOfWork.HasActiveTransaction)
             {
-                await _decoratedHandler.HandleAsync(command);
+                await _decoratedHandler.Handle(command);
             }
             else
             {
                 await using var transaction = await _unitOfWork.BeginTransactionAsync();
-                await _decoratedHandler.HandleAsync(command);
+                await _decoratedHandler.Handle(command);
                 await _unitOfWork.CommitTransactionAsync(transaction!);
             }
         }

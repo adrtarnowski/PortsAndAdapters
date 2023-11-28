@@ -4,6 +4,6 @@ namespace Kitbag.Builder.Core.Domain
 {
     public interface IDomainEvent
     {
-        DateTime OccuredOn { get; }
+        DateTimeOffset OccuredOn { get; }
     }
 }

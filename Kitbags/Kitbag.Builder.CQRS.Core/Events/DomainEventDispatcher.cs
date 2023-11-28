@@ -13,7 +13,7 @@ namespace Kitbag.Builder.CQRS.Core.Events
             _serviceProvider = serviceProvider;
         }
 
-        public async Task PublishAsync<T>(T @event)
+        public async Task Send<T>(T @event)
             where T : class, IDomainEvent
         {
             dynamic handler = _serviceProvider
@@ -22,7 +22,7 @@ namespace Kitbag.Builder.CQRS.Core.Events
 
             if (handler != null)
             {
-                await handler?.HandleAsync((dynamic)@event)!;
+                await handler?.Handle((dynamic)@event)!;
             }
         }
     }

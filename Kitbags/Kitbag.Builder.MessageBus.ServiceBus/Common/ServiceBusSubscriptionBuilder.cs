@@ -2,7 +2,6 @@
 using Azure.Messaging.ServiceBus;
 using Azure.Messaging.ServiceBus.Administration;
 using Kitbag.Builder.MessageBus.Common;
-using Kitbag.Builder.MessageBus.IntegrationEvent;
 using Microsoft.Extensions.Logging;
 
 namespace Kitbag.Builder.MessageBus.ServiceBus.Common

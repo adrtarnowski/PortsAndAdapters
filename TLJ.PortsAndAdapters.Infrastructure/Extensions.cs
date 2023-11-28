@@ -6,8 +6,8 @@ using Kitbag.Builder.CQRS.Dapper;
 using Kitbag.Builder.CQRS.IntegrationEvents;
 using Kitbag.Builder.Logging.AppInsights;
 using Kitbag.Builder.Logging.AppInsights.Decorators;
-using Kitbag.Builder.MessageBus.IntegrationEvent;
-using Kitbag.Builder.MessageBus.ServiceBus;
+using Kitbag.Builder.Outbox.EntityFramework;
+using Kitbag.Builder.Outbox.EntityFramework.Common;
 using Kitbag.Builder.Persistence.EntityFramework;
 using Kitbag.Builder.RunningContext;
 using Kitbag.Builder.WebApi.Common;
@@ -17,10 +17,8 @@ using Kitbag.Persistence.EntityFramework.UnitOfWork;
 using Kitbag.Persistence.EntityFramework.UnitOfWork.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using TLJ.PortsAndAdapters.Application.Bookmaking.Events;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence.Repositories;
-using TLJ.PortsAndAdapters.Infrastructure.Events;
 using TLJ.PortsAndAdapters.Infrastructure.ReadModel;
 
 namespace TLJ.PortsAndAdapters.Infrastructure
@@ -32,14 +30,16 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             builder.AddAppInsights();
             builder.AddEntityFramework<DatabaseContext>();
             builder.AddEntityFrameworkAuditTrail<DatabaseContext>();
+            builder.AddEntityFrameworkOutbox<DatabaseContext>();
             builder.AddUnitOfWork();
-           
+            
             builder.AddCQRS();
             builder.AddCQRSIntegrationEvents();
             builder.AddDapperForQueries(new DapperInitializer());
             
             builder.Services.Decorate(typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
             builder.Services.Decorate(typeof(ICommandHandler<>), typeof(AuditTrailCommandHandlerDecorator<>));
+            builder.Services.Decorate(typeof(ICommandHandler<>), typeof(OutboxHandlerDecorator<>));
             builder.Services.Decorate(typeof(ICommandHandler<>), typeof(AppInsightLoggingCommandHandlerDecorator<>));
             
             builder.Services.RegisterRepositories();
@@ -48,7 +48,7 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             // ServiceBus register events
             /* builder.AddServiceBus();
             builder.AddServiceBusSubscriber<ServiceBusSubscriptionRegistrationInitializer>();
-            builder.AddServiceBusPublisher<CloseBookmakingEvent>();
+            builder.AddServiceBusPublisher<RemovalUserCommand>();
             builder.AddServiceBusWorker(); */
             
             return builder;
