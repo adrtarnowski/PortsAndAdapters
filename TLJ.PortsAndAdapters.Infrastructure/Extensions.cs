@@ -1,5 +1,6 @@
 ﻿using System;
 using Kitbag.Builder.Core.Builders;
+using Kitbag.Builder.Core.Domain.Exceptions;
 using Kitbag.Builder.CQRS.Core;
 using Kitbag.Builder.CQRS.Core.Commands;
 using Kitbag.Builder.CQRS.Dapper;
@@ -10,12 +11,15 @@ using Kitbag.Builder.Outbox.EntityFramework;
 using Kitbag.Builder.Outbox.EntityFramework.Common;
 using Kitbag.Builder.Persistence.EntityFramework;
 using Kitbag.Builder.RunningContext;
-using Kitbag.Builder.WebApi.Common;
+using Kitbag.Builder.WebApi;
+using Kitbag.Builder.WebApi.Exceptions.Types;
+using Kitbag.Builder.WebApi.RunningContext;
 using Kitbag.Persistence.EntityFramework.Audit;
 using Kitbag.Persistence.EntityFramework.Audit.Common;
 using Kitbag.Persistence.EntityFramework.UnitOfWork;
 using Kitbag.Persistence.EntityFramework.UnitOfWork.Common;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence.Repositories;
@@ -45,6 +49,13 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             builder.Services.RegisterRepositories();
             builder.AddRunningContext(x => x.GetService<IHttpRunningContextProvider>());
             
+            builder.AddErrorHandler(c =>
+            {
+                c.Map<BrokenBusinessRuleException>((http, ex) => new BrokenBusinessRuleProblemDetails(ex));
+                c.Map<CommandNotValidException>((http, ex) => new CommandNotValidProblemDetails(ex));
+                c.Map<QueryNotValidException>((http, ex) => new QueryNotValidProblemDetails(ex));
+                c.Map<DbUpdateConcurrencyException>((http, ex) => new ConcurrencyProblemDetails());
+            });
             // ServiceBus register events
             /* builder.AddServiceBus();
             builder.AddServiceBusSubscriber<ServiceBusSubscriptionRegistrationInitializer>();

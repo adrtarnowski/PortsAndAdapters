@@ -19,12 +19,19 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="FluentValidation" Version="11.8.1" />
+        <PackageReference Include="Hellang.Middleware.ProblemDetails" Version="6.5.1" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.2" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
+      <ProjectReference Include="..\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
       <ProjectReference Include="..\Kitbag.Builder.RunningContext\Kitbag.Builder.RunningContext.csproj" />
+
     </ItemGroup>
+
+
+
 
 </Project>

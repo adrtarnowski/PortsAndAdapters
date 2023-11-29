@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Kitbag.Builder.WebApi.Common
+namespace Kitbag.Builder.WebApi.RunningContext
 {
     public class CorrelationMiddleware
     {
@@ -18,8 +18,8 @@ namespace Kitbag.Builder.WebApi.Common
         {
             if (!context.Request.Headers.ContainsKey(CorrelationHeaderKey))
             {
-                var actionCorrelationId = Guid.NewGuid();
-                context.Request.Headers.Add(CorrelationHeaderKey, actionCorrelationId.ToString());
+                var correlationId = Guid.NewGuid();
+                context.Request.Headers.Add(CorrelationHeaderKey, correlationId.ToString());
             }
 
             await this._next.Invoke(context);

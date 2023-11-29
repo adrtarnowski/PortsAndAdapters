@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Text.Json.Serialization;
+using Hellang.Middleware.ProblemDetails;
 using Kitbag.Builder.Core.Builders;
 using Kitbag.Builder.WebApi.Common;
+using Kitbag.Builder.WebApi.Exceptions.Handlers;
+using Kitbag.Builder.WebApi.RunningContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -70,11 +73,33 @@ public static class Extensions
         }
         
         
+        public static IKitbagBuilder AddErrorHandler(this IKitbagBuilder builder, Action<ProblemDetailsOptions>? configure = null, string sectionName = "ErrorHandler")
+        {
+            if (!builder.TryRegisterKitBag(sectionName))
+                return builder;
+
+            builder.Services.ConfigureOptions<ProblemDetailsOptionsCustomSetup>();
+            if (configure == null)
+            {
+                builder.Services.AddProblemDetails();
+            }
+            else
+            {
+                builder.Services.AddProblemDetails(configure);
+            }
+
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(typeof(EmptyCommandFilter));
+            });
+            return builder;
+        }
         
         public static IApplicationBuilder UseErrorHandler(this IApplicationBuilder builder)
         {
             builder.UseMiddleware<CorrelationMiddleware>();
-            builder.UseMiddleware<ActionCorrelationMiddleware>();
+            builder.UseMiddleware<ConversationMiddleware>();
+            builder.UseProblemDetails();
             return builder;
         }
     }
