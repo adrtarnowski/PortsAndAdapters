@@ -1,4 +1,4 @@
-﻿using Kitbag.Builder.Core.Builders;
+using Kitbag.Builder.Core.Builders;
 using Kitbag.Builder.ServiceHealthCheck.Types;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +15,7 @@ namespace Kitbag.Builder.ServiceHealthCheck
             builder.Services
                 .AddHealthChecks()
                 .RegisterDatabaseHealthCheck(builder, "database");
-                //.RegisterRedisHealthCheck(builder,"database");
+            //.RegisterRedisHealthCheck(builder,"database");
             return builder;
         }
     }
