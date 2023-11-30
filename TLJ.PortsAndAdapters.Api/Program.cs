@@ -4,6 +4,7 @@ using Azure.Identity;
 using Kitbag.Builder.Core;
 using Kitbag.Builder.HttpClient;
 using Kitbag.Builder.Logging.AppInsights;
+using Kitbag.Builder.ServiceHealthCheck;
 using Kitbag.Builder.Swagger;
 using Kitbag.Builder.WebApi;
 using Microsoft.AspNetCore;
@@ -43,6 +44,7 @@ namespace TLJ.PortsAndAdapters.Api
                     .AddSwagger()
                     .AddAppInsights()
                     .AddHttpClient()
+                    .AddServiceHealthChecks()
                     .AddInfrastructure()
                     .Build())
                 .Configure(app => app

@@ -1,17 +1,27 @@
 using System.Threading.Tasks;
 using Kitbag.Builder.CQRS.Core.Commands;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace TLJ.PortsAndAdapters.Application.HealthCheck
 {
     public class HealthCheckController : BaseController
     {
+        private readonly HealthCheckService _healthCheckService;
+        private readonly HealthCheckOptions _healthCheckOptions;
         private readonly ILogger<HealthCheckController> _logger;
 
-        public HealthCheckController(ILogger<HealthCheckController> logger)
+        public HealthCheckController(
+            HealthCheckService healthCheckService,
+            IOptions<HealthCheckOptions> healthCheckOptions,
+            ILogger<HealthCheckController> logger)
         {
+            _healthCheckService = healthCheckService;
+            _healthCheckOptions = healthCheckOptions.Value;
             _logger = logger;
         }
 
@@ -21,11 +31,11 @@ namespace TLJ.PortsAndAdapters.Application.HealthCheck
         /// <returns>Health check detailed report</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [Produces("application/json")]
+        [Produces("application/json", Type = typeof(HealthReport))]
         public async Task<IActionResult> Index()
         {
-            _logger.LogInformation("Health check works!");
-            return Ok();
+            var result = await _healthCheckService.CheckHealthAsync(_healthCheckOptions.Predicate);
+            return Ok(result);
         }
         
         /// <summary>

@@ -64,6 +64,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.Outbox", "Ki
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.Outbox.EntityFramework", "Kitbags\Kitbag.Builder.Outbox.EntityFramework\Kitbag.Builder.Outbox.EntityFramework.csproj", "{2B5058E5-8920-423A-B168-63967703C6A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kitbag.Builder.ServiceHealthCheck", "Kitbag.Builder.ServiceHealthCheck\Kitbag.Builder.ServiceHealthCheck.csproj", "{E60C1CA9-4A8B-4B82-87CB-B5594D52E8B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -174,6 +176,10 @@ Global
 		{2B5058E5-8920-423A-B168-63967703C6A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B5058E5-8920-423A-B168-63967703C6A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B5058E5-8920-423A-B168-63967703C6A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E60C1CA9-4A8B-4B82-87CB-B5594D52E8B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E60C1CA9-4A8B-4B82-87CB-B5594D52E8B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E60C1CA9-4A8B-4B82-87CB-B5594D52E8B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E60C1CA9-4A8B-4B82-87CB-B5594D52E8B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -205,6 +211,7 @@ Global
 		{8EFC8630-1EFC-4E5E-BF57-5D5417613A79} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
 		{94AC1313-5953-407A-8A20-575A85EEBF40} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
 		{2B5058E5-8920-423A-B168-63967703C6A3} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
+		{E60C1CA9-4A8B-4B82-87CB-B5594D52E8B0} = {5B789A44-4263-4337-A46A-10FCC8232ED5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2EE2E6D3-F58F-45F5-B17A-F01D148EEAD9}
