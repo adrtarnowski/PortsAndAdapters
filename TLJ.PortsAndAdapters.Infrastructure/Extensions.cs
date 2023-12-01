@@ -10,6 +10,7 @@ using Kitbag.Builder.Logging.AppInsights.Decorators;
 using Kitbag.Builder.Outbox.EntityFramework;
 using Kitbag.Builder.Outbox.EntityFramework.Common;
 using Kitbag.Builder.Persistence.EntityFramework;
+using Kitbag.Builder.Redis;
 using Kitbag.Builder.RunningContext;
 using Kitbag.Builder.WebApi;
 using Kitbag.Builder.WebApi.Exceptions.Types;
@@ -36,6 +37,7 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             builder.AddEntityFrameworkAuditTrail<DatabaseContext>();
             builder.AddEntityFrameworkOutbox<DatabaseContext>();
             builder.AddUnitOfWork();
+            builder.AddRedisCacheIntegration();
             
             builder.AddCQRS();
             builder.AddCQRSIntegrationEvents();

@@ -24,7 +24,7 @@ namespace Kitbag.Builder.Core
             var properties = builder.GetSettings<AppProperties>(sectionName);
             builder.Services.AddMemoryCache();
             builder.Services.AddSingleton(properties);
-            Console.WriteLine($"App: {properties.Name} | Version: {properties.Version} is up and running");
+            Console.WriteLine($"App: {properties.Name} | Version: {properties.Version} is up and running | InstanceId: {properties.InstanceId}");
             return builder;
         }
         

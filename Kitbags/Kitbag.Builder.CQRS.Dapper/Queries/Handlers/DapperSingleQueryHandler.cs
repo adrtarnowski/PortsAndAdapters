@@ -12,9 +12,7 @@ namespace Kitbag.Builder.CQRS.Dapper.Queries.Handlers
         where TQuery : class, IDapperQuery<TResult>
         where TResult : class, new()
     {
-        protected DapperSingleQueryHandler(ISqlConnectionFactory connectionFactory) : base(connectionFactory)
-        {
-        }
+        protected DapperSingleQueryHandler(ISqlConnectionFactory connectionFactory) : base(connectionFactory) { }
 
         public virtual async Task<TResult> HandleAsync(TQuery query)
         {

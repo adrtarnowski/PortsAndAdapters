@@ -21,6 +21,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.Logging.AppInsights\Kitbag.Builder.Logging.AppInsights.csproj" />
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.Outbox.EntityFramework\Kitbag.Builder.Outbox.EntityFramework.csproj" />
+        <ProjectReference Include="..\Kitbags\Kitbag.Builder.Redis\Kitbag.Builder.Redis.csproj" />
         <ProjectReference Include="..\TLJ.PortsAndAdapters.Application\TLJ.PortsAndAdapters.Application.csproj" />
         <ProjectReference Include="..\TLJ.PortsAndAdapters.Core\TLJ.PortsAndAdapters.Core.csproj" />
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.AzureAD\Kitbag.Builder.AzureAD.csproj" />
@@ -33,5 +34,7 @@
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.Persistence.EntityFramework.UnitOfWork\Kitbag.Builder.Persistence.EntityFramework.UnitOfWork.csproj" />
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.Persistence.EntityFramework\Kitbag.Builder.Persistence.EntityFramework.csproj" />
     </ItemGroup>
+
+
 
 </Project>
