@@ -53,3 +53,25 @@ Use the following code to check if the service is up and running with it's depen
             return Ok(result);
         }
 ```
+Example response:
+```
+{
+  "entries": {
+    "Database": {
+      "data": {},
+      "description": null,
+      "duration": "00:00:00.1487976",
+      "exception": null,
+      "status": "Healthy",
+      "tags": [
+        "Azure",
+        "Database"
+      ]
+    }
+  },
+  "status": "Healthy",
+  "totalDuration": "00:00:00.1699903"
+}
+```
+
+![image](./assets/response_example.png)

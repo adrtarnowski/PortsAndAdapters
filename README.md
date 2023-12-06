@@ -22,7 +22,7 @@ The solution is divided into five parts:
 ## Quick start:
 
 1. Clone the repository and run the following commands:
-     1. Install the new template: *dotnet new --install {REPO PATH}*
+     1. Install new template: *dotnet new --install {REPO PATH}*
      1. Create new solution: *dotnet new TLJ.PortsAndAdapters -n {YOUR PROJECT NAME} -o {YOUR PROJECT NAME}*
   1. Database configuration:
      1. Provide database connection string in *appsettings.json* file in *{YOUR PROJECT NAME}.API* project
