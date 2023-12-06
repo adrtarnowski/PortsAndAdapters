@@ -22,8 +22,8 @@ The solution is divided into five parts:
 ## Quick start:
 
 1. Clone the repository and run the following commands:
-     1. Install new template: *dotnet new --install {REPO PATH}*
-     1. Create new solution: *dotnet new TLJ.PortsAndAdapters -n {YOUR PROJECT NAME} -o {YOUR PROJECT NAME}*
+     1. Install new template: *dotnet new --install {REPO PATH}* (root folder to this repo, more about _dotnet new_ command [here](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-new)
+     1. Create new solution: *dotnet new tlj.paa -n {YOUR PROJECT NAME} -o {YOUR PROJECT NAME}* (tlj.paa is a template short name defined in .template.config/template.json file)
   1. Database configuration:
      1. Provide database connection string in *appsettings.json* file in *{YOUR PROJECT NAME}.API* project
      1. Provide the same database connection string in *{YOUR PROJECT NAME}.DatabaseMigration* project
