@@ -1,4 +1,4 @@
-﻿## Decorator Strategy :currency_exchange:
+﻿## :currency_exchange: Decorator Strategy
 Every command handler is decorated with the following decorators:
 1. Logger Command Handler Decorator
 2. Validating Command Handler Decorator

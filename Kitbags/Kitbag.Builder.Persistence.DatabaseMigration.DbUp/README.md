@@ -1,4 +1,4 @@
-﻿## Database migrations :card_index:
+﻿## :card_index: Database migrations
 
 Kitbag provides a standardise approach to handling database changes. I considered two type of approaches: 'state based' and 'migrations'. 
 

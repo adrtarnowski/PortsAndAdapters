@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Kitbag.Builder.CQRS.Core.Queries;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using TLJ.PortsAndAdapters.Application.User.DTO;
 
@@ -17,33 +18,42 @@ namespace TLJ.PortsAndAdapters.Application.User.Queries.Handlers
             AbsoluteExpiration = new DateTimeOffset(new DateTime(2089, 10, 17, 07, 00, 00), TimeSpan.Zero),
             SlidingExpiration = TimeSpan.FromSeconds(3600)
         };
+        private readonly ILogger<SpecificCachedUserQueryHandler> _logger;
 
         public SpecificCachedUserQueryHandler(
             IDistributedCache distributedCache,
-            IQueryDispatcher queryDispatcher)
+            IQueryDispatcher queryDispatcher,
+            ILogger<SpecificCachedUserQueryHandler> logger)
         {
             _distributedCache = distributedCache;
             _queryDispatcher = queryDispatcher;
+            _logger = logger;
         }
 
         public async Task<UserDTO> HandleAsync(SpecificCachedUserQuery query)
         {
-            var cacheItem = await _distributedCache.GetAsync(query.UserName);
-            if (cacheItem != null)
+            try
             {
-                var cacheItemAsString = Encoding.UTF8.GetString(cacheItem);
-                var result = JsonConvert.DeserializeObject<UserDTO>(cacheItemAsString);
-                return result!;
-            }
-            else
-            {
+                var cacheItem = await _distributedCache.GetAsync(query.UserName);
+                if (cacheItem != null)
+                {
+                    var cacheItemAsString = Encoding.UTF8.GetString(cacheItem);
+                    var result = JsonConvert.DeserializeObject<UserDTO>(cacheItemAsString);
+                    return result!;
+                }
                 var dto = await _queryDispatcher.QueryAsync(new SpecificUserQuery{ UserName = query.UserName });
                 if (dto != null && dto.FullDomainName != null)
                     await StoreInCache(dto);
                 return dto!;
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Unable to establish connection with cache");
+                return null!;
+            }
         }
         
+        // TODO: Consider moving as a event
         public async Task StoreInCache(UserDTO entity)
         {
             string key = entity.FullDomainName ?? throw new ArgumentNullException(nameof(entity.FullDomainName));

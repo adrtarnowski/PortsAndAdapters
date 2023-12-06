@@ -1,6 +1,6 @@
 {
   "DbUp": {
-    "ConnectionString": "Data Source=SWO3PRSTT3\\SQLEXPRESS;Initial Catalog=TLJ;Integrated Security=True;MultipleActiveResultSets=true;TrustServerCertificate=true",
+    "ConnectionString": "Data Source=SWO3PRSTT3;Initial Catalog=TLJ;Integrated Security=True;MultipleActiveResultSets=true;TrustServerCertificate=true",
     "ScriptsPath": "..\\..\\..\\..\\TLJ.PortsAndAdapters.Database.SqlServer\\Scripts",
     "SchemaPath": "..\\..\\..\\..\\TLJ.PortsAndAdapters.Database.SqlServer",
     "PreDeploymentFolder": "PreDeployment",

@@ -28,7 +28,7 @@ namespace TLJ.PortsAndAdapters.Application.User
         [Produces("application/json")]
         public async Task<IActionResult> Get(string userName)
         {
-            var dto = await _queryDispatcher.QueryAsync(new SpecificCachedUserQuery(){ UserName = userName });
+            var dto = await _queryDispatcher.QueryAsync(new SpecificUserQuery { UserName = userName });
             return Json(dto);
         }
 

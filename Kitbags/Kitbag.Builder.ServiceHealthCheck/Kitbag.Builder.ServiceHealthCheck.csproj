@@ -10,11 +10,14 @@
         <PackageReference Include="AspNetCore.HealthChecks.AzureStorage" Version="3.2.0" />
         <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="3.0.0" />
         <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="3.0.0" />
+        <PackageReference Include="AspNetCore.HealthChecks.AzureServiceBus" Version="6.1.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
+      <ProjectReference Include="..\Kitbag.Builder.MessageBus\Kitbag.Builder.MessageBus.csproj" />
       <ProjectReference Include="..\Kitbag.Builder.Persistence.Core\Kitbag.Builder.Persistence.Core.csproj" />
+      <ProjectReference Include="..\Kitbag.Builder.Redis\Kitbag.Builder.Redis.csproj" />
     </ItemGroup>
 
 </Project>

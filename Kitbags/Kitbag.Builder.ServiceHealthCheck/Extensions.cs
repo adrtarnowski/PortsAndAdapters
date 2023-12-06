@@ -14,8 +14,10 @@ namespace Kitbag.Builder.ServiceHealthCheck
 
             builder.Services
                 .AddHealthChecks()
-                .RegisterDatabaseHealthCheck(builder, "database");
-            //.RegisterRedisHealthCheck(builder,"database");
+                .RegisterDatabaseHealthCheck(builder, "Database");
+                // Example how to register new Service Health Check
+                //.RegisterRedisHealthCheck(builder,"Redis");
+            
             return builder;
         }
     }

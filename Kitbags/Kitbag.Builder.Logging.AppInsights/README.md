@@ -1,9 +1,20 @@
-﻿## Logging :chart_with_upwards_trend:
+﻿## :chart_with_upwards_trend: Logging 
 
 Kitbag provides integration with AppInsights
 
-## How to use?
-- Provide necessary configuration in _appsettings.json_ file in _**PortsAndAdapters.Api**_ project
+## Getting Started
+
+To use `Kitbag.Builder.Logging.AppInsights`, you need to add the following line in `Extension` class in the `TLJ.PortsAndAdapters.Infrastructure` project:
+
+```
+public static IKitbagBuilder AddInfrastructure(this IKitbagBuilder builder)
+{
+    ...
+    builder.AddAppInsights();
+    ...
+``` 
+
+Provide necessary configuration in _appsettings.json_ file in _**PortsAndAdapters.Api**_ project
 ```
     "Logging": {
         "ApplicationInsights": {`
@@ -15,12 +26,14 @@ Kitbag provides integration with AppInsights
     },
 ```
 
+## How to use?
+
 - Declare dependency in _Extensions.cs_ file in _**PortsAndAdapters.Infrastructure**_ project (_AddInfrastructure_ method)
 ```
     builder.AddAppInsights();
 ```
 
-- After declaration you can use ILogger<T> in your classes and collect your log data in AppInsights instance
+- After necessary declaration you can use ILogger<T> in your classes and collect your log data in AppInsights instance
 ```
     public class SomeClass
     {
