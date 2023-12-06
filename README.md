@@ -36,21 +36,41 @@ The solution is divided into five parts:
 
 - **Decorator Strategy** :currency_exchange: By default solution is configured to use decorator strategy. [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/TLJ.PortsAndAdapters.Infrastructure)
 
-- **Audit Trail** :bookmark_tabs: Kitbag provides audit trail mechanism that can track any database changes without making any unnecessary modification in existing code [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Persistence.EntityFramework.Audit)
 
-- **Logging** : :chart_with_upwards_trend: Kitbag provides integration with AppInsights [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Logging.AppInsights)
+- **CQRS** : Implemented
 
-- **Database Migrations** :card_index: Kitbag provides a standardise approach to handling database changes. [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Persistence.DatabaseMigration.DbUp)
 
-- **Message Bus** : Integration with Azure Service Bus is added
+**ASYNC**
 
-- **CQRS** : Integration with Dapper is added
+- **Message Bus** : Implemented
 
-- **Unit Of Work** : Unit of Work with AuditLog is added
 
 - **Idempotency** : TBD
 
-- **Outbox Pattern** : :inbox_tray: `Kitbag.Builder.Outbox` and `Kitbag.Builder.Outbox.EntityFramework` (used EF as a event log) are libraries that provide Outbox Pattern functionality [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Outbox.EntityFramework)
+
+- **Outbox Pattern** : :inbox_tray: _Kitbag.Builder.Outbox_ and _Kitbag.Builder.Outbox.EntityFramework_ (used EF as a event log) are libraries that provide Outbox Pattern functionality [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Outbox.EntityFramework)
+
+
+**STORAGE**:
+
+- **Unit Of Work** : Unit of Work with AuditLog is added
+
+
+- **Database Migrations** :card_index: Kitbag provides a standardise approach to handling database changes. [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Persistence.DatabaseMigration.DbUp)
+
+
+- **Audit Trail** :bookmark_tabs: Kitbag provides audit trail mechanism that can track any database changes without making any unnecessary modification in existing code [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Persistence.EntityFramework.Audit)
+
+
+**Observability**:
+
+- **Logging** : :chart_with_upwards_trend: Kitbag provides integration with AppInsights [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Logging.AppInsights)
+
+
+- **Health Check** : :syringe: Kitbag provides health check mechanism that can check if the service is up and running with it's dependencies [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.ServiceHealthCheck)
+
+
+
 
 
 

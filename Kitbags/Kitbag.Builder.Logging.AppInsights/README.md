@@ -28,11 +28,6 @@ Provide necessary configuration in _appsettings.json_ file in _**PortsAndAdapter
 
 ## How to use?
 
-- Declare dependency in _Extensions.cs_ file in _**PortsAndAdapters.Infrastructure**_ project (_AddInfrastructure_ method)
-```
-    builder.AddAppInsights();
-```
-
 - After necessary declaration you can use ILogger<T> in your classes and collect your log data in AppInsights instance
 ```
     public class SomeClass
