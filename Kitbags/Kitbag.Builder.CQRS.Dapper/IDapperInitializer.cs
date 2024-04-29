@@ -1,7 +1,6 @@
-﻿namespace Kitbag.Builder.CQRS.Dapper
+﻿namespace Kitbag.Builder.CQRS.Dapper;
+
+public interface IDapperInitializer
 {
-    public interface IDapperInitializer
-    {
-        void Init();
-    }
+    void Init();
 }

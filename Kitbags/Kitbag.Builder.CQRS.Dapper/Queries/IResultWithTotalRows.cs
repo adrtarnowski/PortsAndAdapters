@@ -1,7 +1,6 @@
-﻿namespace Kitbag.Builder.CQRS.Dapper.Queries
+﻿namespace Kitbag.Builder.CQRS.Dapper.Queries;
+
+public interface IResultWithTotalRows
 {
-    public interface IResultWithTotalRows
-    {
-        int? TotalRows { get; set; }
-    }
+    int? TotalRows { get; set; }
 }

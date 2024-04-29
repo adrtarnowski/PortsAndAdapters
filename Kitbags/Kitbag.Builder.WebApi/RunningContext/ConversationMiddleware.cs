@@ -2,27 +2,26 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Kitbag.Builder.WebApi.RunningContext
+namespace Kitbag.Builder.WebApi.RunningContext;
+
+public class ConversationMiddleware
 {
-    public class ConversationMiddleware
+    private readonly RequestDelegate _next;
+    public const string ConversationHeaderKey = "ConversationId";
+
+    public ConversationMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-        public const string ConversationHeaderKey = "ConversationId";
+        _next = next;
+    }
 
-        public ConversationMiddleware(RequestDelegate next)
+    public async Task Invoke(HttpContext context)
+    {
+        if (!context.Request.Headers.ContainsKey(ConversationHeaderKey))
         {
-            _next = next;
+            var conversationId = Guid.NewGuid();
+            context.Request.Headers.Add(ConversationHeaderKey, conversationId.ToString());
         }
 
-        public async Task Invoke(HttpContext context)
-        {
-            if (!context.Request.Headers.ContainsKey(ConversationHeaderKey))
-            {
-                var conversationId = Guid.NewGuid();
-                context.Request.Headers.Add(ConversationHeaderKey, conversationId.ToString());
-            }
-
-            await _next.Invoke(context);
-        }
+        await _next.Invoke(context);
     }
 }

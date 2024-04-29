@@ -1,7 +1,6 @@
-namespace Kitbag.Builder.Persistence.Core.Common
+namespace Kitbag.Builder.Persistence.Core.Common;
+
+public class PersistenceProperties
 {
-    public class PersistenceProperties
-    {
-        public string? ConnectionString { get; set; }
-    }
+    public string? ConnectionString { get; set; }
 }

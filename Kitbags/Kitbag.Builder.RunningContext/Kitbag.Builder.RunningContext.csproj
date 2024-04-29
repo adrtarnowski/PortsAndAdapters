@@ -1,6 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <Version>1.0.0</Version>
+        <AssemblyVersion>0.0.0.1</AssemblyVersion>
+        <PackageVersion>1.0.0</PackageVersion>
+        <Company>Adrian Tarnowski https://techleaderjourney.com/</Company>
+        <Description>Kitbag Running Context allows to verification of the source of the request to the application instance (user or queue) and checks properties inside it (such as CorrelationId).</Description>
+        <DefaultLanguage>en-US</DefaultLanguage>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    </PropertyGroup>
+    
+    <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <LangVersion>10.0</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>

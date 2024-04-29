@@ -2,27 +2,26 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace Kitbag.Builder.WebApi.RunningContext
+namespace Kitbag.Builder.WebApi.RunningContext;
+
+public class CorrelationMiddleware
 {
-    public class CorrelationMiddleware
+    private readonly RequestDelegate _next;
+    public const string CorrelationHeaderKey = "CorrelationId";
+
+    public CorrelationMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
-        public const string CorrelationHeaderKey = "CorrelationId";
+        _next = next;
+    }
 
-        public CorrelationMiddleware(RequestDelegate next)
+    public async Task Invoke(HttpContext context)
+    {
+        if (!context.Request.Headers.ContainsKey(CorrelationHeaderKey))
         {
-            _next = next;
+            var correlationId = Guid.NewGuid();
+            context.Request.Headers.Add(CorrelationHeaderKey, correlationId.ToString());
         }
 
-        public async Task Invoke(HttpContext context)
-        {
-            if (!context.Request.Headers.ContainsKey(CorrelationHeaderKey))
-            {
-                var correlationId = Guid.NewGuid();
-                context.Request.Headers.Add(CorrelationHeaderKey, correlationId.ToString());
-            }
-
-            await this._next.Invoke(context);
-        }
+        await this._next.Invoke(context);
     }
 }

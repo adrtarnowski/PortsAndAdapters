@@ -3,22 +3,21 @@ using Kitbag.Builder.Persistence.DatabaseMigration.DbUp;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace TLJ.PortsAndAdapters.DatabaseMigration
+namespace TLJ.PortsAndAdapters.DatabaseMigration;
+
+public class Program
 {
-    public class Program
+    static int Main(string[] args)
     {
-        static int Main(string[] args)
-        {
-            var serviceProvider = new ServiceCollection()
-                .AddDbUp(c => c.AddConsole())
-                .Build();
+        var serviceProvider = new ServiceCollection()
+            .AddDbUp(c => c.AddConsole())
+            .Build();
 
-            var dbUpService = serviceProvider.GetService<IMigrationService>();
+        var dbUpService = serviceProvider.GetService<IMigrationService>();
 
-            if (!dbUpService!.ExecuteMigrationScripts())
-                return -1;
+        if (!dbUpService!.ExecuteMigrationScripts())
+            return -1;
 
-            return 0;
-        }
+        return 0;
     }
 }

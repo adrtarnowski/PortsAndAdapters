@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 
-namespace Kitbag.Builder.CQRS.Core.Commands
+namespace Kitbag.Builder.CQRS.Core.Commands;
+
+public interface ICommandHandler<in TCommand> where TCommand : class, ICommand 
 {
-    public interface ICommandHandler<in TCommand> where TCommand : class, ICommand 
-    {
-        Task Handle(TCommand command);
-    }
+    Task Handle(TCommand command);
 }

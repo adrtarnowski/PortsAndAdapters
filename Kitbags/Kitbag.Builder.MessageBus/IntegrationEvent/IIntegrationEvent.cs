@@ -1,10 +1,9 @@
 using System;
 
-namespace Kitbag.Builder.MessageBus.IntegrationEvent
+namespace Kitbag.Builder.MessageBus.IntegrationEvent;
+
+public interface IIntegrationEvent
 {
-    public interface IIntegrationEvent
-    {
-        Guid Id { get; }
-        DateTimeOffset CreationDate { get; }
-    }
+    Guid Id { get; }
+    DateTimeOffset CreationDate { get; }
 }

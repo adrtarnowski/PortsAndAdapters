@@ -1,9 +1,8 @@
 ﻿using System.Data;
 
-namespace Kitbag.Builder.CQRS.Dapper.Sql
+namespace Kitbag.Builder.CQRS.Dapper.Sql;
+
+public interface ISqlConnectionFactory
 {
-    public interface ISqlConnectionFactory
-    {
-        IDbConnection CreateDbConnection();
-    }
+    IDbConnection CreateDbConnection();
 }

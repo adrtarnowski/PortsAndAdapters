@@ -1,12 +1,11 @@
 ﻿using Kitbag.Builder.CQRS.Dapper;
 
-namespace TLJ.PortsAndAdapters.Infrastructure.ReadModel
+namespace TLJ.PortsAndAdapters.Infrastructure.ReadModel;
+
+public class DapperInitializer : IDapperInitializer
 {
-    public class DapperInitializer : IDapperInitializer
+    public void Init()
     {
-        public void Init()
-        {
-            //TODO: Consider using SqlMapper here
-        }
+        //TODO: Consider using SqlMapper here
     }
 }

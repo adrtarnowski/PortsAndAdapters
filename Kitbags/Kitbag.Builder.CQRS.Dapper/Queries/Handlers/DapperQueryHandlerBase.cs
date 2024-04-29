@@ -1,35 +1,34 @@
 ﻿using Kitbag.Builder.CQRS.Dapper.Sql;
 
-namespace Kitbag.Builder.CQRS.Dapper.Queries.Handlers
+namespace Kitbag.Builder.CQRS.Dapper.Queries.Handlers;
+
+public abstract class DapperQueryHandlerBase
 {
-    public abstract class DapperQueryHandlerBase
+    protected readonly ISqlConnectionFactory _connectionFactory;
+    protected DapperQueryHandlerBase(ISqlConnectionFactory connectionFactory)
     {
-        protected readonly ISqlConnectionFactory _connectionFactory;
-        protected DapperQueryHandlerBase(ISqlConnectionFactory connectionFactory)
-        {
-            _connectionFactory = connectionFactory;
-        }
+        _connectionFactory = connectionFactory;
+    }
 
-        protected virtual string TableOrViewName
+    protected virtual string TableOrViewName
+    {
+        get
         {
-            get
-            {
-                var name = GetType().Name;
+            var name = GetType().Name;
 
-                return name
-                    .Substring(0, name.Length - "QueryHandler".Length);
-            }
+            return name
+                .Substring(0, name.Length - "QueryHandler".Length);
         }
+    }
 
-        protected virtual string CreateSqlTemplate()
-        {
-            return $"SELECT /**select**/ FROM {TableOrViewName}\n" +
-                   $"/**where**/ /**orderby**/";
-        }
+    protected virtual string CreateSqlTemplate()
+    {
+        return $"SELECT /**select**/ FROM {TableOrViewName}\n" +
+               $"/**where**/ /**orderby**/";
+    }
 
-        protected virtual void ConfigureQuery(IDapperQuery query)
-        {
-            query.SqlBuilder.Select("*");
-        }
+    protected virtual void ConfigureQuery(IDapperQuery query)
+    {
+        query.SqlBuilder.Select("*");
     }
 }

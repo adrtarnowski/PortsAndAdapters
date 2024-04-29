@@ -1,14 +1,13 @@
 ﻿using Kitbag.Builder.CQRS.Dapper.Sql;
 
-namespace Kitbag.Builder.CQRS.Dapper.Queries
-{
-    public class DapperQuery<T> : IDapperQuery<T>
-    {
-        public DapperQuery()
-        {
-            SqlBuilder = new SqlBuilderAdapter();
-        }
+namespace Kitbag.Builder.CQRS.Dapper.Queries;
 
-        public ISqlBuilder SqlBuilder { get; }
+public class DapperQuery<T> : IDapperQuery<T>
+{
+    public DapperQuery()
+    {
+        SqlBuilder = new SqlBuilderAdapter();
     }
+
+    public ISqlBuilder SqlBuilder { get; }
 }

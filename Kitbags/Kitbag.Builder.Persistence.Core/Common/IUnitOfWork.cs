@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 
-namespace Kitbag.Builder.Persistence.Core.Common
+namespace Kitbag.Builder.Persistence.Core.Common;
+
+public interface IUnitOfWork
 {
-    public interface IUnitOfWork
-    {
-        Task<int> CommitAsync();
-    }
+    Task<int> CommitAsync();
 }

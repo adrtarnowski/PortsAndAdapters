@@ -2,20 +2,19 @@ using System;
 using Kitbag.Builder.Core.Initializer;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kitbag.Builder.Core.Builders
+namespace Kitbag.Builder.Core.Builders;
+
+public interface IKitbagBuilder
 {
-    public interface IKitbagBuilder
-    {
-        IServiceCollection Services { get; }
+    IServiceCollection Services { get; }
 
-        bool TryRegisterKitBag(string kitBagName);
+    bool TryRegisterKitBag(string kitBagName);
         
-        IServiceProvider Build();
+    IServiceProvider Build();
         
-        void AddInitializer<TInitializer>() where TInitializer : IInitializer;
+    void AddInitializer<TInitializer>() where TInitializer : IInitializer;
         
-        TProperties GetSettings<TProperties>(string appSettingSectionName) where TProperties : new();
+    TProperties GetSettings<TProperties>(string appSettingSectionName) where TProperties : new();
 
-        void GetSettings<TProperties>(string appSettingSectionName, TProperties properties) where TProperties : new();
-    }
+    void GetSettings<TProperties>(string appSettingSectionName, TProperties properties) where TProperties : new();
 }

@@ -1,9 +1,8 @@
 using System.Threading.Tasks;
 
-namespace Kitbag.Builder.Core.Initializer
+namespace Kitbag.Builder.Core.Initializer;
+
+public interface IInitializer
 {
-    public interface IInitializer
-    {
-        Task InitializeAsync();
-    }
+    Task InitializeAsync();
 }
