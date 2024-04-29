@@ -39,6 +39,7 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             builder.AddEntityFrameworkOutbox<DatabaseContext>();
             builder.AddUnitOfWork();
             builder.AddRedisCacheIntegration();
+            builder.Services.RegisterRepositories();
             
             // Defining CQRS
             builder.AddCQRS();
@@ -50,8 +51,7 @@ namespace TLJ.PortsAndAdapters.Infrastructure
             builder.Services.Decorate(typeof(ICommandHandler<>), typeof(AuditTrailCommandHandlerDecorator<>));
             builder.Services.Decorate(typeof(ICommandHandler<>), typeof(OutboxHandlerDecorator<>));
             builder.Services.Decorate(typeof(ICommandHandler<>), typeof(OpenTelemetryLoggingCommandHandlerDecorator<>));
-            
-            builder.Services.RegisterRepositories();
+            // Defining the source of request and its context
             builder.AddRunningContext(x => x.GetService<IHttpRunningContextProvider>());
             
             // Defining the error handling strategy
