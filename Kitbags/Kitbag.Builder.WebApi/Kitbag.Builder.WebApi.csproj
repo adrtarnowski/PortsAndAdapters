@@ -11,9 +11,9 @@
     </PropertyGroup>
     
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>10.0</LangVersion>
         <RootNamespace>Kitbag.Builder.WebApi</RootNamespace>
-        <LangVersion>8</LangVersion>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>CS8653;CS8625;CS8623;CS8618;CS8603;CS8602;CS8600</WarningsAsErrors>
     </PropertyGroup>

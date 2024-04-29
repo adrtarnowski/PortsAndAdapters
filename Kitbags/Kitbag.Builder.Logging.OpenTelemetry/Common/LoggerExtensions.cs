@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Kitbag.Builder.Logging.AppInsights.Clients;
+﻿using System.Reflection;
+using Kitbag.Builder.Logging.OpenTelemetry.Clients;
 using Microsoft.Extensions.Logging;
 
-namespace Kitbag.Builder.Logging.AppInsights.Common
-{
-    public static class LoggerExtensions
+namespace Kitbag.Builder.Logging.OpenTelemetry.Common;
+
+public static class LoggerExtensions
     {
         /// <summary>
         /// Example usage:
@@ -21,7 +18,7 @@ namespace Kitbag.Builder.Logging.AppInsights.Common
             dictionary.Add(LoggingConstants.CorrelationId, correlationId);
             dictionary.Add(LoggingConstants.UserId, userId);
 
-            return logger.BeginScope(dictionary);
+            return logger.BeginScope(dictionary)!;
         }
 
         /// <summary>
@@ -34,7 +31,7 @@ namespace Kitbag.Builder.Logging.AppInsights.Common
             var dictionary = GetValuesAsDictionary(values);
             dictionary.Add(LoggingConstants.UserId, userId);
 
-            return logger.BeginScope(dictionary);
+            return logger.BeginScope(dictionary)!;
         }
 
         private static Dictionary<string, object> GetValuesAsDictionary(object? values)
@@ -63,4 +60,3 @@ namespace Kitbag.Builder.Logging.AppInsights.Common
             return valuesAsDictionary;
         }
     }
-}

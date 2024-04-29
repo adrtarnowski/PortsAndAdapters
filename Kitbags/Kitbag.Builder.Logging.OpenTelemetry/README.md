@@ -1,24 +1,24 @@
-﻿## :chart_with_upwards_trend: Logging 
+﻿## :chart_with_upwards_trend: Logging
 
-Kitbag provides integration with AppInsights
+Kitbag provides integration with Azure Monitor using OpenTelemetry standard
 
 ## Getting Started
 
-To use `Kitbag.Builder.Logging.AppInsights`, you need to add the following line in `Extension` class in the `TLJ.PortsAndAdapters.Infrastructure` project:
+To use `Kitbag.Builder.Logging.OpenTelemetry`, you need to add the following line in `Extension` class in the `TLJ.PortsAndAdapters.Infrastructure` project:
 
 ```
 public static IKitbagBuilder AddInfrastructure(this IKitbagBuilder builder)
 {
     ...
-    builder.AddAppInsights();
+    builder.AddOpenTelemetry();
     ...
 ``` 
 
 Provide necessary configuration in _appsettings.json_ file in _**PortsAndAdapters.Api**_ project
 ```
     "Logging": {
-        "ApplicationInsights": {`
-            "InstrumentationKey": "<Provide key>"
+        "AzureMonitor": {`
+            "ConnectionString": "<Provide app insights FULL connection string>"
         },
         "LogLevel": {
         "Default": "Debug"
@@ -28,7 +28,7 @@ Provide necessary configuration in _appsettings.json_ file in _**PortsAndAdapter
 
 ## How to use?
 
-- After necessary declaration you can use ILogger<T> in your classes and collect your log data in AppInsights instance
+- After necessary declaration you can use ILogger<T> in your classes and collect your log data in Azure Monitor instance
 ```
     public class SomeClass
     {
@@ -43,15 +43,15 @@ Provide necessary configuration in _appsettings.json_ file in _**PortsAndAdapter
 
 - Optionally you can use the following declaration to decorate all your incoming requests
 ```
-    builder.Services.Decorate(typeof(ICommandHandler<>), typeof(AppInsightLoggingCommandHandlerDecorator<>));
+    builder.Services.Decorate(typeof(ICommandHandler<>), typeof(OpenTelemetryLoggingCommandHandlerDecorator<>));
 ```
-- There is a possibility to log telemetry data via AppInsights client
+- There is a possibility to log telemetry data via Telemetry client
 ```
-            private readonly IAppInsightsClient _appInsights;
+            private readonly ITelemetryClient _telemetryClient;
                
              ...
              
-            _appInsights.TrackMetricWithDimension(
+            _telemetryClient.TrackMetricWithDimension(
                 CommandHandlerMetric.CommandRequested,
                 1,
                 CommandHandlerMetric.CommandNameDimension,

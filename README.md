@@ -64,7 +64,7 @@ The solution is divided into five parts:
 
 **Observability**:
 
-- **Logging** : :chart_with_upwards_trend: Kitbag provides integration with AppInsights [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Logging.AppInsights)
+- **Logging** : :chart_with_upwards_trend: Kitbag provides integration with AppInsights [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.Logging.OpenTelemetry)
 
 
 - **Health Check** : :syringe: Kitbag provides health check mechanism that can check if the service is up and running with it's dependencies [README](https://github.com/adrtarnowski/PortsAndAdapters/tree/main/Kitbags/Kitbag.Builder.ServiceHealthCheck)
