@@ -1,6 +1,5 @@
-namespace Kitbag.Builder.CQRS.Core.Queries
-{
-    public interface IQuery { }
+namespace Kitbag.Builder.CQRS.Core.Queries;
 
-    public interface IQuery<T> { }
-}
+public interface IQuery { }
+
+public interface IQuery<T> { }

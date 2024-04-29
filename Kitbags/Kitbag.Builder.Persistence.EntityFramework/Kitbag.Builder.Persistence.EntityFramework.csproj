@@ -5,7 +5,7 @@
         <AssemblyVersion>0.0.0.1</AssemblyVersion>
         <PackageVersion>1.0.0</PackageVersion>
         <Company>Adrian Tarnowski https://techleaderjourney.com/</Company>
-        <Description>Kitbag adds the most popular .NET ORM framework Entity Framework</Description>
+        <Description>Kitbag adds the most popular .NET ORM framework</Description>
         <DefaultLanguage>en-US</DefaultLanguage>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
         <GenerateDocumentationFile>false</GenerateDocumentationFile>

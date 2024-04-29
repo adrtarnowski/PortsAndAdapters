@@ -4,52 +4,51 @@ using Azure.Messaging.ServiceBus.Administration;
 using Kitbag.Builder.MessageBus.Common;
 using Microsoft.Extensions.Logging;
 
-namespace Kitbag.Builder.MessageBus.ServiceBus.Common
+namespace Kitbag.Builder.MessageBus.ServiceBus.Common;
+
+public class ServiceBusSubscriptionBuilder : IServiceBusSubscriptionBuilder
 {
-    public class ServiceBusSubscriptionBuilder : IServiceBusSubscriptionBuilder
+    private readonly BusProperties _busProperties;
+    private readonly ServiceBusAdministrationClient _administrationClient;
+    private readonly ILogger<ServiceBusSubscriptionBuilder> _logger;
+
+    public ServiceBusSubscriptionBuilder(
+        BusProperties busProperties, 
+        ServiceBusAdministrationClient administrationClient, 
+        ILogger<ServiceBusSubscriptionBuilder> logger)
     {
-        private readonly BusProperties _busProperties;
-        private readonly ServiceBusAdministrationClient _administrationClient;
-        private readonly ILogger<ServiceBusSubscriptionBuilder> _logger;
+        _administrationClient = administrationClient;
+        _busProperties = busProperties;
+        _logger = logger;
+    }
 
-        public ServiceBusSubscriptionBuilder(
-            BusProperties busProperties, 
-            ServiceBusAdministrationClient administrationClient, 
-            ILogger<ServiceBusSubscriptionBuilder> logger)
+    public async Task AddCustomRule(string subject)
+    {
+        try
         {
-            _administrationClient = administrationClient;
-            _busProperties = busProperties;
-            _logger = logger;
+            await _administrationClient.CreateRuleAsync(_busProperties.EventTopicName,
+                _busProperties.EventSubscriptionName, new CreateRuleOptions
+                {
+                    Name = subject,
+                    Filter = new CorrelationRuleFilter() { Subject = subject }
+                });
         }
-
-        public async Task AddCustomRule(string subject)
+        catch (ServiceBusException exception)
         {
-            try
-            {
-                await _administrationClient.CreateRuleAsync(_busProperties.EventTopicName,
-                    _busProperties.EventSubscriptionName, new CreateRuleOptions
-                    {
-                        Name = subject,
-                        Filter = new CorrelationRuleFilter() { Subject = subject }
-                    });
-            }
-            catch (ServiceBusException exception)
-            {
-                _logger.LogInformation($"The messaging entity {subject} already exists.", exception.Message);
-            }
+            _logger.LogInformation($"The messaging entity {subject} already exists.", exception.Message);
         }
+    }
 
-        public async Task RemoveDefaultRule()
+    public async Task RemoveDefaultRule()
+    {
+        try
         {
-            try
-            {
-                await _administrationClient.DeleteRuleAsync(_busProperties.EventTopicName,
-                    _busProperties.EventSubscriptionName, "$Default");
-            }
-            catch (ServiceBusException exception)
-            {
-                _logger.LogInformation($"The messaging entity has encounter an issue {exception.Message}");
-            }
+            await _administrationClient.DeleteRuleAsync(_busProperties.EventTopicName,
+                _busProperties.EventSubscriptionName, "$Default");
+        }
+        catch (ServiceBusException exception)
+        {
+            _logger.LogInformation($"The messaging entity has encounter an issue {exception.Message}");
         }
     }
 }

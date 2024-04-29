@@ -1,15 +1,14 @@
 ﻿using System;
 using FluentValidation.Results;
 
-namespace Kitbag.Builder.WebApi.Exceptions.Types
-{
-    public class QueryNotValidException : Exception
-    {
-        public ValidationFailure[] ValidationFailures { get; }
+namespace Kitbag.Builder.WebApi.Exceptions.Types;
 
-        public QueryNotValidException(params ValidationFailure[] validationFailures)
-        {
-            ValidationFailures = validationFailures;
-        }
+public class QueryNotValidException : Exception
+{
+    public ValidationFailure[] ValidationFailures { get; }
+
+    public QueryNotValidException(params ValidationFailure[] validationFailures)
+    {
+        ValidationFailures = validationFailures;
     }
 }

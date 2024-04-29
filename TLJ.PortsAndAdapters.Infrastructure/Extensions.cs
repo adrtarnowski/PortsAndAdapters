@@ -27,68 +27,67 @@ using TLJ.PortsAndAdapters.Infrastructure.Persistence;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence.Repositories;
 using TLJ.PortsAndAdapters.Infrastructure.ReadModel;
 
-namespace TLJ.PortsAndAdapters.Infrastructure
-{
-    public static class Extensions
-    {
-        public static IKitbagBuilder AddInfrastructure(this IKitbagBuilder builder)
-        {
-            // Defining database context
-            builder.AddEntityFramework<DatabaseContext>();
-            builder.AddEntityFrameworkAuditTrail<DatabaseContext>();
-            builder.AddEntityFrameworkOutbox<DatabaseContext>();
-            builder.AddUnitOfWork();
-            builder.AddRedisCacheIntegration();
-            builder.Services.RegisterRepositories();
-            
-            // Defining CQRS
-            builder.AddCQRS();
-            builder.AddCQRSIntegrationEvents();
-            builder.AddDapperForQueries(new DapperInitializer());
-            
-            // Defining decorators
-            builder.Services.Decorate(typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
-            builder.Services.Decorate(typeof(ICommandHandler<>), typeof(AuditTrailCommandHandlerDecorator<>));
-            builder.Services.Decorate(typeof(ICommandHandler<>), typeof(OutboxHandlerDecorator<>));
-            builder.Services.Decorate(typeof(ICommandHandler<>), typeof(OpenTelemetryLoggingCommandHandlerDecorator<>));
-            // Defining the source of request and its context
-            builder.AddRunningContext(x => x.GetService<IHttpRunningContextProvider>());
-            
-            // Defining the error handling strategy
-            builder.AddErrorHandler(c =>
-            {
-                c.Map<BrokenBusinessRuleException>((http, ex) => new BrokenBusinessRuleProblemDetails(ex));
-                c.Map<CommandNotValidException>((http, ex) => new CommandNotValidProblemDetails(ex));
-                c.Map<QueryNotValidException>((http, ex) => new QueryNotValidProblemDetails(ex));
-                c.Map<DbUpdateConcurrencyException>((http, ex) => new ConcurrencyProblemDetails());
-            });
-            
-            // ServiceBus register events
-            /* builder.AddServiceBus();
-            builder.AddServiceBusSubscriber<ServiceBusSubscriptionRegistrationInitializer>();
-            builder.AddServiceBusPublisher<RemovalUserCommand>();
-            builder.AddServiceBusWorker(); */
-            builder.AddServiceBusPublisher<RemovalUserEvent>();
-            
-            return builder;
-        }
+namespace TLJ.PortsAndAdapters.Infrastructure;
 
-        public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)
+public static class Extensions
+{
+    public static IKitbagBuilder AddInfrastructure(this IKitbagBuilder builder)
+    {
+        // Defining database context
+        builder.AddEntityFramework<DatabaseContext>();
+        builder.AddEntityFrameworkAuditTrail<DatabaseContext>();
+        builder.AddEntityFrameworkOutbox<DatabaseContext>();
+        builder.AddUnitOfWork();
+        builder.AddRedisCacheIntegration();
+        builder.Services.RegisterRepositories();
+            
+        // Defining CQRS
+        builder.AddCQRS();
+        builder.AddCQRSIntegrationEvents();
+        builder.AddDapperForQueries(new DapperInitializer());
+            
+        // Defining decorators
+        builder.Services.Decorate(typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
+        builder.Services.Decorate(typeof(ICommandHandler<>), typeof(AuditTrailCommandHandlerDecorator<>));
+        builder.Services.Decorate(typeof(ICommandHandler<>), typeof(OutboxHandlerDecorator<>));
+        builder.Services.Decorate(typeof(ICommandHandler<>), typeof(OpenTelemetryLoggingCommandHandlerDecorator<>));
+        // Defining the source of request and its context
+        builder.AddRunningContext(x => x.GetService<IHttpRunningContextProvider>());
+            
+        // Defining the error handling strategy
+        builder.AddErrorHandler(c =>
         {
-            // ServiceBus register event example
-            /* var busSubscriber = builder.ApplicationServices.GetRequiredService<IEventSubscriber>();
-            busSubscriber.Subscribe<CloseBookmakingEvent, CloseBookmakingEventHandler>(); */
-            return builder;
-        }
+            c.Map<BrokenBusinessRuleException>((http, ex) => new BrokenBusinessRuleProblemDetails(ex));
+            c.Map<CommandNotValidException>((http, ex) => new CommandNotValidProblemDetails(ex));
+            c.Map<QueryNotValidException>((http, ex) => new QueryNotValidProblemDetails(ex));
+            c.Map<DbUpdateConcurrencyException>((http, ex) => new ConcurrencyProblemDetails());
+        });
+            
+        // ServiceBus register events
+        /* builder.AddServiceBus();
+        builder.AddServiceBusSubscriber<ServiceBusSubscriptionRegistrationInitializer>();
+        builder.AddServiceBusPublisher<RemovalUserCommand>();
+        builder.AddServiceBusWorker(); */
+        builder.AddServiceBusPublisher<RemovalUserEvent>();
+            
+        return builder;
+    }
+
+    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)
+    {
+        // ServiceBus register event example
+        /* var busSubscriber = builder.ApplicationServices.GetRequiredService<IEventSubscriber>();
+        busSubscriber.Subscribe<CloseBookmakingEvent, CloseBookmakingEventHandler>(); */
+        return builder;
+    }
         
-        private static void RegisterRepositories(this IServiceCollection services)
-        {
-            services.Scan(s =>
-                s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
-                    .AddClasses(c => 
-                        c.AssignableTo(typeof(DatabaseRepository<,>)))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime());
-        }
+    private static void RegisterRepositories(this IServiceCollection services)
+    {
+        services.Scan(s =>
+            s.FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
+                .AddClasses(c => 
+                    c.AssignableTo(typeof(DatabaseRepository<,>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
     }
 }

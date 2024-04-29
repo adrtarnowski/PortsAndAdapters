@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
 using Kitbag.Builder.Core.Domain;
 
-namespace Kitbag.Builder.CQRS.Core.Events
+namespace Kitbag.Builder.CQRS.Core.Events;
+
+public interface IDomainEventHandler<TEvent> where TEvent : class, IDomainEvent
 {
-    public interface IDomainEventHandler<TEvent> where TEvent : class, IDomainEvent
-    {
-        Task Handle(TEvent @event);
-    }
+    Task Handle(TEvent @event);
 }

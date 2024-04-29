@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 
-namespace Kitbag.Builder.WebApi.Common
+namespace Kitbag.Builder.WebApi.Common;
+
+public class WebApiOptions
 {
-    public class WebApiOptions
-    {
-        public ICollection<string>? CorsAllowedOrigins { get; set; }
-    }
+    public ICollection<string>? CorsAllowedOrigins { get; set; }
 }

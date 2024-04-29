@@ -1,5 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+    
+    <PropertyGroup>
+        <Version>1.0.0</Version>
+        <AssemblyVersion>0.0.0.1</AssemblyVersion>
+        <PackageVersion>1.0.0</PackageVersion>
+        <Company>Adrian Tarnowski https://techleaderjourney.com/</Company>
+        <Description>Kitbag provides OpenTelemetry supports for your logs</Description>
+        <DefaultLanguage>en-US</DefaultLanguage>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    </PropertyGroup>
+    
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
@@ -14,10 +25,6 @@
       <ProjectReference Include="..\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
       <ProjectReference Include="..\Kitbag.Builder.CQRS.Core\Kitbag.Builder.CQRS.Core.csproj" />
       <ProjectReference Include="..\Kitbag.Builder.RunningContext\Kitbag.Builder.RunningContext.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Kitbag.Builder.Core\Kitbag.Builder.Core.csproj" />
     </ItemGroup>
 
 </Project>

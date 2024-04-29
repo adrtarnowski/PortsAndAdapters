@@ -1,9 +1,8 @@
-namespace Kitbag.Builder.Core.Domain
+namespace Kitbag.Builder.Core.Domain;
+
+public interface IBusinessRule
 {
-    public interface IBusinessRule
-    {
-        bool IsValid();
-        string? BrokenRuleMessage { get; }
-        string Code { get; }
-    }
+    bool IsValid();
+    string? BrokenRuleMessage { get; }
+    string Code { get; }
 }

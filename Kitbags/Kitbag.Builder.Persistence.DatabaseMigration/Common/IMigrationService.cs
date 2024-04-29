@@ -1,7 +1,6 @@
-namespace Kitbag.Builder.Persistence.DatabaseMigration.Common
+namespace Kitbag.Builder.Persistence.DatabaseMigration.Common;
+
+public interface IMigrationService
 {
-    public interface IMigrationService
-    {
-        bool ExecuteMigrationScripts();
-    }
+    bool ExecuteMigrationScripts();
 }

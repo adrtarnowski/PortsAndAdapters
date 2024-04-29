@@ -1,14 +1,13 @@
 ﻿using FluentValidation.Results;
 
-namespace Kitbag.Builder.WebApi.Exceptions.Dtos
+namespace Kitbag.Builder.WebApi.Exceptions.Dtos;
+
+public static class ValidationErrorTypeMapper
 {
-    public static class ValidationErrorTypeMapper
+    public static ValidationErrorTypes? Fill(ValidationFailure validationFailure)
     {
-        public static ValidationErrorTypes? Fill(ValidationFailure validationFailure)
-        {
-            if (validationFailure.ErrorCode == ValidationFailureErrorCodes.NotEmptyValidator.ToString())
-                return ValidationErrorTypes.Required;
-            return null;
-        }
+        if (validationFailure.ErrorCode == ValidationFailureErrorCodes.NotEmptyValidator.ToString())
+            return ValidationErrorTypes.Required;
+        return null;
     }
 }

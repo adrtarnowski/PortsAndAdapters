@@ -1,9 +1,8 @@
 using System;
 
-namespace Kitbag.Builder.Core.Domain
+namespace Kitbag.Builder.Core.Domain;
+
+public interface IDomainEvent
 {
-    public interface IDomainEvent
-    {
-        DateTimeOffset OccuredOn { get; }
-    }
+    DateTimeOffset OccuredOn { get; }
 }

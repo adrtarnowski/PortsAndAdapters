@@ -2,29 +2,31 @@
 using Kitbag.Builder.Persistence.Core.Common;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kitbag.Builder.ServiceHealthCheck.Types
+namespace Kitbag.Builder.ServiceHealthCheck.Types;
+
+public class DatabaseServiceHealthCheck : IServiceHealthCheck
 {
-    public static class DatabaseHealthCheckRegistration
+    private readonly string _serviceName;
+
+    public DatabaseServiceHealthCheck(string serviceName)
     {
-        public static IHealthChecksBuilder RegisterDatabaseHealthCheck(
-            this IHealthChecksBuilder healthChecksBuilder,
-            IKitbagBuilder kitbagBuilder,
-            string serviceName)
-        {
-            if (kitbagBuilder is null) throw new ArgumentNullException($"{nameof(IKitbagBuilder)}");
+        _serviceName = serviceName;
+    }
 
-            var databaseProperties = kitbagBuilder.GetSettings<PersistenceProperties>(serviceName);
+    public void Register(IKitbagBuilder kitbagBuilder, IHealthChecksBuilder healthChecksBuilder)
+    {
+        if (kitbagBuilder is null) throw new ArgumentNullException($"{nameof(IKitbagBuilder)}");
 
-            if (databaseProperties?.ConnectionString is null)
-                throw new ArgumentException(
-                    $"{typeof(PersistenceProperties)} could not be loaded from configuration. Please check, if section names are matching");
+        var databaseProperties = kitbagBuilder.GetSettings<PersistenceProperties>(_serviceName);
 
-            healthChecksBuilder.AddSqlServer(
-                databaseProperties.ConnectionString,
-                name: serviceName,
-                tags: new[] { "Azure", "Database" }
-            );
-            return healthChecksBuilder;
-        }
+        if (databaseProperties?.ConnectionString is null)
+            throw new ArgumentException(
+                $"{typeof(PersistenceProperties)} could not be loaded from configuration. Please check, if section names are matching");
+
+        healthChecksBuilder.AddSqlServer(
+            databaseProperties.ConnectionString,
+            name: _serviceName,
+            tags: new[] { "Azure", "Database" }
+        );
     }
 }

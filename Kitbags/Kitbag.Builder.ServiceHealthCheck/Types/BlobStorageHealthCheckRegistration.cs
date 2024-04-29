@@ -1,34 +1,36 @@
 ﻿using Kitbag.Builder.Core.Builders;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kitbag.Builder.ServiceHealthCheck.Types
+namespace Kitbag.Builder.ServiceHealthCheck.Types;
+
+public class BlobStorageServiceHealthCheck : IServiceHealthCheck
 {
+    private readonly string _serviceName;
+
+    public BlobStorageServiceHealthCheck(string serviceName)
+    {
+        _serviceName = serviceName;
+    }
+
     //TODO: Move to the specific BlobStorage Kitbag dll
-    internal class BlobStorageProperties
+    private class BlobStorageProperties
     {
         public string? ConnectionString { get; set; }
     }
-
-    public class BlobStorageHealthCheckRegistration
+    
+    public void Register(IKitbagBuilder kitbagBuilder, IHealthChecksBuilder healthChecksBuilder)
     {
-        public static IHealthChecksBuilder RegisterHealthCheck(
-            IHealthChecksBuilder healthChecksBuilder,
-            IKitbagBuilder kitbagBuilder,
-            string sectionName)
-        {
-            if (kitbagBuilder is null) throw new ArgumentNullException($"{nameof(IKitbagBuilder)}");
+        if (kitbagBuilder is null) throw new ArgumentNullException($"{nameof(IKitbagBuilder)}");
 
-            var blobStorageProperties = kitbagBuilder.GetSettings<BlobStorageProperties>(sectionName);
+        var blobStorageProperties = kitbagBuilder.GetSettings<BlobStorageProperties>(_serviceName);
 
-            if (blobStorageProperties?.ConnectionString is null)
-                throw new ArgumentException($"{nameof(BlobStorageProperties)} could not be loaded from configuration. Please check, if section names are matching");
+        if (blobStorageProperties?.ConnectionString is null)
+            throw new ArgumentException($"{nameof(BlobStorageProperties)} could not be loaded from configuration. Please check, if section names are matching");
 
-            healthChecksBuilder.AddAzureBlobStorage(
-                blobStorageProperties.ConnectionString,
-                name: "BlobStorage",
-                tags: new[] { "Azure", "BlobStorage" }
-            );
-            return healthChecksBuilder;
-        }
+        healthChecksBuilder.AddAzureBlobStorage(
+            blobStorageProperties.ConnectionString,
+            name: "BlobStorage",
+            tags: new[] { "Azure", "BlobStorage" }
+        );
     }
 }

@@ -5,73 +5,72 @@ using Kitbag.Builder.Core.Initializer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kitbag.Builder.Core.Builders
+namespace Kitbag.Builder.Core.Builders;
+
+public class KitbagBuilder : IKitbagBuilder
 {
-    public class KitbagBuilder : IKitbagBuilder
+    public IServiceCollection Services { get; }
+    private readonly List<Action<IServiceProvider>> _buildActions;
+    private readonly IConfiguration? _configuration;
+    private readonly List<string> _registeredKitbags;
+
+    public KitbagBuilder(IServiceCollection services, IConfiguration? configuration = null)
     {
-        public IServiceCollection Services { get; }
-        private readonly List<Action<IServiceProvider>> _buildActions;
-        private readonly IConfiguration? _configuration;
-        private readonly List<string> _registeredKitbags;
+        Services = services;
+        Services.AddSingleton<IStartupInitializer>(new StartupInitializer());
+        _registeredKitbags = new List<string>();
+        _buildActions = new List<Action<IServiceProvider>>();
 
-        public KitbagBuilder(IServiceCollection services, IConfiguration? configuration = null)
+        if (configuration == null)
         {
-            Services = services;
-            Services.AddSingleton<IStartupInitializer>(new StartupInitializer());
-            _registeredKitbags = new List<string>();
-            _buildActions = new List<Action<IServiceProvider>>();
-
-            if (configuration == null)
-            {
-                using var serviceProvider = Services.BuildServiceProvider();
-                _configuration = serviceProvider.GetService<IConfiguration>();
-            }
-            else
-            {
-                _configuration = configuration;
-            }
+            using var serviceProvider = Services.BuildServiceProvider();
+            _configuration = serviceProvider.GetService<IConfiguration>();
         }
+        else
+        {
+            _configuration = configuration;
+        }
+    }
         
-        public bool TryRegisterKitBag(string kitBagName)
-        {
-            var isAlreadyRegistered = _registeredKitbags.Any(r => r == kitBagName);
-            if (isAlreadyRegistered)
-                return false;
-            _registeredKitbags.Add(kitBagName);
-            return true;
-        }
+    public bool TryRegisterKitBag(string kitBagName)
+    {
+        var isAlreadyRegistered = _registeredKitbags.Any(r => r == kitBagName);
+        if (isAlreadyRegistered)
+            return false;
+        _registeredKitbags.Add(kitBagName);
+        return true;
+    }
 
-        public IServiceProvider Build()
-        {
-            var serviceProvider = Services.BuildServiceProvider();
-            _buildActions.ForEach(a => a(serviceProvider));
-            return serviceProvider;
-        }
+    public IServiceProvider Build()
+    {
+        var serviceProvider = Services.BuildServiceProvider();
+        _buildActions.ForEach(a => a(serviceProvider));
+        return serviceProvider;
+    }
 
-        public void AddInitializer<TInitializer>() where TInitializer : IInitializer
+    public void AddInitializer<TInitializer>() where TInitializer : IInitializer
+    {
+        AddBuildAction(sp =>
         {
-            AddBuildAction(sp =>
-            {
-                var initializer = sp.GetRequiredService<TInitializer>();
-                var startupInitializer = sp.GetRequiredService<IStartupInitializer>();
-                startupInitializer.AddInitializer(initializer);
-            });
-        }
+            var initializer = sp.GetRequiredService<TInitializer>();
+            var startupInitializer = sp.GetRequiredService<IStartupInitializer>();
+            startupInitializer.AddInitializer(initializer);
+        });
+    }
 
-        public TProperties GetSettings<TProperties>(string appSettingSectionName) where TProperties : new()
-        {
-            return _configuration.GetSettings<TProperties>(appSettingSectionName);
-        }
+    public TProperties GetSettings<TProperties>(string appSettingSectionName) where TProperties : new()
+    {
+        return _configuration.GetSettings<TProperties>(appSettingSectionName);
+    }
 
-        public void GetSettings<TProperties>(string appSettingSectionName, TProperties properties)
-            where TProperties : new()
-        {
-            if (_configuration != null) _configuration.GetSection(appSettingSectionName).Bind(properties);
-        }
+    public void GetSettings<TProperties>(string appSettingSectionName, TProperties properties)
+        where TProperties : new()
+    {
+        if (_configuration != null) _configuration.GetSection(appSettingSectionName).Bind(properties);
+    }
         
-        private void AddBuildAction(Action<IServiceProvider> execute)
-        {
-            _buildActions.Add(execute);
-        }
+    private void AddBuildAction(Action<IServiceProvider> execute)
+    {
+        _buildActions.Add(execute);
     }
 }

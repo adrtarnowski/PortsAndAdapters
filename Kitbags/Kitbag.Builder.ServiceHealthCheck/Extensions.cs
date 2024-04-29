@@ -1,24 +1,30 @@
 using Kitbag.Builder.Core.Builders;
+using Kitbag.Builder.ServiceHealthCheck.Common;
 using Kitbag.Builder.ServiceHealthCheck.Types;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace Kitbag.Builder.ServiceHealthCheck
+namespace Kitbag.Builder.ServiceHealthCheck;
+
+public static class Extensions
 {
-    public static class Extensions
+    public static IKitbagBuilder AddServiceHealthChecks(
+        this IKitbagBuilder kitbagBuilder,
+        Action<IKitbagHealthChecksBuilder>? buildAction = null,
+        string sectionName = "HealthChecks")
     {
-        public static IKitbagBuilder AddServiceHealthChecks(this IKitbagBuilder builder,
-            string sectionName = "HealthChecks")
-        {
-            if (!builder.TryRegisterKitBag(sectionName))
-                return builder;
+        if (!kitbagBuilder.TryRegisterKitBag(sectionName))
+            return kitbagBuilder;
+        var kitbagHealthChecksBuilder = new KitbagHealthChecksBuilder(kitbagBuilder);
+        buildAction?.Invoke(kitbagHealthChecksBuilder);
+        kitbagHealthChecksBuilder.Build();
+        return kitbagBuilder;
+    }
 
-            builder.Services
-                .AddHealthChecks()
-                .RegisterDatabaseHealthCheck(builder, "Database");
-                // Example how to register new Service Health Check
-                //.RegisterRedisHealthCheck(builder,"Redis");
-            
-            return builder;
-        }
+    public static IKitbagBuilder AddServiceHealthChecks(
+        this IKitbagBuilder kitbagBuilder,
+        string sectionName = "HealthChecks")
+    {
+        return kitbagBuilder.AddServiceHealthChecks(
+            builder => builder.WithServiceHealthCheck(new DatabaseServiceHealthCheck("Database")),
+            sectionName);
     }
 }

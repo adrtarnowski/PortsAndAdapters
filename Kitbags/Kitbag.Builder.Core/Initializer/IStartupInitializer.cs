@@ -1,7 +1,6 @@
-namespace Kitbag.Builder.Core.Initializer
+namespace Kitbag.Builder.Core.Initializer;
+
+public interface IStartupInitializer : IInitializer
 {
-    public interface IStartupInitializer : IInitializer
-    {
-        void AddInitializer(IInitializer initializer);
-    }
+    void AddInitializer(IInitializer initializer);
 }

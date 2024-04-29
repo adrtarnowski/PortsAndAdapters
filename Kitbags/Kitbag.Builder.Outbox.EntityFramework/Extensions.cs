@@ -5,20 +5,19 @@ using Kitbag.Builder.Outbox.Schedulers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Kitbag.Builder.Outbox.EntityFramework
+namespace Kitbag.Builder.Outbox.EntityFramework;
+
+public static class Extensions
 {
-    public static class Extensions
+    public static IKitbagBuilder AddEntityFrameworkOutbox<TDbContext>(this IKitbagBuilder builder, string sectionName = "Outbox") where TDbContext : DbContext
     {
-        public static IKitbagBuilder AddEntityFrameworkOutbox<TDbContext>(this IKitbagBuilder builder, string sectionName = "Outbox") where TDbContext : DbContext
-        {
-            if (!builder.TryRegisterKitBag(sectionName)) 
-                return builder;
-            
-            builder.Services.AddScoped<IOutBoxRepository, OutBoxRepository<TDbContext>>();
-            builder.Services.AddScoped<IDomainEventScheduler, DomainEventScheduler>();
-            builder.Services.AddScoped<IOutboxEventDispatcher, OutboxEventDispatcher>();
-            
+        if (!builder.TryRegisterKitBag(sectionName)) 
             return builder;
-        }
+            
+        builder.Services.AddScoped<IOutBoxRepository, OutBoxRepository<TDbContext>>();
+        builder.Services.AddScoped<IDomainEventScheduler, DomainEventScheduler>();
+        builder.Services.AddScoped<IOutboxEventDispatcher, OutboxEventDispatcher>();
+            
+        return builder;
     }
 }

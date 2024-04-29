@@ -1,10 +1,9 @@
 using System.Threading.Tasks;
 
-namespace Kitbag.Builder.MessageBus.IntegrationEvent
+namespace Kitbag.Builder.MessageBus.IntegrationEvent;
+
+public interface IIntegrationEventHandler<TIntegrationEvent>
+    where TIntegrationEvent : IIntegrationEvent
 {
-    public interface IIntegrationEventHandler<TIntegrationEvent>
-        where TIntegrationEvent : IIntegrationEvent
-    {
-        Task HandleAsync(TIntegrationEvent integrationEvent);
-    }
+    Task HandleAsync(TIntegrationEvent integrationEvent);
 }

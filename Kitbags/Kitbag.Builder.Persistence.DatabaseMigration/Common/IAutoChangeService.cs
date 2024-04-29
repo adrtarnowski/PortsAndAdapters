@@ -1,8 +1,7 @@
-namespace Kitbag.Builder.Persistence.DatabaseMigration.Common
+namespace Kitbag.Builder.Persistence.DatabaseMigration.Common;
+
+public interface IAutoChangeService
 {
-    public interface IAutoChangeService
-    {
-        string AutoChangeScriptName { get; }
-        string GetAutoChangeScript();
-    }
+    string AutoChangeScriptName { get; }
+    string GetAutoChangeScript();
 }
