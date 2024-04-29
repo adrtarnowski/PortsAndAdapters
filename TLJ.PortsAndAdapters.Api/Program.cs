@@ -3,12 +3,11 @@ using System.Threading.Tasks;
 using Azure.Identity;
 using Kitbag.Builder.Core;
 using Kitbag.Builder.HttpClient;
-using Kitbag.Builder.Logging.AppInsights;
+using Kitbag.Builder.Logging.OpenTelemetry;
 using Kitbag.Builder.ServiceHealthCheck;
 using Kitbag.Builder.Swagger;
 using Kitbag.Builder.WebApi;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
 using TLJ.PortsAndAdapters.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using static System.String;
@@ -18,42 +17,47 @@ namespace TLJ.PortsAndAdapters.Api
     class Program
     {
         public static Task Main(string[] args)
-            => CreateWebHostBuilder(args).Build().RunAsync();
-        
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+            => CreateWebApplication(args).RunAsync();
+
+        public static WebApplication CreateWebApplication(string[] args)
         {
-            return WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((context, config) =>
-                {
-                    var settings = config.Build();
-                    var connectionString = settings["AppConfiguration:ConnectionString"];
-                    var appConfigEndpoint = settings["AppConfiguration:Endpoint"];
-                    if (!IsNullOrEmpty(connectionString))
-                    {
-                        config.AddAzureAppConfiguration(options => options.Connect(connectionString));
-                    }
-                    else if(!IsNullOrEmpty(appConfigEndpoint))
-                    {
-                        config.AddAzureAppConfiguration(options => options.Connect(new Uri(appConfigEndpoint), new ManagedIdentityCredential()));
-                    }
-                })
-                .ConfigureServices((webHostBuilderContext, services) => services
-                    .AddKitbag(webHostBuilderContext.Configuration)
-                    .AddWebApi()
-                    .AddApiContext()
-                    .AddSwagger()
-                    .AddAppInsights()
-                    .AddHttpClient()
-                    .AddServiceHealthChecks()
-                    .AddInfrastructure()
-                    .Build())
-                .Configure(app => app
-                    .UseKitbag()
-                    .UseErrorHandler()
-                    .UseSwaggerDoc()
-                    .UseControllers()
-                    .UseInfrastructure()
-                );
+            var builder = WebApplication.CreateBuilder(args);
+
+            // Inititalize configuration settings and its source
+            var connectionString = builder.Configuration["AppConfiguration:ConnectionString"];
+            var appConfigEndpoint = builder.Configuration["AppConfiguration:Endpoint"];
+            if (!IsNullOrEmpty(connectionString))
+            {
+                builder.Configuration.AddAzureAppConfiguration(options => options.Connect(connectionString));
+            }
+            else if (!IsNullOrEmpty(appConfigEndpoint))
+            {
+                builder.Configuration.AddAzureAppConfiguration(options =>
+                    options.Connect(new Uri(appConfigEndpoint), new ManagedIdentityCredential()));
+            }
+
+            // Add Kitbag and its services
+            builder.Services
+                .AddKitbag(builder.Configuration)
+                .AddWebApi()
+                .AddApiContext()
+                .AddSwagger()
+                .AddOpenTelemetry()
+                .AddHttpClient()
+                .AddServiceHealthChecks()
+                .AddInfrastructure()
+                .Build();
+
+            var app = builder.Build();
+
+            app.UseKitbag()
+                .UseErrorHandler()
+                .UseSwaggerDoc()
+                .UseControllers()
+                .UseInfrastructure();
+
+            app.MapControllers();
+            return app;
         }
     }
 }

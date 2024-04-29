@@ -12,19 +12,18 @@
     </PropertyGroup>
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <LangVersion>8</LangVersion>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>10.0</LangVersion>
         <Nullable>enable</Nullable>
         <WarningsAsErrors>CS8653;CS8625;CS8623;CS8618;CS8603;CS8602;CS8600</WarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.Logging.AppInsights\Kitbag.Builder.Logging.AppInsights.csproj" />
+        <ProjectReference Include="..\Kitbags\Kitbag.Builder.Logging.OpenTelemetry\Kitbag.Builder.Logging.OpenTelemetry.csproj" />
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.Outbox.EntityFramework\Kitbag.Builder.Outbox.EntityFramework.csproj" />
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.Redis\Kitbag.Builder.Redis.csproj" />
         <ProjectReference Include="..\TLJ.PortsAndAdapters.Application\TLJ.PortsAndAdapters.Application.csproj" />
         <ProjectReference Include="..\TLJ.PortsAndAdapters.Core\TLJ.PortsAndAdapters.Core.csproj" />
-        <ProjectReference Include="..\Kitbags\Kitbag.Builder.AzureAD\Kitbag.Builder.AzureAD.csproj" />
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.CQRS.Dapper\Kitbag.Builder.CQRS.Dapper.csproj" />
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.CQRS.IntegrationEvents\Kitbag.Builder.CQRS.IntegrationEvents.csproj" />
         <ProjectReference Include="..\Kitbags\Kitbag.Builder.MessageBus.ServiceBus\Kitbag.Builder.MessageBus.ServiceBus.csproj" />

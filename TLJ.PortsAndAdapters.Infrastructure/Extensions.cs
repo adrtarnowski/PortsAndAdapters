@@ -5,8 +5,8 @@ using Kitbag.Builder.CQRS.Core;
 using Kitbag.Builder.CQRS.Core.Commands;
 using Kitbag.Builder.CQRS.Dapper;
 using Kitbag.Builder.CQRS.IntegrationEvents;
-using Kitbag.Builder.Logging.AppInsights;
-using Kitbag.Builder.Logging.AppInsights.Decorators;
+using Kitbag.Builder.Logging.OpenTelemetry.Decorators;
+using Kitbag.Builder.MessageBus.ServiceBus;
 using Kitbag.Builder.Outbox.EntityFramework;
 using Kitbag.Builder.Outbox.EntityFramework.Common;
 using Kitbag.Builder.Persistence.EntityFramework;
@@ -22,6 +22,7 @@ using Kitbag.Persistence.EntityFramework.UnitOfWork.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using TLJ.PortsAndAdapters.Application.User.Events;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence;
 using TLJ.PortsAndAdapters.Infrastructure.Persistence.Repositories;
 using TLJ.PortsAndAdapters.Infrastructure.ReadModel;
@@ -32,25 +33,28 @@ namespace TLJ.PortsAndAdapters.Infrastructure
     {
         public static IKitbagBuilder AddInfrastructure(this IKitbagBuilder builder)
         {
-            builder.AddAppInsights();
+            // Defining database context
             builder.AddEntityFramework<DatabaseContext>();
             builder.AddEntityFrameworkAuditTrail<DatabaseContext>();
             builder.AddEntityFrameworkOutbox<DatabaseContext>();
             builder.AddUnitOfWork();
             builder.AddRedisCacheIntegration();
             
+            // Defining CQRS
             builder.AddCQRS();
             builder.AddCQRSIntegrationEvents();
             builder.AddDapperForQueries(new DapperInitializer());
             
+            // Defining decorators
             builder.Services.Decorate(typeof(ICommandHandler<>), typeof(UnitOfWorkCommandHandlerDecorator<>));
             builder.Services.Decorate(typeof(ICommandHandler<>), typeof(AuditTrailCommandHandlerDecorator<>));
             builder.Services.Decorate(typeof(ICommandHandler<>), typeof(OutboxHandlerDecorator<>));
-            builder.Services.Decorate(typeof(ICommandHandler<>), typeof(AppInsightLoggingCommandHandlerDecorator<>));
+            builder.Services.Decorate(typeof(ICommandHandler<>), typeof(OpenTelemetryLoggingCommandHandlerDecorator<>));
             
             builder.Services.RegisterRepositories();
             builder.AddRunningContext(x => x.GetService<IHttpRunningContextProvider>());
             
+            // Defining the error handling strategy
             builder.AddErrorHandler(c =>
             {
                 c.Map<BrokenBusinessRuleException>((http, ex) => new BrokenBusinessRuleProblemDetails(ex));
@@ -58,11 +62,13 @@ namespace TLJ.PortsAndAdapters.Infrastructure
                 c.Map<QueryNotValidException>((http, ex) => new QueryNotValidProblemDetails(ex));
                 c.Map<DbUpdateConcurrencyException>((http, ex) => new ConcurrencyProblemDetails());
             });
+            
             // ServiceBus register events
             /* builder.AddServiceBus();
             builder.AddServiceBusSubscriber<ServiceBusSubscriptionRegistrationInitializer>();
             builder.AddServiceBusPublisher<RemovalUserCommand>();
             builder.AddServiceBusWorker(); */
+            builder.AddServiceBusPublisher<RemovalUserEvent>();
             
             return builder;
         }

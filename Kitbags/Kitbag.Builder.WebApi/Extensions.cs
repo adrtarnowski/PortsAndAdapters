@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using ProblemDetailsOptions = Hellang.Middleware.ProblemDetails.ProblemDetailsOptions;
 
 namespace Kitbag.Builder.WebApi
 {
@@ -81,7 +82,7 @@ public static class Extensions
             builder.Services.ConfigureOptions<ProblemDetailsOptionsCustomSetup>();
             if (configure == null)
             {
-                builder.Services.AddProblemDetails();
+                Hellang.Middleware.ProblemDetails.ProblemDetailsExtensions.AddProblemDetails(builder.Services);
             }
             else
             {
