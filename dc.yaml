@@ -1,0 +1,25 @@
+﻿version: '3.8'
+
+services:
+  sql_server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+
+#  web_app:
+#    build: .
+#    environment:
+#      - ASPNETCORE_ENVIRONMENT=Development
+#    ports:
+#      - "8080:80"
+#    depends_on:
+#      - sql_server
+
+volumes:
+  sql_data:

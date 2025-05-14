@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TLJ.PortsAndAdapters", "TLJ
 		Dockerfile = Dockerfile
 		.dockerignore = .dockerignore
 		README.md = README.md
+		dc.yaml = dc.yaml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TLJ.PortsAndAdapters.Api", "TLJ.PortsAndAdapters.Api\TLJ.PortsAndAdapters.Api.csproj", "{F8CD4803-B70A-47D3-B75C-D3D1654839D6}"

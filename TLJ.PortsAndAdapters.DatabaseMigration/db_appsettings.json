@@ -1,12 +1,12 @@
 {
   "DbUp": {
-    "ConnectionString": "Data Source=SWO3PRSTT3;Initial Catalog=TLJ;Integrated Security=True;MultipleActiveResultSets=true;TrustServerCertificate=true",
-    "ScriptsPath": "..\\..\\..\\..\\TLJ.PortsAndAdapters.Database.SqlServer\\Scripts",
-    "SchemaPath": "..\\..\\..\\..\\TLJ.PortsAndAdapters.Database.SqlServer",
+    "ConnectionString": "Server=localhost,1433;Database=TLJ;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True",
+    "ScriptsPath": "../../../../TLJ.PortsAndAdapters.Database.SqlServer/Scripts",
+    "SchemaPath": "../../../../TLJ.PortsAndAdapters.Database.SqlServer",
     "PreDeploymentFolder": "PreDeployment",
     "MigrationFolder": "Migrations",
     "PostDeploymentFolder": "PostDeployment",
     "CustomerSchema": "",
-    "CreateSchemaPath": "..\\..\\..\\..\\TLJ.PortsAndAdapters.Database.SqlServer\\Scripts\\CreateSchema.sql"
+    "CreateSchemaPath": "../../../../TLJ.PortsAndAdapters.Database.SqlServer/Scripts/CreateSchema.sql"
   }
 }
